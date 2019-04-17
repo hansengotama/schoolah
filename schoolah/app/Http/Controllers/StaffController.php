@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Grade;
 use App\Mail\SendEmail;
 use App\School;
 use App\Teacher;
@@ -41,7 +42,7 @@ class StaffController extends Controller
         $schoolId = $staffLogin->school_id;
         $school = School::where('id', $schoolId)->first();
 
-        $teacherPassword = strtolower($request->name).$schoolId."teacher";
+        $teacherPassword = strtolower($request->name) . $schoolId . "teacher";
 
         $data = [
             "school_name" => $school->name,
@@ -67,12 +68,13 @@ class StaffController extends Controller
             'avatar' => "asd"
         ]);
 
-        Mail::to($request->email)->send( new SendEmail('Staff', $data) );
+        Mail::to($request->email)->send(new SendEmail('Staff', $data));
 
         return response()->json($request->all(), 200);
     }
 
-    public function getTeacher(Request $request) {
+    public function getTeacher(Request $request)
+    {
         $teacher = User::where("id", $request->id)->first();
         $teacherDetail = Teacher::where("user_id", $request->id)->first();
         $teacher->teacher_code = $teacherDetail->teacher_code;
@@ -80,7 +82,8 @@ class StaffController extends Controller
         return response()->json($teacher, 200);
     }
 
-    public function editTeacher(Request $request) {
+    public function editTeacher(Request $request)
+    {
         $teacher = User::where("id", $request->id)->first();
 
         $teacher->update([
@@ -105,11 +108,96 @@ class StaffController extends Controller
         return response()->json($request->all(), 200);
     }
 
-    public function deleteTeacher(Request $request) {
+    public function deleteTeacher(Request $request)
+    {
         Teacher::where("user_id", $request->id)->delete();
         User::where("id", $request->id)->delete();
 
         return response()->json($request->all(), 200);
+    }
+
+    public function manageClass()
+    {
+        return view('user.staff.class');
+    }
+
+    public function getGuardianTeacher()
+    {
+        $schoolId = Auth::user()->school_id;
+
+        $teachers = User::where("school_id", $schoolId)
+            ->where("role", "teacher")
+            ->select('name', 'id')
+            ->get();
+
+        foreach ($teachers as $teacher) {
+            $teacherDetail = Teacher::where("user_id", $teacher->id)->first();
+            $teacher->value = $teacherDetail->id;
+        }
+
+        return response()->json($teachers, 200);
+    }
+
+    public function getAllClass()
+    {
+        $schoolId = Auth::user()->school_id;
+
+        $classes = Grade::where('school_id', $schoolId)->get();
+
+        foreach ($classes as $class) {
+            $guardianTeacher = $class->guardian_teacher_id;
+            $teacherDetail = Teacher::where('id', $guardianTeacher)->first();
+            $teacher = User::where('id', $teacherDetail->user_id)->first();
+            $class->guardian_teacher = $teacher->name;
+        }
+
+        return response()->json($classes, 200);
+    }
+
+    public function addClass(Request $request)
+    {
+        $schoolId = Auth::user()->school_id;
+
+        Grade::create([
+            "school_id" => $schoolId,
+            "guardian_teacher_id" => $request->guardianTeacherId,
+            "name" => $request->name,
+            "period" => $request->period,
+            "level" => $request->level
+        ]);
+
+        return response()->json($request->all(), 200);
+    }
+
+    public function findClass(Request $request)
+    {
+        $class = Grade::where('id', $request->id)->first();
+
+        return response()->json($class, 200);
+    }
+
+    public function editClass(Request $request)
+    {
+        $class = Grade::where("id", $request->id)->first();
+        $schoolId = Auth::user()->school_id;
+
+        $class->update([
+            "school_id" => $schoolId,
+            "guardian_teacher_id" => $request->guardianTeacherId,
+            "name" => $request->name,
+            "period" => $request->period,
+            "level" => $request->level
+        ]);
+
+        return response()->json($request->all(), 200);
+    }
+
+    public function deleteClass(Request $request)
+    {
+        $class = Grade::where("id", $request->id)->first();
+        $class->delete();
+
+        return response()->json($request->all, 200);
     }
 
     public function manageStudentView()
@@ -117,15 +205,9 @@ class StaffController extends Controller
         return view('user.staff.student');
     }
 
-
     public function manageGuardianView()
     {
         return view('user.staff.guardian');
-    }
-
-    public function manageClass()
-    {
-        return view('user.staff.class');
     }
 
     public function manageFinance()

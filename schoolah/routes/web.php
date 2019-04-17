@@ -46,6 +46,12 @@ Route::group(['middleware' => ['auth']], function () {
             Route::post('get-teacher', 'StaffController@getTeacher');
             Route::post('edit-teacher', 'StaffController@editTeacher');
             Route::post('delete-teacher', 'StaffController@deleteTeacher');
+            Route::get('get-guardian-teacher', 'StaffController@getGuardianTeacher');
+            Route::get('get-all-class', 'StaffController@getAllClass');
+            Route::post('add-class', 'StaffController@addClass');
+            Route::post('find-class', 'StaffController@findClass');
+            Route::post('edit-class', 'StaffController@editClass');
+            Route::post('delete-class', 'StaffController@deleteClass');
         });
         Route::group(['middleware' => 'teacher', 'prefix' => 'teacher'], function () {
 

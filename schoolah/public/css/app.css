@@ -1,0 +1,58 @@
+/*navbar*/
+.navbar-padding {
+    padding: 0 10px;
+}
+
+.navbar-expand-lg .navbar-nav .dropdown-menu {
+    left: -60px;
+}
+
+@media (max-width: 991px) {
+    .navbar-brand {
+        margin: 0;
+    }
+    .navbar-expand-lg .navbar-nav .dropdown-menu {
+        position: absolute;
+        left: -70px;
+    }
+}
+
+/*styling-color*/
+.bg-softblue {
+    background: rgb(153, 202, 218) !important;
+}
+.white {
+    color: white !important;
+}
+.red {
+    color: red !important;
+}
+
+/*display*/
+.display-block {
+    display: block !important;
+}
+
+/*font-weight*/
+.font-weight-600 {
+    font-weight: 600 !important;
+}
+
+/*button*/
+.btn-blue-color {
+    background: rgb(153, 202, 218);
+    border-color: rgb(153, 202, 218);
+}
+
+/*border*/
+.border-red {
+    border-color: red;
+}
+
+/*float*/
+.float-right {
+    float: right !important;
+}
+.float-left {
+    float: left !important;
+}

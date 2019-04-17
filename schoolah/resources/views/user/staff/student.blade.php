@@ -59,29 +59,29 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label>Name</label>
-                            <input type="text" :class="'form-control '+errorSchool.class.name" v-model="insertSchool.name">
-                            <div class="red">@{{ errorSchool.text.name }}</div>
-                        </div>
-                        <div class="form-group">
-                            <label>Phone Number</label>
-                            <input type="text" :class="'form-control '+errorSchool.class.phoneNumber" v-model="insertSchool.phoneNumber">
-                            <div class="red">@{{ errorSchool.text.phoneNumber }}</div>
-                        </div>
-                        <div class="form-group">
-                            <label>Address</label>
-                            <textarea :class="'form-control '+errorSchool.class.address" cols="20" rows="3" v-model="insertSchool.address"></textarea>
-                            <div class="red">@{{ errorSchool.text.address }}</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" @click="validateForm('add')">Add</button>
-                </div>
+{{--                <div class="modal-body">--}}
+{{--                    <div class="col-md-12">--}}
+{{--                        <div class="form-group">--}}
+{{--                            <label>Name</label>--}}
+{{--                            <input type="text" :class="'form-control '+errorSchool.class.name" v-model="insertSchool.name">--}}
+{{--                            <div class="red">@{{ errorSchool.text.name }}</div>--}}
+{{--                        </div>--}}
+{{--                        <div class="form-group">--}}
+{{--                            <label>Phone Number</label>--}}
+{{--                            <input type="text" :class="'form-control '+errorSchool.class.phoneNumber" v-model="insertSchool.phoneNumber">--}}
+{{--                            <div class="red">@{{ errorSchool.text.phoneNumber }}</div>--}}
+{{--                        </div>--}}
+{{--                        <div class="form-group">--}}
+{{--                            <label>Address</label>--}}
+{{--                            <textarea :class="'form-control '+errorSchool.class.address" cols="20" rows="3" v-model="insertSchool.address"></textarea>--}}
+{{--                            <div class="red">@{{ errorSchool.text.address }}</div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--                <div class="modal-footer">--}}
+{{--                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>--}}
+{{--                    <button type="button" class="btn btn-primary" @click="validateForm('add')">Add</button>--}}
+{{--                </div>--}}
             </div>
         </div>
     </div>
@@ -89,5 +89,19 @@
 @endsection
 
 @section('js')
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                formValue: {
 
+                }
+            },
+            mounted() {
+            },
+            methods: {
+
+            }
+        })
+    </script>
 @endsection

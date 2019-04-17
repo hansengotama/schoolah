@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Grade;
+
+use App\Guardian;
 use App\Mail\SendEmail;
 use App\School;
 use App\Teacher;
@@ -200,14 +202,100 @@ class StaffController extends Controller
         return response()->json($request->all, 200);
     }
 
-    public function manageStudentView()
-    {
-        return view('user.staff.student');
-    }
-
     public function manageGuardianView()
     {
         return view('user.staff.guardian');
+    }
+
+    public function getAllGuardian()
+    {
+        $schoolId = Auth::user()->school_id;
+        $users = User::where("school_id", $schoolId)->where("role", "guardian")->get();
+
+        return response()->json($users, 200);
+    }
+
+    public function addGuardian(Request $request)
+    {
+        $userId = Auth::user()->id;
+        $staffLogin = User::where("id", $userId)->first();
+
+        $schoolId = $staffLogin->school_id;
+        $school = School::where('id', $schoolId)->first();
+
+        $guardianPassword = strtolower($request->name) . $schoolId . "guardian";
+
+        $data = [
+            "school_name" => $school->name,
+            "password" => $guardianPassword,
+            "role" => 'guardian'
+        ];
+        $data = array_merge($data, $request->all());
+
+        $guardian = User::create([
+            'name' => $request->name,
+            'role' => 'guardian',
+            'email' => $request->email,
+            'address' => $request->address,
+            'phone_number' => $request->phoneNumber,
+            'school_id' => $schoolId,
+            'password' => bcrypt($guardianPassword),
+            'is_change_password' => false
+        ]);
+
+        Guardian::create([
+            'user_id' => $guardian->id,
+            'avatar' => "asd"
+        ]);
+
+        Mail::to($request->email)->send(new SendEmail('Guardian', $data));
+
+        return response()->json($request->all(), 200);
+    }
+
+    public function findGuardian(Request $request)
+    {
+        $guardian = User::where("id", $request->id)->first();
+
+        return response()->json($guardian, 200);
+    }
+
+    public function editGuardian(Request $request)
+    {
+        $guardian = User::where("id", $request->id)->first();
+
+        $guardian->update([
+            'name' => $request->name,
+            'role' => 'guardian',
+            'email' => $request->email,
+            'address' => $request->address,
+            'phone_number' => $request->phoneNumber,
+            'school_id' => $guardian->school_id,
+            'password' => $guardian->password,
+            'is_change_password' => $guardian->is_change_password
+        ]);
+
+        $guardianDetail = Guardian::where("user_id", $request->id)->first();
+
+        $guardianDetail->update([
+            'user_id' => $guardian->id,
+            'avatar' => $guardianDetail->avatar
+        ]);
+
+        return response()->json($request->all(), 200);
+    }
+
+    public function deleteGuardian(Request $request)
+    {
+        Guardian::where("user_id", $request->id)->delete();
+        User::where("id", $request->id)->delete();
+
+        return response()->json($request->all(), 200);
+    }
+
+    public function manageStudentView()
+    {
+        return view('user.staff.student');
     }
 
     public function manageFinance()

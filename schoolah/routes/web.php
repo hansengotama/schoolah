@@ -52,6 +52,11 @@ Route::group(['middleware' => ['auth']], function () {
             Route::post('find-class', 'StaffController@findClass');
             Route::post('edit-class', 'StaffController@editClass');
             Route::post('delete-class', 'StaffController@deleteClass');
+            Route::get('get-all-guardian', 'StaffController@getAllGuardian');
+            Route::post('add-guardian', 'StaffController@addGuardian');
+            Route::post('find-guardian', 'StaffController@findGuardian');
+            Route::post('edit-guardian', 'StaffController@editGuardian');
+            Route::post('delete-guardian', 'StaffController@deleteGuardian');
         });
         Route::group(['middleware' => 'teacher', 'prefix' => 'teacher'], function () {
 

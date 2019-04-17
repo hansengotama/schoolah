@@ -355,6 +355,7 @@
                         if(response.status == 200) {
                             app.getAllClasses()
                             app.popUpSuccess()
+                            app.resetForm()
                         }else {
                             app.popUpError()
                         }

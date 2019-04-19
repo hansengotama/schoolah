@@ -36,27 +36,34 @@ Route::group(['middleware' => ['auth']], function () {
     });
     Route::group(['middleware' => 'resetpassword'], function () {
         Route::group(['middleware' => 'staff', 'prefix' => 'staff'], function () {
-            Route::get('manage-teacher-view', 'StaffController@manageTeacherView')->name('manage-teacher-view');
-            Route::get('manage-student-view', 'StaffController@manageStudentView')->name('manage-student-view');
-            Route::get('manage-guardian-view', 'StaffController@manageGuardianView')->name('manage-guardian-view');
-            Route::get('manage-class-view', 'StaffController@manageClass')->name('manage-class-view');
-            Route::get('manage-finance-view', 'StaffController@manageFinance')->name('manage-finance-view');
-            Route::get('get-all-teacher', 'StaffController@getAllTeacher');
-            Route::post('add-teacher', 'StaffController@addTeacher');
-            Route::post('get-teacher', 'StaffController@getTeacher');
-            Route::post('edit-teacher', 'StaffController@editTeacher');
-            Route::post('delete-teacher', 'StaffController@deleteTeacher');
-            Route::get('get-guardian-teacher', 'StaffController@getGuardianTeacher');
-            Route::get('get-all-class', 'StaffController@getAllClass');
-            Route::post('add-class', 'StaffController@addClass');
-            Route::post('find-class', 'StaffController@findClass');
-            Route::post('edit-class', 'StaffController@editClass');
-            Route::post('delete-class', 'StaffController@deleteClass');
-            Route::get('get-all-guardian', 'StaffController@getAllGuardian');
-            Route::post('add-guardian', 'StaffController@addGuardian');
-            Route::post('find-guardian', 'StaffController@findGuardian');
-            Route::post('edit-guardian', 'StaffController@editGuardian');
-            Route::post('delete-guardian', 'StaffController@deleteGuardian');
+            Route::get('/manage-teacher-view', 'StaffController@manageTeacherView')->name('manage-teacher-view');
+            Route::get('/manage-student-view', 'StaffController@manageStudentView')->name('manage-student-view');
+            Route::get('/manage-guardian-view', 'StaffController@manageGuardianView')->name('manage-guardian-view');
+            Route::get('/manage-class-view', 'StaffController@manageClass')->name('manage-class-view');
+            Route::get('/manage-finance-view', 'StaffController@manageFinance')->name('manage-finance-view');
+            Route::get('/get-all-teacher', 'StaffController@getAllTeacher');
+            Route::post('/add-teacher', 'StaffController@addTeacher');
+            Route::post('/get-teacher', 'StaffController@getTeacher');
+            Route::post('/find-teacher', 'StaffController@findTeacher');
+            Route::post('/edit-teacher', 'StaffController@editTeacher');
+            Route::post('/delete-teacher', 'StaffController@deleteTeacher');
+            Route::get('/get-guardian-teacher', 'StaffController@getGuardianTeacher');
+            Route::get('/get-all-class', 'StaffController@getAllClass');
+            Route::post('/add-class', 'StaffController@addClass');
+            Route::post('/find-class', 'StaffController@findClass');
+            Route::post('/edit-class', 'StaffController@editClass');
+            Route::post('/delete-class', 'StaffController@deleteClass');
+            Route::get('/get-all-guardian', 'StaffController@getAllGuardian');
+            Route::get('/get-guardian', 'StaffController@getGuardian');
+            Route::post('/add-guardian', 'StaffController@addGuardian');
+            Route::post('/find-guardian', 'StaffController@findGuardian');
+            Route::post('/edit-guardian', 'StaffController@editGuardian');
+            Route::post('/delete-guardian', 'StaffController@deleteGuardian');
+            Route::get('/get-all-student/{class_id}', 'StaffController@getAllStudent');
+            Route::post('/add-student', 'StaffController@addStudent');
+            Route::post('/edit-student', 'StaffController@editStudent');
+            Route::get('/find-student/{student_id}', 'StaffController@findStudent');
+            Route::get('/delete-student/{student_id}', 'StaffController@deleteStudent');
         });
         Route::group(['middleware' => 'teacher', 'prefix' => 'teacher'], function () {
 

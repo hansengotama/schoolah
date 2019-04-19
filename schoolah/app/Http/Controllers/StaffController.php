@@ -7,6 +7,8 @@ use App\Grade;
 use App\Guardian;
 use App\Mail\SendEmail;
 use App\School;
+use App\Student;
+use App\StudentClass;
 use App\Teacher;
 use App\User;
 use Illuminate\Http\Request;
@@ -84,6 +86,15 @@ class StaffController extends Controller
         return response()->json($teacher, 200);
     }
 
+    public function findTeacher(Request $request)
+    {
+        $teacherDetail = Teacher::where("id", $request->id)->first();
+        $teacher = User::where("id", $teacherDetail->user_id)->first();
+        $teacher->teacher_code = $teacherDetail->teacher_code;
+
+        return response()->json($teacher, 200);
+    }
+
     public function editTeacher(Request $request)
     {
         $teacher = User::where("id", $request->id)->first();
@@ -138,6 +149,23 @@ class StaffController extends Controller
         }
 
         return response()->json($teachers, 200);
+    }
+
+    public function getGuardian()
+    {
+        $schoolId = Auth::user()->school_id;
+
+        $guardians = User::where("school_id", $schoolId)
+            ->where("role", "guardian")
+            ->select('name', 'id')
+            ->get();
+
+        foreach ($guardians as $guardian) {
+            $guardianDetail = Guardian::where("user_id", $guardian->id)->first();
+            $guardian->value = $guardianDetail->id;
+        }
+
+        return response()->json($guardians, 200);
     }
 
     public function getAllClass()
@@ -301,5 +329,114 @@ class StaffController extends Controller
     public function manageFinance()
     {
         return view('user.staff.finance');
+    }
+
+    public function getAllStudent($class_id)
+    {
+        $schoolId = Auth::user()->school_id;
+
+        if($class_id == 0) {
+            $users = User::where("school_id", $schoolId)->where("role", "student")->get();
+        }else {
+
+        }
+        foreach ($users as $user) {
+            $studentDetail = Student::where("user_id", $user->id)->first();
+            $user->studentCode = $studentDetail->student_code;
+        }
+
+        return response()->json($users, 200);
+    }
+
+    public function addStudent(Request $request)
+    {
+        $userId = Auth::user()->id;
+        $staffLogin = User::where("id", $userId)->first();
+
+        $schoolId = $staffLogin->school_id;
+        $school = School::where('id', $schoolId)->first();
+
+        $studentPassword = strtolower($request->name) . $schoolId . "student";
+
+        $data = [
+            "school_name" => $school->name,
+            "password" => $studentPassword,
+            "role" => 'student'
+        ];
+        $data = array_merge($data, $request->all());
+
+        $student = User::create([
+            'name' => $request->name,
+            'role' => 'student',
+            'email' => $request->email,
+            'address' => $request->address,
+            'phone_number' => $request->phoneNumber,
+            'school_id' => $schoolId,
+            'password' => bcrypt($studentPassword),
+            'is_change_password' => false
+        ]);
+        $studentId = $student->id;
+
+        Student::create([
+            'user_id' => $studentId,
+            'guardian_id' => $request->guardianId,
+            'student_code' => $request->studentCode,
+            'avatar' => 'asd'
+        ]);
+
+        Mail::to($request->email)->send(new SendEmail('Student', $data));
+        return response()->json($request->all(), 200);
+    }
+
+    public function findStudent($student_id)
+    {
+        $student = User::where('id', $student_id)->first();
+        $studentDetail = Student::where('user_id', $student_id)->first();
+        $student->guardianId = $studentDetail->guardian_id;
+        $student->studentCode = $studentDetail->student_code;
+
+        return response()->json($student, 200);
+    }
+
+    public function editStudent(Request $request)
+    {
+        $student = User::where("id", $request->id)->first();
+
+        $student->update([
+            'name' => $request->name,
+            'role' => 'student',
+            'email' => $request->email,
+            'address' => $request->address,
+            'phone_number' => $request->phoneNumber,
+            'school_id' => $student->school_id,
+            'password' => $student->password,
+            'is_change_password' => $student->is_change_password
+        ]);
+
+        $studentDetail = Student::where("user_id", $request->id)->first();
+
+        $studentDetail->update([
+            'user_id' => $student->id,
+            'avatar' => $studentDetail->avatar,
+            'student_code' => $request->studentCode,
+            'guardian_id' => $request->guardianId
+        ]);
+
+        return response()->json($request->all(), 200);
+    }
+
+    public function deleteStudent($student_id)
+    {
+        $user = User::where('id', $student_id)->first();
+        $student = Student::where('user_id', $student_id)->first();
+        $user->delete();
+        $student->delete();
+
+        return response()->json("done", 200);
+    }
+
+    public function addStudentClass()
+    {
+
     }
 }

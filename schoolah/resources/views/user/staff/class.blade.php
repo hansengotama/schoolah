@@ -6,45 +6,95 @@
 
 @section('content')
 <section class="content">
-    <div id="staff">
-        <div class="container">
-            <div class="row justify-content-center display-block">
-                <div class="mt-5">
+    <div v-if="page=='class'">
+        <div id="staff">
+            <div class="container">
+                <div class="row justify-content-center display-block">
+                    <div class="mt-5">
+                        <div class="col-md-12">
+                            <h3>Manage Class</h3>
+                            <div class="font-weight-600">
+                                <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#add-class" @click="resetForm()">
+                                    <i class="fa fa-plus"></i> Add Class
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4 table-margin">
+                        <table class="table table-sm">
+                            <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Level</th>
+                                <th scope="col">Period</th>
+                                <th scope="col">Guardian Teacher</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="(thisClass, index) in classes">
+                                    <td>@{{ thisClass.number }}</td>
+                                    <td>@{{ thisClass.name }}</td>
+                                    <td>@{{ thisClass.level }}</td>
+                                    <td>@{{ thisClass.period }}</td>
+                                    <td>@{{ thisClass.guardian_teacher }}</td>
+                                    <td>
+                                        <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#edit-class" @click="fillEditForm(thisClass.id)">Edit</button>
+                                        <button class="btn btn-danger btn-xs" @click="confirmDeleteClass(thisClass.id)">Delete</button>
+                                        <button class="btn btn-info btn-xs" @click="goToStudent(thisClass.id)">
+                                            View Student
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div v-else>
+        <div id="staff">
+            <div class="container">
+                <div class="row justify-content-center display-block">
+                    <div class="mt-5">
+                        <div class="col-md-12">
+                            <h3>Manage Student (@{{ selectedClass.name }})</h3>
+                            <h5>Guardian Teacher: @{{ teacherName }}</h5>
+                        </div>
+                    </div>
+                    <div class="mt-4 table-margin">
+                        <table class="table table-sm">
+                            <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Student Code</th>
+                                <th scope="col">Address</th>
+                                <th scope="col">Phone Number</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr v-for="(student, index) in students">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                     <div class="col-md-12">
-                        <h3>Manage Class</h3>
-                        <div class="font-weight-600">
-                            <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#add-class" @click="resetForm()">
-                                <i class="fa fa-plus"></i> Add Class
+                        <div class="mt-5 float-right">
+                            <button class="btn btn-primary" @click="backToClass()">
+                                <i class="fa fa-arrow-left"></i> Back to class
                             </button>
                         </div>
                     </div>
-                </div>
-                <div class="mt-4 table-margin">
-                    <table class="table table-sm">
-                        <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Level</th>
-                            <th scope="col">Period</th>
-                            <th scope="col">Guardian Teacher</th>
-                            <th scope="col">Action</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="(thisClass, index) in classes">
-                                <td>@{{ thisClass.number }}</td>
-                                <td>@{{ thisClass.name }}</td>
-                                <td>@{{ thisClass.level }}</td>
-                                <td>@{{ thisClass.period }}</td>
-                                <td>@{{ thisClass.guardian_teacher }}</td>
-                                <td>
-                                    <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#edit-class" @click="fillEditForm(thisClass.id)">Edit</button>
-                                    <button class="btn btn-danger btn-xs" @click="confirmDeleteClass(thisClass.id)">Delete</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
                 </div>
             </div>
         </div>
@@ -184,7 +234,11 @@
                         period: ""
                     }
                 },
-                selectedClassId: null
+                selectedClassId: null,
+                selectedClass: {},
+                students: {},
+                teacherName: null,
+                page: "class",
             },
             mounted() {
                 this.getChoice()
@@ -198,6 +252,14 @@
                 },
                 required(value) {
                     return (value.length < 1) ? true : false
+                },
+                isNumber(value) {
+                    var regex = /^[0-9.,]+$/
+                    return !regex.test(value)
+                },
+                emailFormat(value) {
+                    var regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+                    return !regex.test(String(value).toLowerCase())
                 },
                 popUpError() {
                     swal({
@@ -394,6 +456,35 @@
                     .catch(function (error) {
                         app.popUpError()
                     })
+                },
+                goToStudent(id) {
+                    this.page = "student"
+                    axios.post("{{ url('staff/find-class') }}", {
+                        id: id
+                    })
+                    .then(function (response) {
+                        if (response.status == 200) {
+                            app.selectedClass = response.data
+                            app.getTeacherName(response.data.guardian_teacher_id)
+                            app.getAllStudentClass(response.data.id)
+                        }
+                    })
+                },
+                getTeacherName(id) {
+                    axios.post("{{ url('staff/find-teacher') }}", {
+                        id: id
+                    })
+                    .then(function (response) {
+                        if (response.status == 200) {
+                            app.teacherName = response.data.name
+                        }
+                    })
+                },
+                backToClass() {
+                    this.page = "class"
+                },
+                getAllStudentClass() {
+
                 }
             }
         })

@@ -338,14 +338,14 @@
                     })
                     .then((response) => {
                         if(response.status == 200) {
-                            this.getAllGuardian()
-                            this.popUpSuccess()
+                            app.getAllGuardian()
+                            app.popUpSuccess()
                         }else {
-                            this.popUpError()
+                            app.popUpError()
                         }
                     })
                     .catch((error) => {
-                        this.popUpError()
+                        app.popUpError()
                     })
                 }
             }

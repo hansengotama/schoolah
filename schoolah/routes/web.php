@@ -64,6 +64,14 @@ Route::group(['middleware' => ['auth']], function () {
             Route::post('/edit-student', 'StaffController@editStudent');
             Route::get('/find-student/{student_id}', 'StaffController@findStudent');
             Route::get('/delete-student/{student_id}', 'StaffController@deleteStudent');
+            Route::get('/get-all-student-without-class', 'StaffController@getAllStudentWithoutClass');
+            Route::get('/manage-course-view', 'StaffController@manageCourseView')->name('manage-course-view');
+            Route::get('/find-course/{id}', 'StaffController@findCourse');
+            Route::post('/edit-course', 'StaffController@editCourse');
+            Route::post('/delete-course', 'StaffController@deleteCourse');
+            Route::post('/add-course', 'StaffController@addCourse');
+            Route::get('/get-all-course', 'StaffController@getAllCourse');
+
         });
         Route::group(['middleware' => 'teacher', 'prefix' => 'teacher'], function () {
 

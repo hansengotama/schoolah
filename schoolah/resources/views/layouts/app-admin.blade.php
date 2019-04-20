@@ -24,15 +24,21 @@
         .nav-item.active {
             background-color: #86c2d6;
         }
+        .header-fixed {
+            position: fixed;
+            min-width: 100%;
+            clear: both;
+            z-index: 9999;
+        }
     </style>
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-lg navbar-light bg-softblue navbar-padding">
+        <nav class="navbar navbar-expand-lg navbar-light bg-softblue navbar-padding {{ (Request::route()->getName() == 'home') ? 'header-fixed' : '' }} ">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="/">
                 <img src="{{ url('img/logo-rgb.png') }}" alt=" " width="45px" />
             </a>
 
@@ -63,6 +69,11 @@
                     <ul class="navbar-nav">
                         <li class="nav-item {{ (Request::route()->getName() == 'manage-class-view') ? 'active' : '' }}">
                             <a class="nav-link white" href="{{ route('manage-class-view') }}">Class <span class="sr-only">(current)</span></a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav">
+                        <li class="nav-item {{ (Request::route()->getName() == 'manage-course-view') ? 'active' : '' }}">
+                            <a class="nav-link white" href="{{ route('manage-course-view') }}">Course <span class="sr-only">(current)</span></a>
                         </li>
                     </ul>
                 @endif

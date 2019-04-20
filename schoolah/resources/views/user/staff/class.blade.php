@@ -239,10 +239,17 @@
                 students: {},
                 teacherName: null,
                 page: "class",
+                choiceStudentNoClass: {
+                    levels: [{
+                        name: "--select student--",
+                        value: 0
+                    }],
+                }
             },
             mounted() {
                 this.getChoice()
                 this.getAllClasses()
+                this.getAllClassWithoutClass()
             },
             methods: {
                 getChoice() {
@@ -485,6 +492,17 @@
                 },
                 getAllStudentClass() {
 
+                },
+                addStudentClass() {
+
+                },
+                getAllClassWithoutClass() {
+                    axios.get("get-all-student-without-class")
+                    .then(function (response) {
+                        if(response.status == 200) {
+                            console.log(response.data)
+                        }
+                    })
                 }
             }
         })

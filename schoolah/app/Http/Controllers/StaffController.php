@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Course;
 use App\Grade;
 
 use App\Guardian;
@@ -438,5 +439,69 @@ class StaffController extends Controller
     public function addStudentClass()
     {
 
+    }
+
+    public function getAllStudentWithoutClass()
+    {
+        $schoolId = Auth::user()->school_id;
+
+        $users = User::where("school_id", $schoolId)->where("role", "student")->select("id", "name")->get();
+        foreach ($users as $user) {
+            $asd = Student::whereIn("user_id", $users)->get();
+        }
+
+        return response()->json($asd, 200);
+    }
+
+    public function manageCourseView()
+    {
+        return view("user.staff.course");
+    }
+
+    public function getAllCourse()
+    {
+        $schoolId = Auth::user()->school_id;
+        $courses = Course::where("school_id", $schoolId)->get();
+
+        return response()->json($courses, 200);
+    }
+
+    public function addCourse(Request $request)
+    {
+        $schoolId = Auth::user()->school_id;
+
+        Course::create([
+            "school_id" => $schoolId,
+            "name" => $request->name
+        ]);
+
+        return response()->json($request->all(), 200);
+    }
+
+    public function findCourse($id)
+    {
+        $course = Course::where("id", $id)->first();
+
+        return response()->json($course, 200);
+    }
+
+    public function editCourse(Request $request)
+    {
+        $course = Course::where("id", $request->id)->first();
+
+        $course->update([
+            "school_id" => $course->school_id,
+            "name" => $request->name
+        ]);
+
+        return response()->json($request->all(), 200);
+    }
+
+    public function deleteCourse(Request $request)
+    {
+        $course = Course::where("id", $request->id)->first();
+        $course->delete();
+
+        return response()->json($request->all(), 200);
     }
 }

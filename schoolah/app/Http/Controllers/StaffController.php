@@ -70,7 +70,7 @@ class StaffController extends Controller
         Teacher::create([
             'user_id' => $teacher->id,
             'teacher_code' => $request->teacherCode,
-            'avatar' => "asd"
+            'avatar' => "img/no-pict"
         ]);
 
         Mail::to($request->email)->send(new SendEmail('Staff', $data));
@@ -274,7 +274,7 @@ class StaffController extends Controller
 
         Guardian::create([
             'user_id' => $guardian->id,
-            'avatar' => "asd"
+            'avatar' => "img/no-pict"
         ]);
 
         Mail::to($request->email)->send(new SendEmail('Guardian', $data));
@@ -382,7 +382,7 @@ class StaffController extends Controller
             'user_id' => $studentId,
             'guardian_id' => $request->guardianId,
             'student_code' => $request->studentCode,
-            'avatar' => 'asd'
+            'avatar' => 'img/no-pict'
         ]);
 
         Mail::to($request->email)->send(new SendEmail('Student', $data));

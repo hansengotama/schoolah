@@ -28,6 +28,12 @@
             background-color: #27bff2 !important;
             border-color: #27bff2 !important;
         }
+        .have-image {
+            max-height: 15em;
+            height: 15em;
+            margin: 0 auto;
+            display: block;
+        }
     </style>
 @endsection
 
@@ -42,18 +48,21 @@
                 <div class="offset-lg-3 col-lg-6 offset-lg-3">
                     <div>
                         <h3>Hi, @{{ user.name }}</h3>
-                        <h4>Please reset your password</h4>
+                        <h4>Please insert your profile photo</h4>
                     </div>
                 </div>
             </div>
             <div class="form-group row">
                 <div class="offset-lg-3 col-lg-6 offset-lg-3">
-                    <input id="password" type="password" :class="'form-control '+error.class.newPassword" v-model="newPassword" placeholder="Insert new password" required>
+                    <input type="file" @change="onFileChange" :class="'form-control '+error.class.image" style="padding-bottom: 36px" accept="image/*">
                 </div>
+            </div>
+            <div v-if="addClass.image">
+                <img :src="image" :class="'img-responsive mt-1 mb-1 '+addClass.image" >
             </div>
             <div class="form-group row mb-0">
                 <div class="offset-lg-3 col-lg-6 offset-lg-3">
-                    <button type="submit" class="btn btn-primary w-100 button-color text-align-left" @click="validatePassword">Reset Password</button>
+                    <button type="submit" class="btn btn-primary w-100 button-color" @click="getPhoto()">My profile photo</button>
                 </div>
             </div>
         </div>
@@ -69,12 +78,16 @@
             el: '#app',
             data: {
                 user: {},
-                newPassword: "",
                 error: {
                     class: {
-                        newPassword: ""
+                        image: ""
                     },
-                }
+                },
+                addClass: {
+                    image: ""
+                },
+                image: '',
+                imageNotBase64: null
             },
             mounted() {
                 this.getUserData()
@@ -102,29 +115,50 @@
                     .then(function (response) {
                         if(response.status == 200) {
                             app.user = response.data
-                            if(app.user.is_change_password == 1) {
+                            if(app.user.role != "teacher" && app.user.role != "student") {
                                 window.location = "/home"
+                            }else {
+                                if(app.user.avatar != "img/no-pict") {
+                                    window.location = "/home"
+                                }
                             }
                         }
                     })
                 },
-                validatePassword() {
-                    if(this.required(this.newPassword)) {
-                        this.error.class.newPassword = "is-invalid"
-                    }else {
-                        this.error.class.newPassword = ""
+                onFileChange(e) {
+                    this.imageNotBase64 = e.target.files[0]
+                    let files = e.target.files || e.dataTransfer.files;
+                    if (!files.length)
+                        return;
+                    this.createImage(files[0]);
+                },
+                createImage(file) {
+                    let reader = new FileReader();
+                    let vm = this;
+                    reader.onload = (e) => {
+                        vm.image = e.target.result;
+                        this.addClass.image = "have-image"
+                    };
+                    reader.readAsDataURL(file);
+                },
+                getPhoto() {
+                    if(this.addClass.image == "") {
+                        this.error.class.image = "is-invalid"
+                    } else {
+                        this.error.class.image = ""
                     }
 
-                    if(this.error.class.newPassword == "") {
-                        this.checkPassword()
+                    if(this.error.class.image == "") {
+                        this.sendPhoto()
                     }
                 },
-                checkPassword() {
-                    axios.post('{{ url('reset-password-action') }}', {
-                        "password" : this.newPassword
-                    })
+                sendPhoto() {
+                    let requestData = new FormData()
+                    requestData.append('file', app.imageNotBase64)
+                    axios.post('/reset-avatar-action', requestData)
                     .then(function (response) {
                         if(response.status == 200) {
+                            console.log(response.data)
                             app.popUpSuccess()
                             window.location = "/home"
                         }else {

@@ -45,8 +45,8 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 @if(Auth::user()->role == 'admin')
                     <ul class="navbar-nav">
-                        <li class="nav-item active">
-                            <a class="nav-link white" href="{{ url('/manage-school-view') }}">School <span class="sr-only">(current)</span></a>
+                        <li class="nav-item  {{ (Request::route()->getName() == 'manage-school-view') ? 'active' : '' }}"">
+                            <a class="nav-link white" href="{{ route('manage-school-view') }}">School <span class="sr-only">(current)</span></a>
                         </li>
                     </ul>
                 @endif
@@ -77,6 +77,18 @@
                         </li>
                     </ul>
                 @endif
+                @if(Auth::user()->role == 'teacher')
+                    <ul class="navbar-nav">
+                        <li class="nav-item {{ (Request::route()->getName() == 'manage-class-view') ? 'active' : '' }}">
+                            <a class="nav-link white" href="{{ route('manage-class-view') }}">Class <span class="sr-only">(current)</span></a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav">
+                        <li class="nav-item {{ (Request::route()->getName() == 'manage-packet-question-view') ? 'active' : '' }}">
+                            <a class="nav-link white" href="{{ route('manage-packet-question-view') }}">Packet Question <span class="sr-only">(current)</span></a>
+                        </li>
+                    </ul>
+                @endif
             </div>
             <div class="navbar-text">
                 <ul class="navbar-nav">
@@ -86,7 +98,7 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             @if(Auth::user()->role != "admin")
-                                <a class="dropdown-item" href="#">Edit Profile</a>
+                                <a class="dropdown-item" href="{{ url('edit-profile-view') }}">Edit Profile</a>
                             @endif
                             <a class="dropdown-item" href="{{ url('logout') }}">Logout</a>
                         </div>

@@ -17,9 +17,13 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/', 'HomeController@index')->name('home');
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/get-user-data', 'HomeController@getUserData');
+    Route::get('/logout', 'HomeController@logout')->name('logout');
     Route::get('/reset-password', 'HomeController@resetPassword');
     Route::post('/reset-password-action', 'HomeController@resetPasswordAction');
-    Route::get('/logout', 'HomeController@logout')->name('logout');
+    Route::get('/reset-avatar', 'HomeController@resetAvatar');
+    Route::post('/reset-avatar-action', 'HomeController@resetAvatarAction');
+    Route::get('/edit-profile-view', 'HomeController@editProfileView');
+    Route::post('/edit-profile-action', 'HomeController@editProfileAction');
 
     Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
         Route::get('/manage-school-view', 'AdminController@schoolView')->name('manage-school-view');
@@ -63,7 +67,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::post('/add-student', 'StaffController@addStudent');
             Route::post('/edit-student', 'StaffController@editStudent');
             Route::get('/find-student/{student_id}', 'StaffController@findStudent');
-            Route::get('/delete-student/{student_id}', 'StaffController@deleteStudent');
+            Route::get('/delete-student/{student_id}'   , 'StaffController@deleteStudent');
             Route::get('/get-all-student-without-class', 'StaffController@getAllStudentWithoutClass');
             Route::get('/manage-course-view', 'StaffController@manageCourseView')->name('manage-course-view');
             Route::get('/find-course/{id}', 'StaffController@findCourse');
@@ -71,13 +75,15 @@ Route::group(['middleware' => ['auth']], function () {
             Route::post('/delete-course', 'StaffController@deleteCourse');
             Route::post('/add-course', 'StaffController@addCourse');
             Route::get('/get-all-course', 'StaffController@getAllCourse');
-
         });
-        Route::group(['middleware' => 'teacher', 'prefix' => 'teacher'], function () {
+        Route::group(['middleware' => 'resetavatar'], function () {
+            Route::group(['middleware' => 'teacher', 'prefix' => 'teacher'], function () {
+                Route::get('/manage-class-view', 'TeacherController@manageClassView')->name('manage-class-view');
+                Route::get('/manage-packet-question-view', 'TeacherController@managePacketQuestionView')->name('manage-packet-question-view');
+            });
+            Route::group(['middleware' => 'student', 'prefix' => 'student'], function () {
 
-        });
-        Route::group(['middleware' => 'student', 'prefix' => 'student'], function () {
-
+            });
         });
         Route::group(['middleware' => 'guardian', 'prefix' => 'guardian'], function () {
 

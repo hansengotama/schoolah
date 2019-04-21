@@ -66,6 +66,7 @@ class Kernel extends HttpKernel
         'student' => \App\Http\Middleware\Student::class,
         'guardian' => \App\Http\Middleware\Guardian::class,
         'resetpassword' => \App\Http\Middleware\ResetPassword::class,
+        'resetavatar' => \App\Http\Middleware\ResetAvatar::class,
     ];
 
     /**

@@ -236,18 +236,18 @@
                     axios.post("{{ url('staff/delete-course') }}",{
                         "id": id,
                     })
-                        .then(function (response) {
-                            if(response.status == 200) {
-                                app.getAllCourse()
-                                app.popUpSuccess()
-                                app.resetForm()
-                            }else {
-                                app.popUpError()
-                            }
-                        })
-                        .catch(function (error) {
+                    .then(function (response) {
+                        if(response.status == 200) {
+                            app.getAllCourse()
+                            app.popUpSuccess()
+                            app.resetForm()
+                        }else {
                             app.popUpError()
-                        })
+                        }
+                    })
+                    .catch(function (error) {
+                        app.popUpError()
+                    })
                 }
             }
         })

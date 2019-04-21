@@ -136,6 +136,31 @@
 
 @section('js')
     <script>
+        var app = new Vue({
+            el: '#app',
+            data: {},
+            mounted() {
+                this.getUserData()
+            },
+            methods: {
+                getUserData() {
+                    axios.get('{{ url('get-user-data') }}')
+                    .then(function (response) {
+                        if(response.status == 200) {
+                            app.user = response.data
+                            if(app.user.role == "teacher" || app.user.role == "student") {
+                                if(app.user.is_change_password == 0) {
+                                    window.location = "/reset-password"
+                                }
 
+                                if(app.user.is_change_password == 1 && app.user.avatar == "img/no-pict") {
+                                    window.location = "/reset-avatar"
+                                }
+                            }
+                        }
+                    })
+                }
+            }
+        })
     </script>
 @endsection

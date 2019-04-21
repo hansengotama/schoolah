@@ -45,8 +45,13 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 @if(Auth::user()->role == 'admin')
                     <ul class="navbar-nav">
-                        <li class="nav-item  {{ (Request::route()->getName() == 'manage-school-view') ? 'active' : '' }}"">
+                        <li class="nav-item  {{ (Request::route()->getName() == 'manage-school-view') ? 'active' : '' }}">
                             <a class="nav-link white" href="{{ route('manage-school-view') }}">School <span class="sr-only">(current)</span></a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav">
+                        <li class="nav-item  {{ (Request::route()->getName() == 'feedback-view') ? 'active' : '' }}">
+                            <a class="nav-link white" href="{{ route('feedback-view') }}">Feedback <span class="sr-only">(current)</span></a>
                         </li>
                     </ul>
                 @endif

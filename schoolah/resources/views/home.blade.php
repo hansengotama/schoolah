@@ -98,35 +98,18 @@
     <div class="jumbotron jumbotron-fluid" style="background: #99cada" id="contact">
         <div class="container">
             <div class="col-md-12">
-                <h2 class="text-center white" style="border-bottom: 3px dotted #faf6dc">CONTACT</h2>
+                <h2 class="text-center white" style="border-bottom: 3px dotted #faf6dc">FEEDBACK</h2>
                 <p class="text-center white">
                     We would greatly appreciate it if you kindly give us some feedback.
                 </p>
             </div>
             <div class="col-md-12" style="margin-top: 6em">
                 <div class="row">
-                    <div class="col-md-6 border-right-with-dot">
+                    <div class="offset-3 col-md-6 offset-3">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Enter name" name="name">
+                            <textarea :class="'form-control '+error.class.feedback" rows="5" placeholder="Enter feedback" style="resize: none" v-model="formValue.feedback"></textarea>
                         </div>
-                        <div class="form-group">
-                            <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="Enter email" name="email">
-                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Enter phone number" name="phoneNumber">
-                            <small id="emailHelp" class="form-text text-muted">We'll never share your phone number with anyone else.</small>
-                        </div>
-                        <div class="form-group">
-                            <textarea class="form-control" rows="5" id="comment" placeholder="Enter feedback" style="resize: none" name="feedback"></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-feedback">Send</button>
-                    </div>
-                    <div class="col-md-6" style="margin: auto">
-                        <div class="col-md-12 margin-top-responsive">
-
-                        </div>
-                    </div>
+                        <button type="submit" class="btn btn-primary btn-feedback" @click="validateFeedback">Send</button>
                 </div>
             </div>
         </div>
@@ -138,11 +121,38 @@
     <script>
         var app = new Vue({
             el: '#app',
-            data: {},
+            data: {
+                user: {},
+                error: {
+                    class: {
+                        feedback: ""
+                    }
+                },
+                formValue: {
+                    feedback: ""
+                }
+            },
             mounted() {
                 this.getUserData()
             },
             methods: {
+                required(value) {
+                    return (value.length < 1) ? true : false
+                },
+                popUpError() {
+                    swal({
+                        heightAuto: true,
+                        type: 'error',
+                        title: 'Error!',
+                    })
+                },
+                popUpSuccess() {
+                    swal({
+                        heightAuto: true,
+                        type: 'success',
+                        title: 'Success!',
+                    })
+                },
                 getUserData() {
                     axios.get('{{ url('get-user-data') }}')
                     .then(function (response) {
@@ -158,6 +168,36 @@
                                 }
                             }
                         }
+                    })
+                },
+                validateFeedback() {
+                    if(this.required(this.formValue.feedback)) {
+                        this.error.class.feedback = "border-red"
+                    }else {
+                        this.error.class.feedback = ""
+                    }
+
+                    if(this.error.class.feedback == "") {
+                        this.addFeedback()
+                    }
+                },
+                resetForm() {
+                    this.formValue.feedback = ""
+                },
+                addFeedback() {
+                    axios.post("add-feedback", {
+                        "feedback": app.formValue.feedback
+                    })
+                    .then(function (response) {
+                        if(response.status == 200) {
+                            app.resetForm()
+                            app.popUpSuccess()
+                        }else {
+                            app.popUpError()
+                        }
+                    })
+                    .catch(function (error) {
+                        app.popUpError()
                     })
                 }
             }

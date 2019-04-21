@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Feedback;
 use App\Mail\SendEmail;
 use App\School;
 use App\Staff;
@@ -131,6 +132,32 @@ class AdminController extends Controller
         Staff::where("user_id", $request->id)->delete();
         User::where("id", $request->id)->delete();
         
+        return response()->json($request->all(), 200);
+    }
+
+    public function feedbackView()
+    {
+        return view('user.admin.feedback');
+    }
+
+    public function getAllFeedback()
+    {
+        $feedback = Feedback::get();
+
+        foreach ($feedback as $thisFeedback) {
+            $user = User::where("id", $thisFeedback->user_id)->first();
+            $thisFeedback->name = $user->name;
+            $thisFeedback->role = $user->role;
+        }
+
+        return response()->json($feedback, 200);
+    }
+
+    public function deleteFeedback(Request $request)
+    {
+        $feedback = Feedback::where("id", $request->id)->first();
+        $feedback->delete();
+
         return response()->json($request->all(), 200);
     }
 }

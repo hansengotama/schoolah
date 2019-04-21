@@ -23,6 +23,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/reset-avatar', 'HomeController@resetAvatar');
     Route::post('/reset-avatar-action', 'HomeController@resetAvatarAction');
     Route::get('/edit-profile-view', 'HomeController@editProfileView');
+    Route::post('/add-feedback', 'HomeController@addFeedback');
     Route::post('/edit-profile-action', 'HomeController@editProfileAction');
 
     Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
@@ -37,6 +38,9 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/find-staff', 'AdminController@findStaff');
         Route::post('/edit-staff', 'AdminController@editStaff');
         Route::post('/delete-staff', 'AdminController@deleteStaff');
+        Route::get('/feedback-view', 'AdminController@feedbackView')->name('feedback-view');
+        Route::get('/get-all-feedback', 'AdminController@getAllFeedback');
+        Route::post('/delete-feedback', 'AdminController@deleteFeedback');
     });
     Route::group(['middleware' => 'resetpassword'], function () {
         Route::group(['middleware' => 'staff', 'prefix' => 'staff'], function () {

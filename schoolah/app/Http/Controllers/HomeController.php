@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Feedback;
 use App\Student;
 use App\Teacher;
 use App\User;
@@ -31,7 +32,7 @@ class HomeController extends Controller
         $userRole = Auth::user()->role;
         $userId = Auth::user()->id;
 
-        if($userRole == "teacher") {
+        if ($userRole == "teacher") {
             $image = $request->file->store('/public/teacher');
             $userDetail = Teacher::where("user_id", $userId)->first();
             $userDetail->update([
@@ -39,7 +40,7 @@ class HomeController extends Controller
             ]);
         }
 
-        if($userRole == "student") {
+        if ($userRole == "student") {
             $image = $request->file->store('/public/student');
             $userDetail = Student::where("user_id", $userId)->first();
             $userDetail->update([
@@ -69,15 +70,15 @@ class HomeController extends Controller
     public function getUserData()
     {
         $user = Auth::user();
-        if($user->role == "student") {
+        if ($user->role == "student") {
             $userDetail = Student::where("user_id", $user->id)->first();
         }
 
-        if($user->role == "teacher") {
+        if ($user->role == "teacher") {
             $userDetail = Teacher::where("user_id", $user->id)->first();
         }
 
-        if($user->role == "student" || $user->role == "teacher") {
+        if ($user->role == "student" || $user->role == "teacher") {
             $user->avatar = $userDetail->avatar;
             $user->teacher_code = $userDetail->teacher_code;
         }
@@ -95,8 +96,8 @@ class HomeController extends Controller
         $userRole = Auth::user()->role;
         $userId = Auth::user()->id;
 
-        if(isset($request->file)) {
-            if($userRole == "teacher") {
+        if (isset($request->file)) {
+            if ($userRole == "teacher") {
                 $userDetail = Teacher::where("user_id", $userId)->first();
                 $avatarBefore = $userDetail->avatar;
                 Storage::delete($avatarBefore);
@@ -107,7 +108,7 @@ class HomeController extends Controller
                 ]);
             }
 
-            if($userRole == "student") {
+            if ($userRole == "student") {
                 $userDetail = Student::where("user_id", $userId)->first();
                 $avatarBefore = $userDetail->avatar;
                 Storage::delete($avatarBefore);
@@ -124,6 +125,17 @@ class HomeController extends Controller
             "email" => $request->email,
             "phone_number" => $request->phoneNumber,
             "address" => $request->address
+        ]);
+
+        return response()->json($request->all(), 200);
+    }
+
+    public function addFeedback(Request $request)
+    {
+        $userId = Auth::user()->id;
+        Feedback::create([
+            "user_id" => $userId,
+            "feedback" => $request->feedback,
         ]);
 
         return response()->json($request->all(), 200);

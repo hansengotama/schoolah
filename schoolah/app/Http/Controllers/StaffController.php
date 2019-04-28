@@ -11,6 +11,7 @@ use App\School;
 use App\Student;
 use App\StudentClass;
 use App\Teacher;
+use App\TeacherClass;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -35,6 +36,7 @@ class StaffController extends Controller
             $teacherId = $teacher->id;
             $teacherDetail = Teacher::where("user_id", $teacherId)->first();
             $teacher->teacher_code = $teacherDetail->teacher_code;
+            $teacher->teacher_id = $teacherDetail->id;
         }
 
         return response()->json($teachers, 200);
@@ -92,6 +94,15 @@ class StaffController extends Controller
     {
         $teacherDetail = Teacher::where("id", $request->id)->first();
         $teacher = User::where("id", $teacherDetail->user_id)->first();
+        $teacher->teacher_code = $teacherDetail->teacher_code;
+
+        return response()->json($teacher, 200);
+    }
+
+    public function findTeacherByUserId($user_id)
+    {
+        $teacher = User::where("id", $user_id)->first();
+        $teacherDetail = Teacher::where("user_id", $user_id)->first();
         $teacher->teacher_code = $teacherDetail->teacher_code;
 
         return response()->json($teacher, 200);
@@ -208,6 +219,7 @@ class StaffController extends Controller
     {
         $class = Grade::where('id', $request->id)->first();
         $teacher = Teacher::where('id', $class->guardian_teacher_id)->with('user')->first();
+
         $class->select = collect();
         $class->select['value'] = $class->guardian_teacher_id;
         $class->select['guardianTeacherName'] = $teacher->user->name;
@@ -538,5 +550,47 @@ class StaffController extends Controller
         $course->delete();
 
         return response()->json($request->all(), 200);
+    }
+
+    public function managePacketView() {
+        return view('user.staff.packet');
+    }
+
+    public function getTeacherClassCourse($class_id) {
+        $teacherClasses = TeacherClass::where("grade_id", $class_id)->with(["course", "teacher"])->get();
+        foreach ($teacherClasses as $teacherClass) {
+            $teacher = User::where("id", $teacherClass->teacher->user_id)->first();
+            $teacherClass->teacher->name = $teacher->name;
+        }
+
+        return response()->json($teacherClasses, 200);
+    }
+
+    public function addTeacherClassCourse(Request $request) {
+        TeacherClass::create([
+            "teacher_id" => $request->teacherId,
+            "grade_id" => $request->classId,
+            "course_id" => $request->courseId
+        ]);
+
+        return response()->json($request->all(), 200);
+    }
+
+    public function getAllCourseClass($class_id)
+    {
+        $school_id = Auth::user()->school_id;
+
+        $teacherClassId = TeacherClass::where("grade_id", $class_id)->pluck("course_id")->all();
+        $courses = Course::where("school_id", $school_id)->whereNotIn("id", $teacherClassId)->get();
+
+        return response()->json($courses, 200);
+    }
+
+    public function removeTeacherClassCourse($teacher_course_id)
+    {
+        $teacherClass = TeacherClass::where("id", $teacher_course_id)->first();
+        $teacherClass->delete();
+
+        return response()->json($teacher_course_id, 200);
     }
 }

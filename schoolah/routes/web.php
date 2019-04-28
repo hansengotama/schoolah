@@ -49,10 +49,13 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/manage-guardian-view', 'StaffController@manageGuardianView')->name('manage-guardian-view');
             Route::get('/manage-class-view', 'StaffController@manageClass')->name('staff-manage-class-view');
             Route::get('/manage-finance-view', 'StaffController@manageFinance')->name('manage-finance-view');
+            Route::get('/manage-packet-view', 'StaffController@managePacketView')->name('manage-packet-view');
+            Route::get('/manage-course-view', 'StaffController@manageCourseView')->name('manage-course-view');
             Route::get('/get-all-teacher', 'StaffController@getAllTeacher');
             Route::post('/add-teacher', 'StaffController@addTeacher');
             Route::post('/get-teacher', 'StaffController@getTeacher');
             Route::post('/find-teacher', 'StaffController@findTeacher');
+            Route::get('/find-teacher-by-user-id/{user_id}', 'StaffController@findTeacherByUserId');
             Route::post('/edit-teacher', 'StaffController@editTeacher');
             Route::post('/delete-teacher', 'StaffController@deleteTeacher');
             Route::get('/get-guardian-teacher', 'StaffController@getGuardianTeacher');
@@ -77,12 +80,15 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/get-student-class/{id}', 'StaffController@getStudentClass');
             Route::post('/add-student-class', 'StaffController@addStudentClass');
             Route::post('/remove-student-class', 'StaffController@removeStudentClass');
-            Route::get('/manage-course-view', 'StaffController@manageCourseView')->name('manage-course-view');
             Route::get('/find-course/{id}', 'StaffController@findCourse');
             Route::post('/edit-course', 'StaffController@editCourse');
             Route::post('/delete-course', 'StaffController@deleteCourse');
             Route::post('/add-course', 'StaffController@addCourse');
             Route::get('/get-all-course', 'StaffController@getAllCourse');
+            Route::post('/add-teacher-class-course', 'StaffController@addTeacherClassCourse');
+            Route::get('/get-teacher-class-course/{class_id}', 'StaffController@getTeacherClassCourse');
+            Route::get('/get-all-course-class/{class_id}', 'StaffController@getAllCourseClass');
+            Route::post('/remove-teacher-class-course/{teacher_course_id}', 'StaffController@removeTeacherClassCourse');
         });
         Route::group(['middleware' => 'resetavatar'], function () {
             Route::group(['middleware' => 'teacher', 'prefix' => 'teacher'], function () {

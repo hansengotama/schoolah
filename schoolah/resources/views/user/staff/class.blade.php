@@ -45,6 +45,9 @@
                                         <button class="btn btn-info btn-xs" @click="goToStudent(thisClass.id)">
                                             View Student
                                         </button>
+                                        <button class="btn btn-info btn-xs" @click="goToTeacher(thisClass.id)">
+                                            View Teacher
+                                        </button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -54,7 +57,7 @@
             </div>
         </div>
     </div>
-    <div v-else>
+    <div v-else-if="page=='student'">
         <div id="staff">
             <div class="container">
                 <div class="row justify-content-center display-block">
@@ -89,7 +92,54 @@
                                 <td>@{{ studentClass.user.address }}</td>
                                 <td>@{{ studentClass.user.phone_number }}</td>
                                 <td>
-                                    <button class="btn btn-danger btn-xs" @click="confirmRemoveStudentClass(studentClass.id)">Delete</button>
+                                    <button class="btn btn-danger btn-xs" @click="confirmRemoveStudentClass(studentClass.id)">Remove</button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="mt-5 float-right">
+                            <button class="btn btn-primary" @click="backToClass()">
+                                <i class="fa fa-arrow-left"></i> Back to class
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div v-else-if="page=='teacher'">
+        <div id="staff">
+            <div class="container">
+                <div class="row justify-content-center display-block">
+                    <div class="mt-5">
+                        <div class="col-md-12">
+                            <h3>Manage Teacher (@{{ selectedClass.name }})</h3>
+                            <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#add-teacher">
+                                <i class="fa fa-plus"></i> Add Teacher
+                            </button>
+                        </div>
+                    </div>
+                    <div class="mt-4 table-margin">
+                        <table class="table table-sm">
+                            <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Teacher Name</th>
+                                <th scope="col">Teacher Code</th>
+                                <th scope="col">Course</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr v-for="(teacherCourse, index) in teacherCourses">
+                                <td>@{{ teacherCourse.number }}</td>
+                                <td>@{{ teacherCourse.teacher.name }}</td>
+                                <td>@{{ teacherCourse.teacher.teacher_code }}</td>
+                                <td>@{{ teacherCourse.course.name }}</td>
+                                <td>
+                                    <button class="btn btn-danger btn-xs" @click="confirmRemoveTeacherClass(teacherCourse.id)">Remove</button>
                                 </td>
                             </tr>
                             </tbody>
@@ -237,6 +287,44 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="add-teacher">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Teacher</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Teacher Code</label>
+                            <select :class="'form-control '+errorTeacher.class.teacherCode" v-model="formValueTeacher.teacherId" @change="getTeacher()">
+                                <option v-for="teacherCode in selectChoiceTeacher.teacherCodes" :value=teacherCode.teacher_id>@{{ teacherCode.teacher_code }}</option>
+                            </select>
+                            <div class="red">@{{ errorTeacher.text.teacherCode }}</div>
+                        </div>
+                        <div class="form-group">
+                            <label>Teacher Name</label>
+                            <input class="form-control" :value="formValueTeacher.name" disabled />
+                        </div>
+                        <div class="form-group">
+                            <label>Course</label>
+                            <select :class="'form-control '+errorTeacher.class.courseName" v-model="formValueTeacher.courseId">
+                                <option v-for="courseName in selectChoiceTeacher.courseNames" :value=courseName.id>@{{ courseName.name }}</option>
+                            </select>
+                            <div class="red">@{{ errorTeacher.text.courseName }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" @click="validateFormTeacher()">Add</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 @endsection
 
@@ -273,6 +361,31 @@
                         id: 0
                     }],
                 },
+                formValueTeacher: {
+                    name: "",
+                    teacherId: 0,
+                    courseId: 0
+                },
+                selectChoiceTeacher: {
+                    teacherCodes: [{
+                        teacher_code: "--select teacher code--",
+                        teacher_id: 0
+                    }],
+                    courseNames: [{
+                        name: "--select teacher code--",
+                        id: 0
+                    }]
+                },
+                errorTeacher: {
+                    class: {
+                        teacherCode: "",
+                        courseName: ""
+                    },
+                    text: {
+                        teacherCode: "",
+                        courseName: ""
+                    }
+                },
                 selectChoice: {
                     levels: [{
                         name: "--select level--",
@@ -306,12 +419,12 @@
                 students: {},
                 studentClasses: {},
                 teacherName: null,
+                teacherCourses: {},
                 page: "class",
             },
             mounted() {
                 this.getChoice()
                 this.getAllClasses()
-                this.getAllStudentWithoutClass()
             },
             methods: {
                 getChoice() {
@@ -537,6 +650,17 @@
                 },
                 goToStudent(id) {
                     this.page = "student"
+                    this.findClass(id)
+                    this.getAllStudentWithoutClass()
+                },
+                goToTeacher(id) {
+                    this.page = "teacher"
+                    this.findClass(id)
+                    this.getAllTeacher()
+                    this.getAllCourse(id)
+                    this.getTeacherCourses(id)
+                },
+                findClass(id) {
                     axios.post("{{ url('staff/find-class') }}", {
                         id: id
                     })
@@ -677,6 +801,136 @@
                         }
                     })
                 },
+                getAllTeacher() {
+                    axios.get("get-all-teacher")
+                    .then(function (response) {
+                        if(response.status == 200) {
+                            app.selectChoiceTeacher.teacherCodes = [{
+                                teacher_code: "--select teacher code--",
+                                teacher_id: 0
+                            }]
+
+                            let teachers = app.selectChoiceTeacher.teacherCodes
+                            let data = response.data
+                            for (let i=0; i<data.length; i++) {
+                                teachers.push(data[i])
+                            }
+                        }
+                    })
+                },
+                getTeacher() {
+                    axios.post("{{ url('staff/find-teacher') }}", {
+                        id: this.formValueTeacher.teacherId
+                    })
+                    .then(function (response) {
+                        if(response.success = 200) {
+                            app.formValueTeacher.name = response.data.name
+                        }
+                    })
+                },
+                getAllCourse(id) {
+                    axios.get("{{ url('staff/get-all-course-class') }}/"+id)
+                    .then(function (response) {
+                        if(response.status == 200) {
+                            app.selectChoiceTeacher.courseNames = [{
+                                name: "--select teacher code--",
+                                id: 0
+                            }]
+
+                            let courses = app.selectChoiceTeacher.courseNames
+                            let data = response.data
+
+                            for (let i=0; i<data.length; i++) {
+                                courses.push(data[i])
+                            }
+                        }
+                    })
+                },
+                validateFormTeacher() {
+                    if(this.formValueTeacher.teacherId == 0) {
+                        this.errorTeacher.text.teacherCode = "teacher code must be selected"
+                        this.errorTeacher.class.teacherCode = "border-red"
+                    }else {
+                        this.errorTeacher.text.teacherCode = ""
+                        this.errorTeacher.class.teacherCode = ""
+                    }
+
+                    if(this.formValueTeacher.courseId == 0) {
+                        this.errorTeacher.text.courseName = "course name must be selected"
+                        this.errorTeacher.class.courseName = "border-red"
+                    }else {
+                        this.errorTeacher.text.courseName = ""
+                        this.errorTeacher.class.courseName = ""
+                    }
+
+                    if(this.errorTeacher.text.teacherCode == "" && this.errorTeacher.text.courseName == "") {
+                        this.addTeacherClass()
+                    }
+                },
+                addTeacherClass() {
+                    axios.post("{{ url('staff/add-teacher-class-course') }}", {
+                        teacherId: app.formValueTeacher.teacherId,
+                        courseId: app.formValueTeacher.courseId,
+                        classId: app.selectedClass.id
+                    })
+                    .then(function (response) {
+                        if(response.status == 200) {
+                            $('#add-teacher').modal('toggle');
+                            app.popUpSuccess()
+                            app.getAllCourse(app.selectedClass.id)
+                            app.getTeacherCourses(app.selectedClass.id)
+                        }else {
+                            app.popUpError()
+                        }
+                    })
+                    .catch(function (error) {
+                        app.popUpError()
+                    })
+                },
+                getTeacherCourses(id) {
+                    axios.get("{{ url('staff/get-teacher-class-course') }}/"+id)
+                    .then(function (response) {
+                        if(response.status == 200) {
+                            app.teacherCourses = response.data
+
+                            let index = 1
+                            app.teacherCourses.forEach((teacherCourse) => {
+                                teacherCourse.number = index
+                                index++
+                            })
+                        }
+                    })
+                },
+                confirmRemoveTeacherClass(teacherCourseId) {
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
+                        type: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, delete it!'
+                    }).then((result) => {
+                        if (result.value) {
+                            this.removeTeacherClass(teacherCourseId)
+                        }
+                    })
+                },
+                removeTeacherClass(teacherCourseId) {
+                    axios.post("{{ url('staff/remove-teacher-class-course') }}/"+teacherCourseId)
+                    .then(function (response) {
+                        if(response.status == 200) {
+                            app.popUpSuccess()
+                            app.getAllCourse(app.selectedClass.id)
+                            app.getTeacherCourses(app.selectedClass.id)
+                        }else {
+                            app.popUpError()
+                        }
+                    })
+                    .catch(function (error) {
+                        app.popUpError()
+                    })
+                }
             }
         })
     </script>

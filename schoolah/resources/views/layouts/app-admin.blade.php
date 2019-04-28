@@ -72,8 +72,8 @@
                         </li>
                     </ul>
                     <ul class="navbar-nav">
-                        <li class="nav-item {{ (Request::route()->getName() == 'manage-class-view') ? 'active' : '' }}">
-                            <a class="nav-link white" href="{{ route('manage-class-view') }}">Class <span class="sr-only">(current)</span></a>
+                        <li class="nav-item {{ (Request::route()->getName() == 'staff-manage-class-view') ? 'active' : '' }}">
+                            <a class="nav-link white" href="{{ route('staff-manage-class-view') }}">Class <span class="sr-only">(current)</span></a>
                         </li>
                     </ul>
                     <ul class="navbar-nav">

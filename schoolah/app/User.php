@@ -33,4 +33,9 @@ class User extends Authenticatable
      *
      * @var array
      */
+
+    public function student()
+    {
+        return $this->hasOne(Student::class);
+    }
 }

@@ -62,6 +62,9 @@
                         <div class="col-md-12">
                             <h3>Manage Student (@{{ selectedClass.name }})</h3>
                             <h5>Guardian Teacher: @{{ teacherName }}</h5>
+                            <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#add-student">
+                                <i class="fa fa-plus"></i> Add Student
+                            </button>
                         </div>
                     </div>
                     <div class="mt-4 table-margin">
@@ -74,16 +77,20 @@
                                 <th scope="col">Student Code</th>
                                 <th scope="col">Address</th>
                                 <th scope="col">Phone Number</th>
+                                <th scope="col">Action</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr v-for="(student, index) in students">
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                            <tr v-for="(studentClass, index) in studentClasses">
+                                <td>@{{ studentClass.number }}</td>
+                                <td>@{{ studentClass.user.name }}</td>
+                                <td>@{{ studentClass.user.email }}</td>
+                                <td>@{{ studentClass.student_code }}</td>
+                                <td>@{{ studentClass.user.address }}</td>
+                                <td>@{{ studentClass.user.phone_number }}</td>
+                                <td>
+                                    <button class="btn btn-danger btn-xs" @click="confirmRemoveStudentClass(studentClass.id)">Delete</button>
+                                </td>
                             </tr>
                             </tbody>
                         </table>
@@ -132,7 +139,7 @@
                         <div class="form-group">
                             <label>Guardian Teacher</label>
                             <select type="text" :class="'form-control '+error.class.guardianTeacherId" v-model="formValue.guardianTeacherId">
-                                <option v-for="guardianTeacher in selectChoice.guardianTeachers" :value=guardianTeacher.value>@{{ guardianTeacher.name }}</option>
+                                <option v-for="guardianTeacher in selectChoice.guardianTeachers" :value=guardianTeacher.value>@{{ guardianTeacher.guardianTeacherName }}</option>
                             </select>
                             <div class="red">@{{ error.text.guardianTeacherId }}</div>
                         </div>
@@ -178,7 +185,7 @@
                         <div class="form-group">
                             <label>Guardian Teacher</label>
                             <select type="text" :class="'form-control '+error.class.guardianTeacherId" v-model="formValue.guardianTeacherId">
-                                <option v-for="guardianTeacher in selectChoice.guardianTeachers" :value=guardianTeacher.value>@{{ guardianTeacher.name }}</option>
+                                <option v-for="guardianTeacher in selectChoice.guardianTeachers" :value=guardianTeacher.value>@{{ guardianTeacher.guardianTeacherName }}</option>
                             </select>
                             <div class="red">@{{ error.text.guardianTeacherId }}</div>
                         </div>
@@ -187,6 +194,45 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary" @click="validateForm('edit')">Edit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="add-student">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Student</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Student Code</label>
+                            <select :class="'form-control '+errorStudent.class.studentCode" v-model="formValueStudent.studentCode" @change="getStudent()">
+                                <option v-for="studentCode in selectChoiceStudent.studentCodes" :value=studentCode.id>@{{ studentCode.student_code }}</option>
+                            </select>
+                            <div class="red">@{{ errorStudent.text.studentCode }}</div>
+                        </div>
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input class="form-control" :value="formValueStudent.name" disabled />
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input class="form-control" :value="formValueStudent.email" disabled />
+                        </div>
+                        <div class="form-group">
+                            <label>address</label>
+                            <input class="form-control" :value="formValueStudent.address" disabled />
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" @click="validateFormStudent()">Add</button>
                 </div>
             </div>
         </div>
@@ -206,6 +252,27 @@
                     period: 0,
                     guardianTeacherId: 0
                 },
+                formValueStudent: {
+                    id: "",
+                    name: "",
+                    studentCode: 0,
+                    address: "",
+                    email: ""
+                },
+                errorStudent: {
+                    class: {
+                        studentCode: ""
+                    },
+                    text: {
+                        studentCode: ""
+                    }
+                },
+                selectChoiceStudent: {
+                    studentCodes: [{
+                        student_code: "--select student code--",
+                        id: 0
+                    }],
+                },
                 selectChoice: {
                     levels: [{
                         name: "--select level--",
@@ -216,7 +283,7 @@
                         value: 0
                     }],
                     guardianTeachers: [{
-                        name: "--select guardian teacher--",
+                        guardianTeacherName: "--select guardian teacher--",
                         value: 0
                     }]
                 },
@@ -237,19 +304,14 @@
                 selectedClassId: null,
                 selectedClass: {},
                 students: {},
+                studentClasses: {},
                 teacherName: null,
                 page: "class",
-                choiceStudentNoClass: {
-                    levels: [{
-                        name: "--select student--",
-                        value: 0
-                    }],
-                }
             },
             mounted() {
                 this.getChoice()
                 this.getAllClasses()
-                this.getAllClassWithoutClass()
+                this.getAllStudentWithoutClass()
             },
             methods: {
                 getChoice() {
@@ -314,6 +376,11 @@
                     }
                 },
                 getGuardianTeacher() {
+                    this.selectChoice.guardianTeachers = [{
+                        guardianTeacherName: "--select guardian teacher--",
+                        value: 0
+                    }]
+
                     axios.get('get-guardian-teacher')
                     .then(function (response) {
                         if(response.status == 200) {
@@ -375,6 +442,7 @@
                     this.formValue.level = 0
                     this.formValue.period = 0
                     this.formValue.guardianTeacherId = 0
+                    this.getGuardianTeacher()
                 },
                 addClass() {
                     axios.post('{{ url('staff/add-class') }}', app.formValue)
@@ -392,6 +460,8 @@
                     })
                 },
                 fillEditForm(id) {
+                    this.getGuardianTeacher()
+
                     axios.post("{{ url('staff/find-class') }}", {
                         id: id
                     })
@@ -402,6 +472,7 @@
                             app.formValue.level = response.data.level
                             app.formValue.guardianTeacherId = response.data.guardian_teacher_id
                             app.selectedClassId = response.data.id
+                            app.selectChoice.guardianTeachers.push(response.data.select)
                         } else {
                             $('#edit-class').modal('toggle');
                             app.popUpError()
@@ -490,20 +561,122 @@
                 backToClass() {
                     this.page = "class"
                 },
-                getAllStudentClass() {
+                getAllStudentClass(id) {
+                    axios.get("{{ url('staff/get-student-class') }}/"+id)
+                    .then(function (response) {
+                        if(response.status == 200) {
+                            app.studentClasses = response.data
 
+                            let index = 1
+                            app.studentClasses.forEach((studentClass) => {
+                                studentClass.number = index
+                                index++
+                            })
+                        }
+                    })
+                },
+                validateFormStudent() {
+                    if(this.formValueStudent.studentCode == 0) {
+                        this.errorStudent.text.studentCode = "student code must be selected"
+                        this.errorStudent.class.studentCode = "border-red"
+                    }else {
+                        this.errorStudent.text.studentCode = ""
+                        this.errorStudent.class.studentCode = ""
+                    }
+
+                    if(this.errorStudent.text.studentCode == "") {
+                        this.addStudentClass()
+                    }
+                },
+                resetFormStudent() {
+                    this.formValueStudent.id = ""
+                    this.formValueStudent.name = ""
+                    this.formValueStudent.studentCode = 0
+                    this.formValueStudent.address = ""
+                    this.formValueStudent.email = ""
                 },
                 addStudentClass() {
-
+                    axios.post("{{ url('staff/add-student-class') }}",{
+                        studentId: app.formValueStudent.id,
+                        classId: app.selectedClass.id
+                    })
+                    .then(function (response) {
+                        if(response.status == 200) {
+                            $('#add-student').modal('toggle');
+                            app.getAllStudentWithoutClass()
+                            app.resetFormStudent()
+                            app.getAllStudentClass(app.selectedClass.id)
+                            app.popUpSuccess()
+                        } else {
+                            app.popUpError()
+                        }
+                    })
+                    .catch(function (error) {
+                        app.popUpError()
+                    })
                 },
-                getAllClassWithoutClass() {
+                confirmRemoveStudentClass(studentId) {
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
+                        type: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, delete it!'
+                    }).then((result) => {
+                        if (result.value) {
+                            this.removeStudentClass(studentId)
+                        }
+                    })
+                },
+                removeStudentClass(studentId) {
+                    axios.post('remove-student-class', {
+                        "studentId": studentId,
+                        "classId": app.selectedClass.id
+                    })
+                    .then(function (response) {
+                        if(response.status == 200) {
+                            app.getAllStudentWithoutClass()
+                            app.getAllStudentClass(app.selectedClass.id)
+                            app.popUpSuccess()
+                        }else {
+                            app.popUpError()
+                        }
+                    })
+                    .catch(function (error) {
+                        app.popUpError()
+                    })
+                },
+                getAllStudentWithoutClass() {
                     axios.get("get-all-student-without-class")
                     .then(function (response) {
                         if(response.status == 200) {
-                            console.log(response.data)
+                            app.selectChoiceStudent.studentCodes = [{
+                                student_code: "--select student code--",
+                                id: 0
+                            }]
+
+                            let students = app.selectChoiceStudent.studentCodes
+                            let data = response.data
+                            for (let i=0; i<data.length; i++) {
+                                students.push(data[i])
+                            }
                         }
                     })
-                }
+                },
+                getStudent() {
+                    axios.get("{{ url("staff/get-student") }}/"+this.formValueStudent.studentCode)
+                    .then(function (response) {
+                        if(response.status == 200) {
+                            let data = response.data
+                            app.formValueStudent.id = data.id
+                            app.formValueStudent.name = data.user.name
+                            app.formValueStudent.email = data.user.email
+                            app.formValueStudent.address = data.user.address
+                        }
+                    })
+                },
             }
         })
     </script>

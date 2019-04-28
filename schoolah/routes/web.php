@@ -47,7 +47,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/manage-teacher-view', 'StaffController@manageTeacherView')->name('manage-teacher-view');
             Route::get('/manage-student-view', 'StaffController@manageStudentView')->name('manage-student-view');
             Route::get('/manage-guardian-view', 'StaffController@manageGuardianView')->name('manage-guardian-view');
-            Route::get('/manage-class-view', 'StaffController@manageClass')->name('manage-class-view');
+            Route::get('/manage-class-view', 'StaffController@manageClass')->name('staff-manage-class-view');
             Route::get('/manage-finance-view', 'StaffController@manageFinance')->name('manage-finance-view');
             Route::get('/get-all-teacher', 'StaffController@getAllTeacher');
             Route::post('/add-teacher', 'StaffController@addTeacher');
@@ -73,6 +73,10 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/find-student/{student_id}', 'StaffController@findStudent');
             Route::get('/delete-student/{student_id}'   , 'StaffController@deleteStudent');
             Route::get('/get-all-student-without-class', 'StaffController@getAllStudentWithoutClass');
+            Route::get('/get-student/{id}', 'StaffController@getStudent');
+            Route::get('/get-student-class/{id}', 'StaffController@getStudentClass');
+            Route::post('/add-student-class', 'StaffController@addStudentClass');
+            Route::post('/remove-student-class', 'StaffController@removeStudentClass');
             Route::get('/manage-course-view', 'StaffController@manageCourseView')->name('manage-course-view');
             Route::get('/find-course/{id}', 'StaffController@findCourse');
             Route::post('/edit-course', 'StaffController@editCourse');

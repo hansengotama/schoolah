@@ -879,6 +879,7 @@
                             app.popUpSuccess()
                             app.getAllCourse(app.selectedClass.id)
                             app.getTeacherCourses(app.selectedClass.id)
+                            app.resetFormTeacher()
                         }else {
                             app.popUpError()
                         }
@@ -923,6 +924,7 @@
                             app.popUpSuccess()
                             app.getAllCourse(app.selectedClass.id)
                             app.getTeacherCourses(app.selectedClass.id)
+                            app.resetFormTeacher()
                         }else {
                             app.popUpError()
                         }
@@ -930,6 +932,11 @@
                     .catch(function (error) {
                         app.popUpError()
                     })
+                },
+                resetFormTeacher() {
+                    this.formValueTeacher.name = ""
+                    this.formValueTeacher.teacherId = 0
+                    this.formValueTeacher.courseId = 0
                 }
             }
         })

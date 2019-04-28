@@ -2,16 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1ac09e87-2e0a-4910-bd77-7e9f8479a70c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/views/user/staff/packet.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Course.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Course.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Grade.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Grade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/StaffController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/StaffController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Teacher.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Teacher.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/TeacherClass.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/TeacherClass.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/app-admin.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/app-admin.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/user/staff/class.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/staff/class.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -39,8 +30,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resources/views/user/staff/class.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="677">
-              <caret line="923" column="66" lean-forward="true" selection-start-line="923" selection-start-column="66" selection-end-line="923" selection-end-column="66" />
+            <state relative-caret-position="460">
+              <caret line="881" column="50" selection-start-line="881" selection-start-column="50" selection-end-line="881" selection-end-column="50" />
             </state>
           </provider>
         </entry>
@@ -454,12 +445,12 @@
       <workItem from="1556191890017" duration="2804000" />
       <workItem from="1556246820307" duration="28000" />
       <workItem from="1556351986877" duration="14163000" />
-      <workItem from="1556457045675" duration="8516000" />
+      <workItem from="1556457045675" duration="8685000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="175241000" />
+    <option name="totallyTimeSpent" value="175410000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="64" y="-11" width="1857" height="1092" extended-state="6" />
@@ -478,7 +469,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.32925585" />
-      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.4997236" weight="0.2640163" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" sideWeight="0.4997236" visible="true" weight="0.2640163" />
       <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.5002764" side_tool="true" weight="0.2701325" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -848,8 +839,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/user/staff/class.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="677">
-          <caret line="923" column="66" lean-forward="true" selection-start-line="923" selection-start-column="66" selection-end-line="923" selection-end-column="66" />
+        <state relative-caret-position="460">
+          <caret line="881" column="50" selection-start-line="881" selection-start-column="50" selection-end-line="881" selection-end-column="50" />
         </state>
       </provider>
     </entry>

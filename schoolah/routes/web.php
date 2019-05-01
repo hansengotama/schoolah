@@ -51,6 +51,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/manage-finance-view', 'StaffController@manageFinance')->name('manage-finance-view');
             Route::get('/manage-packet-view', 'StaffController@managePacketView')->name('manage-packet-view');
             Route::get('/manage-course-view', 'StaffController@manageCourseView')->name('manage-course-view');
+            Route::get('/manage-schedule-shift-view', 'StaffController@manageScheduleShiftView')->name('manage-schedule-shift-view');
             Route::get('/get-all-teacher', 'StaffController@getAllTeacher');
             Route::post('/add-teacher', 'StaffController@addTeacher');
             Route::post('/get-teacher', 'StaffController@getTeacher');

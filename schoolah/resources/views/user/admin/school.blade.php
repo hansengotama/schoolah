@@ -338,9 +338,10 @@
                     })
                 },
                 getAllSchool() {
+                    let index = 1
+
                     axios.get('{{ url('admin/get-all-school') }}')
                     .then(function (response) {
-                        let index = 1
                         if(response.status == 200) {
                             app.schools = response.data
                             app.schools.forEach((school) => {
@@ -408,15 +409,15 @@
                     axios.post('{{ url('admin/add-school') }}', this.insertSchool)
                     .then((response) => {
                         if (response.status == 200)  {
-                            this.getAllSchool()
-                            this.resetForm()
-                            this.popUpSuccess()
+                            app.getAllSchool()
+                            app.resetForm()
+                            app.popUpSuccess()
                         }else {
-                            this.popUpError()
+                            app.popUpError()
                         }
                     })
                     .catch((error) => {
-                        this.popUpError()
+                        app.popUpError()
                     })
                 },
                 fillEditForm(id) {
@@ -426,20 +427,20 @@
                     .then((response) => {
                         if(response.status == 200) {
                             let data = response.data
-                            this.selectedSchoolId = data.id
-                            this.insertSchool.name = data.name
-                            this.insertSchool.phoneNumber = data.phone_number
-                            this.insertSchool.address = data.address
+                            app.selectedSchoolId = data.id
+                            app.insertSchool.name = data.name
+                            app.insertSchool.phoneNumber = data.phone_number
+                            app.insertSchool.address = data.address
                         }else {
                             $('#edit-school').modal('toggle');
-                            this.resetForm()
-                            this.popUpError()
+                            app.resetForm()
+                            app.popUpError()
                         }
                     })
                     .catch((error) => {
                         $('#edit-school').modal('toggle');
-                        this.resetForm()
-                        this.popUpError()
+                        app.resetForm()
+                        app.popUpError()
                     })
                 },
                 editSchool() {
@@ -451,15 +452,15 @@
                     })
                     .then((response) => {
                         if(response.status == 200) {
-                            this.resetForm()
-                            this.popUpSuccess()
-                            this.getAllSchool()
+                            app.resetForm()
+                            app.popUpSuccess()
+                            app.getAllSchool()
                         }else {
-                            this.popUpError()
+                            app.popUpError()
                         }
                     })
                     .catch((error) => {
-                        this.popUpError()
+                        app.popUpError()
                     })
                 },
                 confirmDeleteSchool(id) {
@@ -483,14 +484,14 @@
                     })
                     .then((response) => {
                         if(response.status == 200) {
-                            this.popUpSuccess()
-                            this.getAllSchool()
+                            app.popUpSuccess()
+                            app.getAllSchool()
                         }else {
-                            this.popUpError()
+                            app.popUpError()
                         }
                     })
                     .catch((error) => {
-                        this.popUpError()
+                        app.popUpError()
                     })
                 },
                 goToStaff(schoolId) {
@@ -575,20 +576,20 @@
                     })
                     .then((response) => {
                         if(response.status == 200){
-                            this.selectedSchoolStaffs = response.data
+                            app.selectedSchoolStaffs = response.data
                             let index = 1
-                            this.selectedSchoolStaffs.forEach((staff) => {
+                            app.selectedSchoolStaffs.forEach((staff) => {
                                 staff.number = index
                                 index++
                             })
                         }else {
-                            this.popUpError()
-                            this.display = 'school'
+                            app.popUpError()
+                            app.display = 'school'
                         }
                     })
                     .catch((error) => {
-                        this.popUpError()
-                        this.display = 'school'
+                        app.popUpError()
+                        app.display = 'school'
                     })
                 },
                 addStaff() {
@@ -596,15 +597,15 @@
                     axios.post('{{ url('admin/add-staff') }}',this.insertStaff)
                     .then((response) => {
                         if(response.status == 200) {
-                            this.getSchoolStaff()
-                            this.popUpSuccess()
-                            this.resetFormStaff()
+                            app.getSchoolStaff()
+                            app.popUpSuccess()
+                            app.resetFormStaff()
                         }else {
-                            this.popUpError()
+                            app.popUpError()
                         }
                     })
                     .catch((error) => {
-                        this.popUpError()
+                        app.popUpError()
                     })
                 },
                 fillEditFormStaff(id) {
@@ -614,21 +615,21 @@
                     .then((response) => {
                         if(response.status == 200) {
                             let data = response.data
-                            this.selectedStaffId = data.id
-                            this.insertStaff.name = data.name
-                            this.insertStaff.phoneNumber = data.phone_number
-                            this.insertStaff.address = data.address
-                            this.insertStaff.email= data.email
+                            app.selectedStaffId = data.id
+                            app.insertStaff.name = data.name
+                            app.insertStaff.phoneNumber = data.phone_number
+                            app.insertStaff.address = data.address
+                            app.insertStaff.email= data.email
                         }else {
                             $('#edit-staff').modal('toggle');
-                            this.resetFormStaff()
-                            this.popUpError()
+                            app.resetFormStaff()
+                            app.popUpError()
                         }
                     })
                     .catch((error) => {
                         $('#edit-staff').modal('toggle');
-                        this.resetFormStaff()
-                        this.popUpError()
+                        app.resetFormStaff()
+                        app.popUpError()
                     })
                 },
                 editStaff() {
@@ -642,15 +643,15 @@
                     })
                     .then((response) => {
                         if(response.status == 200) {
-                            this.resetFormStaff()
-                            this.popUpSuccess()
-                            this.getSchoolStaff()
+                            app.resetFormStaff()
+                            app.popUpSuccess()
+                            app.getSchoolStaff()
                         }else {
-                            this.popUpError()
+                            app.popUpError()
                         }
                     })
                     .catch((error) => {
-                        this.popUpError()
+                        app.popUpError()
                     })
                 },
                 confirmDeleteStaff(id) {
@@ -669,19 +670,20 @@
                     })
                 },
                 deleteStaff(id) {
+                    console.log(id)
                     axios.post("{{ url('admin/delete-staff') }}", {
                         id: id
                     })
                     .then((response) => {
                         if(response.status == 200) {
-                            this.popUpSuccess()
-                            this.getAllTeachers()
+                            app.popUpSuccess()
+                            app.getSchoolStaff()
                         }else {
-                            this.popUpError()
+                            app.popUpError()
                         }
                     })
                     .catch((error) => {
-                        this.popUpError()
+                        app.popUpError()
                     })
                 }
             }

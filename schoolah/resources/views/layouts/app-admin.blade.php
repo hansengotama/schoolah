@@ -82,6 +82,11 @@
                         </li>
                     </ul>
                     <ul class="navbar-nav">
+                        <li class="nav-item {{ (Request::route()->getName() == 'manage-schedule-shift-view') ? 'active' : '' }}">
+                            <a class="nav-link white" href="{{ route('manage-schedule-shift-view') }}">Shift <span class="sr-only">(current)</span></a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav">
                         <li class="nav-item {{ (Request::route()->getName() == 'manage-packet-view') ? 'active' : '' }}">
                             <a class="nav-link white" href="{{ route('manage-packet-view') }}">Packet<span class="sr-only">(current)</span></a>
                         </li>

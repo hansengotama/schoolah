@@ -182,7 +182,7 @@
                         this.error.class.address = ""
                     }
 
-                    if(this.error.class.email == "" && this.error.class.email == "" && this.error.class.address == "") {
+                    if(this.error.class.email == "" && this.error.class.phoneNumber == "" && this.error.class.address == "") {
                         this.confirmEdit()
                     }
                 },
@@ -213,6 +213,7 @@
                         if(response.status == 200) {
                             app.popUpSuccess()
                             app.getUserData()
+                            document.location.href="/"
                         }else {
                             app.popUpError()
                             app.getUserData()

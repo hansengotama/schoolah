@@ -72,7 +72,7 @@ class AdminController extends Controller
 
     public function addStaff(Request $request)
     {
-        $staffPassword = strtolower($request->name).$request->school_id."staff";
+        $staffPassword = str_random(8);
         $school = School::where('id', $request->school_id)->first();
 
         $data = [

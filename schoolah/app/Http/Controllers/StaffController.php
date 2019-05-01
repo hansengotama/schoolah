@@ -50,7 +50,7 @@ class StaffController extends Controller
         $schoolId = $staffLogin->school_id;
         $school = School::where('id', $schoolId)->first();
 
-        $teacherPassword = strtolower($request->name) . $schoolId . "teacher";
+        $teacherPassword = str_random(8);
 
         $data = [
             "school_name" => $school->name,
@@ -76,7 +76,7 @@ class StaffController extends Controller
             'avatar' => "img/no-pict"
         ]);
 
-        Mail::to($request->email)->send(new SendEmail('Staff', $data));
+        Mail::to($request->email)->send(new SendEmail('Teacher', $data));
 
         return response()->json($request->all(), 200);
     }
@@ -151,7 +151,9 @@ class StaffController extends Controller
     {
         $schoolId = Auth::user()->school_id;
         $grade = Grade::where('school_id', $schoolId)->pluck('guardian_teacher_id')->all();
+        $user = User::where('school_id', $schoolId)->pluck('id')->all();
         $teachers = Teacher::whereNotIn("id", $grade)
+            ->whereIn("user_id", $user)
             ->with(['user'=>function($query) {
                 $query->select('id', 'name');
             }])
@@ -272,7 +274,7 @@ class StaffController extends Controller
         $schoolId = $staffLogin->school_id;
         $school = School::where('id', $schoolId)->first();
 
-        $guardianPassword = strtolower($request->name) . $schoolId . "guardian";
+        $guardianPassword = str_random(8);
 
         $data = [
             "school_name" => $school->name,
@@ -377,7 +379,7 @@ class StaffController extends Controller
         $schoolId = $staffLogin->school_id;
         $school = School::where('id', $schoolId)->first();
 
-        $studentPassword = strtolower($request->name) . $schoolId . "student";
+        $studentPassword = str_random(8);
 
         $data = [
             "school_name" => $school->name,
@@ -472,8 +474,11 @@ class StaffController extends Controller
         $school_id = Auth::user()->school_id;
 
         $grade_id = Grade::where('school_id', $school_id)->pluck('id')->all();
-        $student_class_id = StudentClass::whereIn('grade_id', $grade_id)->pluck('student_id')->all();
-        $student = Student::whereNotIn('id', $student_class_id)->select('id', 'student_code')->get();
+        $user_id = User::where('school_id', $school_id)->pluck('id')->all();
+        $student_id_class = StudentClass::whereIn('grade_id', $grade_id)->pluck('student_id')->all();
+        $student = Student::whereNotIn('id', $student_id_class)
+            ->whereIn('user_id', $user_id)
+            ->select('id', 'student_code')->get();
 
         return response()->json($student, 200);
     }
@@ -592,5 +597,30 @@ class StaffController extends Controller
         $teacherClass->delete();
 
         return response()->json($teacher_course_id, 200);
+    }
+
+    public function manageScheduleShiftView()
+    {
+        return view('user.staff.shift');
+    }
+
+    public function addScheduleShift()
+    {
+
+    }
+
+    public function editScheduleShift()
+    {
+
+    }
+
+    public function findScheduleShift()
+    {
+
+    }
+
+    public function deleteScheduleShift()
+    {
+
     }
 }

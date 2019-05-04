@@ -21,8 +21,7 @@ class CreateScheduleClassesTable extends Migration
             $table->foreign('grade_id')->references('id')->on('grades')->onDelete('cascade');
             $table->integer("course_id")->unsigned();
             $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
-            $table->integer('schedule_shift_id')->unsigned();
-            $table->foreign('schedule_shift_id')->references('id')->on('schedule_shifts')->onDelete('cascade');
+            $table->integer('order');
             $table->integer('day');
             $table->timestamps();
         });

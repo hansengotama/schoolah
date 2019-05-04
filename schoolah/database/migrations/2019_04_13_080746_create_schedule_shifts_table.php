@@ -22,7 +22,6 @@ class CreateScheduleShiftsTable extends Migration
             $table->time('until');
             $table->dateTime('active_from_date')->nullable();
             $table->dateTime('active_until_date')->nullable();
-            $table->boolean('is_default')->default(false);
             $table->timestamps();
         });
     }

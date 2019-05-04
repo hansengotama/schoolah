@@ -56,10 +56,10 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label>Course</label>
-                            <select :class="'form-control '+error.class.course" v-model="formValue.courseId">
-                                <option v-for="studentCode in selectChoice.types" :value=studentCode.id>@{{ studentCode.student_code }}</option>
+                            <select :class="'form-control '+error.class.course" v-model="formValue.type">
+                                <option v-for="type in selectChoice.types" :value=type.value>@{{ type.name }}</option>
                             </select>
-                            <div class="red">@{{ errorStudent.text.studentCode }}</div>
+                            <div class="red">@{{ error.text.course }}</div>
                         </div>
                     </div>
                 </div>
@@ -81,7 +81,7 @@
                 packets: {},
                 formValue: {
                     courseId: 0,
-                    type: "",
+                    type: 0,
                     totalUsedQuestion: 0,
                     name: ""
                 },
@@ -100,10 +100,11 @@
                     }
                 },
                 selectChoice: {
-                    types: {
-                        name: "--select type--",
-                        value: 0
-                    },
+                    types: [
+                        { name: "--select type--", value: 0 },
+                        { name: "quiz", value: 1 },
+                        { name: "exam", value: 2 }
+                    ],
                     courses: {
                         name: "--select course--",
                         value: 0
@@ -115,7 +116,7 @@
                 },
             },
             mounted() {
-                this.getSelectChoice()
+                this.getSelectChoiceCourse()
             },
             methods: {
                 required(value) {
@@ -138,17 +139,6 @@
                         type: 'success',
                         title: 'Success!',
                     })
-                },
-                getSelectChoice() {
-                    this.getSelectChoiceType()
-                    this.getSelectChoiceCourse()
-                },
-                getSelectChoiceType() {
-                    this.selectChoice.types = [{
-                        name: "--select type--",
-                        value: 0
-                    }]
-
                 },
                 getSelectChoiceCourse() {
                     this.selectChoice.courses = [{

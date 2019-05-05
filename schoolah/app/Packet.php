@@ -9,4 +9,9 @@ class Packet extends Model
     protected $fillable = [
         'school_id', 'course_id', 'total_used_question', 'name', 'type'
     ];
+
+    public function course()
+    {
+        return $this->belongsTo(Course::class);
+    }
 }

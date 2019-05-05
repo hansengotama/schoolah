@@ -90,6 +90,18 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/get-teacher-class-course/{class_id}', 'StaffController@getTeacherClassCourse');
             Route::get('/get-all-course-class/{class_id}', 'StaffController@getAllCourseClass');
             Route::post('/remove-teacher-class-course/{teacher_course_id}', 'StaffController@removeTeacherClassCourse');
+            Route::get('/get-all-course-for-option', 'StaffController@getAllCourseForOption');
+            Route::get('/get-all-teacher-for-option/{packet_id}', 'StaffController@getAllTeacherForOption');
+            Route::post('/add-packet', 'StaffController@addPacket');
+            Route::post('/edit-packet', 'StaffController@editPacket');
+            Route::post('/delete-packet', 'StaffController@deletePacket');
+            Route::get('/get-all-packet', 'StaffController@getAllPacket');
+            Route::get('/get-packet/{packet_id}', 'StaffController@getPacketById');
+            Route::get('/get-packet-contributor/{packet_id}', 'StaffController@getPacketContributor');
+            Route::get('/get-teacher-name-by-teacher-id/{teacher_id}', 'StaffController@getTeacherNameByTeacherId');
+            Route::post('/add-packet-contributor', 'StaffController@addPacketContributor');
+            Route::post('/delete-packet-contributor', 'StaffController@deletePacketContributor');
+
         });
         Route::group(['middleware' => 'resetavatar'], function () {
             Route::group(['middleware' => 'teacher', 'prefix' => 'teacher'], function () {

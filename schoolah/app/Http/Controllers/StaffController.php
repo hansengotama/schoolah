@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\ContributorTeacher;
 use App\Course;
 use App\Grade;
 
 use App\Guardian;
 use App\Mail\SendEmail;
+use App\Packet;
 use App\School;
 use App\Student;
 use App\StudentClass;
@@ -602,6 +604,131 @@ class StaffController extends Controller
     public function manageScheduleShiftView()
     {
         return view('user.staff.shift');
+    }
+
+    public function getAllCourseForOption()
+    {
+        $schoolId = Auth::user()->school_id;
+        $courses = Course::where("school_id", $schoolId)->select(['name', 'id'])->get();
+
+        return response()->json($courses, 200);
+    }
+
+    public function addPacket(Request $request)
+    {
+        $courseId = $request->courseId;
+        $type = $request->type;
+        $name = $request->name;
+        $totalUsedQuestion = $request->totalUsedQuestion;
+        $schoolId = Auth::user()->school_id;
+
+        $packet = Packet::create([
+            'course_id' => $courseId,
+            'type' => $type,
+            'name' => $name,
+            'total_used_question' => $totalUsedQuestion,
+            'school_id' => $schoolId
+        ]);
+
+        return response()->json($packet, 200);
+    }
+
+    public function getAllPacket()
+    {
+        $schoolId = Auth::user()->school_id;
+        $packets = Packet::where('school_id', $schoolId)->with('course')->get();
+
+        return response()->json($packets, 200);
+    }
+
+    public function getPacketById($packet_id)
+    {
+        $packet = Packet::where('id', $packet_id)->first();
+
+        return response()->json($packet, 200);
+    }
+
+    public function editPacket(Request $request)
+    {
+        $packet = Packet::where('id', $request->packetId)->first();
+        $courseId = $request->courseId;
+        $type = $request->type;
+        $name = $request->name;
+        $totalUsedQuestion = $request->totalUsedQuestion;
+        $schoolId = Auth::user()->school_id;
+
+        $packet->update([
+            'course_id' => $courseId,
+            'type' => $type,
+            'name' => $name,
+            'total_used_question' => $totalUsedQuestion,
+            'school_id' => $schoolId
+        ]);
+
+        return response()->json($packet, 200);
+    }
+
+    public function deletePacket(Request $request)
+    {
+        $packet = Packet::where('id', $request->id)->first();
+        $packet->delete();
+
+        return response()->json($packet, 200);
+    }
+
+    public function getAllTeacherForOption($packet_id)
+    {
+        $schoolId = Auth::user()->school_id;
+
+        $contributorTeachers = ContributorTeacher::where("packet_id", $packet_id)->pluck('teacher_id');
+        $users = User::where("school_id", $schoolId)->where("role", "teacher")->pluck("id");
+        $teachers = Teacher::whereNotIn("id", $contributorTeachers)
+            ->whereIn("user_id", $users)
+            ->select(['id', 'teacher_code as code'])
+            ->get();
+
+        return response()->json($teachers, 200);
+    }
+
+    public function getTeacherNameByTeacherId($teacher_id)
+    {
+        $teacher = Teacher::where('id', $teacher_id)->first();
+        $user = User::where('id', $teacher->user_id)->first();
+
+        return response()->json($user->name, 200);
+    }
+
+    public function getPacketContributor($packet_id)
+    {
+        $contributorTeachers = ContributorTeacher::where("packet_id", $packet_id)->with('teacher')->get();
+
+        $response = [];
+
+        foreach ($contributorTeachers as $key => $contributorTeacher) {
+            $response[$key]['id'] = $contributorTeacher->id;
+            $user = User::where("id", $contributorTeacher->teacher->user_id)->select('name')->first();
+            $response[$key]['name'] = $user->name;
+        }
+
+        return response()->json($response, 200);
+    }
+
+    public function addPacketContributor(Request $request)
+    {
+        $packet = ContributorTeacher::create([
+            'teacher_id' => $request->teacherId,
+            'packet_id' => $request->packetId
+        ]);
+
+        return response()->json($packet, 200);
+    }
+
+    public function deletePacketContributor(Request $request)
+    {
+        $contributorTeacher = ContributorTeacher::where('id', $request->id)->first();
+        $contributorTeacher->delete();
+
+        return response()->json($contributorTeacher, 200);
     }
 
     public function addScheduleShift()

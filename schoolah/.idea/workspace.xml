@@ -2,10 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1ac09e87-2e0a-4910-bd77-7e9f8479a70c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/ContributorTeacher.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_04_13_080746_create_schedule_shifts_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_04_13_080746_create_schedule_shifts_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_04_13_080749_create_schedule_classes_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_04_13_080749_create_schedule_classes_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Course.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Course.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/StaffController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/StaffController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Packet.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Packet.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Teacher.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Teacher.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/user/staff/packet.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/staff/packet.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/user/staff/shift.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/staff/shift.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -21,26 +29,35 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/user/staff/packet.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1708">
-              <caret line="61" column="38" selection-start-line="61" selection-start-column="38" selection-end-line="61" selection-end-column="38" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/database/migrations/2019_04_13_080749_create_schedule_classes_table.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="364">
-              <caret line="23" column="34" selection-start-line="23" selection-start-column="34" selection-end-line="23" selection-end-column="34" />
+            <state relative-caret-position="199">
+              <caret line="280" column="18" lean-forward="true" selection-start-line="280" selection-start-column="18" selection-end-line="284" selection-end-column="18" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/resources/views/user/staff/class.blade.php">
+        <entry file="file://$PROJECT_DIR$/resources/views/user/staff/shift.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1456">
-              <caret line="763" column="19" selection-start-line="763" selection-start-column="19" selection-end-line="763" selection-end-column="19" />
+            <state relative-caret-position="1846">
+              <caret line="221" selection-start-line="221" selection-end-line="221" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/StaffController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="390">
+              <caret line="735" selection-start-line="735" selection-end-line="735" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/routes/web.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="420">
+              <caret line="102" column="51" selection-start-line="102" selection-start-column="26" selection-end-line="102" selection-end-column="51" />
             </state>
           </provider>
         </entry>
@@ -49,36 +66,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>getTeacherClassCourse</find>
-      <find>goToTeacher</find>
-      <find>confirmRemoveTeacher</find>
-      <find>getAllCourse</find>
+      <find>teacherName</find>
+      <find>addPacketContributor</find>
+      <find>selectedPacketId</find>
+      <find>validate</find>
+      <find>valid</find>
+      <find>view cont</find>
+      <find>View Cont</find>
+      <find>contributor</find>
+      <find>contributors</find>
+      <find>add-packet-contributor</find>
+      <find>number</find>
+      <find>deleteContributor</find>
+      <find>addPack</find>
+      <find>viewContributor</find>
+      <find>getPacketContributor</find>
+      <find>toggle</find>
+      <find>get-all-teacher-for-option</find>
       <find>whereNotIn</find>
-      <find>guardian</find>
-      <find>get-guardian-teacher</find>
-      <find>getGuardianTeacher</find>
-      <find>pluck</find>
-      <find>password</find>
-      <find>teacher</find>
-      <find>staf</find>
-      <find>staff</find>
-      <find>staffPass</find>
-      <find>mange</find>
-      <find>datetimepicker3</find>
-      <find>requ</find>
-      <find>confirmDeleteSchool</find>
-      <find>addStaff</find>
-      <find>deleteStaff</find>
-      <find>getAllSchool</find>
-      <find>popUpSuccess</find>
-      <find>getAllTeacher</find>
-      <find>getAllStaff</find>
-      <find>getAll</find>
-      <find>getAllTeachers</find>
-      <find>resetForm</find>
-      <find>selectChoice</find>
-      <find>push</find>
-      <find>scheduleClass</find>
+      <find>auth</find>
+      <find>getAllTeacherForOption</find>
+      <find>back</find>
+      <find>delete-con</find>
+      <find>delete-packet-contributor</find>
+      <find>validateForm</find>
+      <find>:class=</find>
+      <find>isNumber</find>
+      <find>must more</find>
+      <find>isNumb</find>
+      <find>activeFromDate</find>
+      <find>form</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -87,9 +104,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/Http/Middleware/Staff.php" />
-        <option value="$PROJECT_DIR$/app/Http/Middleware/Teacher.php" />
-        <option value="$PROJECT_DIR$/app/Http/Middleware/Student.php" />
         <option value="$PROJECT_DIR$/app/Http/Middleware/Guardian.php" />
         <option value="$PROJECT_DIR$/resources/views/user/staff/finance.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Middleware/ResetPassword.php" />
@@ -112,32 +126,35 @@
         <option value="$PROJECT_DIR$/database/migrations/2019_04_21_151732_create_feedbacks_table.php" />
         <option value="$PROJECT_DIR$/resources/views/home.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/user/admin/feedback.blade.php" />
-        <option value="$PROJECT_DIR$/app/User.php" />
         <option value="$PROJECT_DIR$/app/Student.php" />
         <option value="$PROJECT_DIR$/app/StudentClass.php" />
-        <option value="$PROJECT_DIR$/app/Course.php" />
         <option value="$PROJECT_DIR$/app/Grade.php" />
         <option value="$PROJECT_DIR$/app/TeacherClass.php" />
-        <option value="$PROJECT_DIR$/app/Teacher.php" />
-        <option value="$PROJECT_DIR$/resources/views/user/staff/class.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/AdminController.php" />
         <option value="$PROJECT_DIR$/database/migrations/2019_04_13_080749_create_contributor_teachers_table.php" />
         <option value="$PROJECT_DIR$/database/migrations/2019_04_13_080750_create_schedule_details_table.php" />
         <option value="$PROJECT_DIR$/database/migrations/2019_04_13_080747_create_schedule_shifts_table.php" />
         <option value="$PROJECT_DIR$/database/migrations/2019_04_13_080745_create_schedule_shift_types_table.php" />
-        <option value="$PROJECT_DIR$/routes/web.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/StaffController.php" />
         <option value="$PROJECT_DIR$/resources/views/layouts/app-admin.blade.php" />
         <option value="$PROJECT_DIR$/database/migrations/2019_05_01_115526_add_shift_to_schedule_shifts_table.php" />
-        <option value="$PROJECT_DIR$/resources/views/user/staff/shift.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/user/staff/course.blade.php" />
         <option value="$PROJECT_DIR$/database/migrations/2019_04_13_080755_create_contributor_teachers_table.php" />
         <option value="$PROJECT_DIR$/database/migrations/2019_04_13_080756_create_packets_table.php" />
         <option value="$PROJECT_DIR$/resources/views/user/admin/school.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/edit-profile.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/user/staff/packet.blade.php" />
         <option value="$PROJECT_DIR$/database/migrations/2019_04_13_080749_create_schedule_classes_table.php" />
         <option value="$PROJECT_DIR$/database/migrations/2019_04_13_080746_create_schedule_shifts_table.php" />
+        <option value="$PROJECT_DIR$/resources/views/user/staff/class.blade.php" />
+        <option value="$PROJECT_DIR$/app/Course.php" />
+        <option value="$PROJECT_DIR$/app/Packet.php" />
+        <option value="$PROJECT_DIR$/app/User.php" />
+        <option value="$PROJECT_DIR$/app/ContributionTeacher.php" />
+        <option value="$PROJECT_DIR$/app/ContributorTeacher.php" />
+        <option value="$PROJECT_DIR$/app/Teacher.php" />
+        <option value="$PROJECT_DIR$/routes/web.php" />
+        <option value="$PROJECT_DIR$/resources/views/user/staff/packet.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/StaffController.php" />
+        <option value="$PROJECT_DIR$/resources/views/user/staff/shift.blade.php" />
       </list>
     </option>
   </component>
@@ -246,6 +263,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -355,28 +373,27 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="AngularJS" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/resources/views" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app" />
       <recent name="$PROJECT_DIR$/resources/views/user/staff" />
       <recent name="$PROJECT_DIR$/resources/views/user/admin" />
-      <recent name="$PROJECT_DIR$/app" />
       <recent name="$PROJECT_DIR$/resources/views" />
       <recent name="$PROJECT_DIR$/app/Http/Middleware" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/resources/views" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -444,18 +461,18 @@
       <workItem from="1556724635144" duration="1387000" />
       <workItem from="1556772995946" duration="68000" />
       <workItem from="1556886194606" duration="1440000" />
-      <workItem from="1556977908321" duration="1828000" />
+      <workItem from="1556977908321" duration="5081000" />
+      <workItem from="1557035736507" duration="18874000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="203648000" />
+    <option name="totallyTimeSpent" value="225775000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="64" y="-11" width="1857" height="1092" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2830293" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.28634605" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -468,67 +485,18 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.32925585" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="10" sideWeight="0.4997236" visible="true" weight="0.22731906" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" sideWeight="0.4997236" visible="true" weight="0.22120285" />
       <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.5002764" side_tool="true" weight="0.2701325" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Database" order="3" />
     </layout>
-    <layout-to-restore>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.249309" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32925585" />
-      <window_info anchor="bottom" id="Run" order="2" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Database Changes" order="8" />
-      <window_info anchor="bottom" id="Version Control" order="9" weight="0.32925585" />
-      <window_info anchor="bottom" id="Terminal" order="10" visible="true" weight="0.28440368" />
-      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Database" order="3" />
-    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/Absence.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="6" selection-start-line="6" selection-end-line="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2019_04_13_080759_create_questions_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="17" column="52" selection-start-line="17" selection-start-column="40" selection-end-line="17" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2019_04_13_080734_create_teachers_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2019_04_21_151732_create_feedback_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="6" column="20" selection-start-line="6" selection-start-column="20" selection-end-line="6" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/user/staff/finance.blade.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -629,20 +597,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Course.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="10" column="6" lean-forward="true" selection-start-line="10" selection-start-column="6" selection-end-line="15" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Teacher.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="532">
-          <caret line="19" column="51" selection-start-line="19" selection-start-column="51" selection-end-line="19" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Grade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="532">
@@ -654,13 +608,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="476">
           <caret line="17" column="33" selection-start-line="17" selection-start-column="33" selection-end-line="17" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/User.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="618">
-          <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="39" selection-end-column="5" />
         </state>
       </provider>
     </entry>
@@ -698,34 +645,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/web.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="444">
-          <caret line="53" column="85" selection-start-line="53" selection-start-column="85" selection-end-line="53" selection-end-column="85" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/user/staff/shift.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-469">
-          <caret line="105" column="23" lean-forward="true" selection-start-line="104" selection-start-column="8" selection-end-line="105" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/config/database.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/database/migrations/2019_05_01_115526_add_shift_to_schedule_shifts_table.php" />
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/StaffController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="16632">
-          <caret line="608" selection-start-line="608" selection-end-line="608" />
-          <folding>
-            <element signature="e#40#55#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/storage/framework/views/9843dbdc13ef88cb21b4f1c7869dd7490084931e.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="520">
@@ -778,13 +701,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/layouts/app-admin.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="632">
-          <caret line="148" column="13" selection-start-line="148" selection-start-column="13" selection-end-line="148" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/user/staff/course.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="224">
@@ -799,20 +715,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/user/staff/packet.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1708">
-          <caret line="61" column="38" selection-start-line="61" selection-start-column="38" selection-end-line="61" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2019_04_13_080746_create_schedule_shifts_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="19" column="21" lean-forward="true" selection-start-line="19" selection-start-column="21" selection-end-line="19" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -822,15 +724,98 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/database/migrations/2019_04_13_080749_create_schedule_classes_table.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="23" column="34" selection-start-line="23" selection-start-column="34" selection-end-line="23" selection-end-column="34" />
+        <state relative-caret-position="392">
+          <caret line="25" column="33" lean-forward="true" selection-start-line="16" selection-start-column="12" selection-end-line="25" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/migrations/2019_04_13_080746_create_schedule_shifts_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="314">
+          <caret line="18" column="12" selection-start-line="18" selection-start-column="12" selection-end-line="18" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Packet.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="392">
+          <caret line="14" column="32" selection-start-line="14" selection-start-column="32" selection-end-line="14" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Course.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="532">
+          <caret line="19" column="45" selection-start-line="19" selection-start-column="45" selection-end-line="19" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Middleware/Teacher.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/User.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="600">
+          <caret line="43" column="36" selection-start-line="43" selection-start-column="36" selection-end-line="43" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/ContributorTeacher.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="392">
+          <caret line="14" column="32" selection-start-line="14" selection-start-column="32" selection-end-line="14" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Teacher.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="600">
+          <caret line="24" column="29" selection-start-line="24" selection-start-column="29" selection-end-line="24" selection-end-column="29" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/user/staff/class.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1456">
-          <caret line="763" column="19" selection-start-line="763" selection-start-column="19" selection-end-line="763" selection-end-column="19" />
+        <state relative-caret-position="563">
+          <caret line="99" column="26" selection-start-line="99" selection-start-column="26" selection-end-line="106" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/web.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="102" column="51" selection-start-line="102" selection-start-column="26" selection-end-line="102" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/StaffController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="735" selection-start-line="735" selection-end-line="735" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/layouts/app-admin.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="782">
+          <caret line="148" column="13" selection-start-line="148" selection-start-column="13" selection-end-line="148" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/vue-bootstrap-datetimepicker/dist/vue-bootstrap-datetimepicker.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/user/staff/packet.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="199">
+          <caret line="280" column="18" lean-forward="true" selection-start-line="280" selection-start-column="18" selection-end-line="284" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/user/staff/shift.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1846">
+          <caret line="221" selection-start-line="221" selection-end-line="221" />
         </state>
       </provider>
     </entry>

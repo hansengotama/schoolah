@@ -55,34 +55,29 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label>Order</label>
-                        <div class="input-group">
-                            <input type="number" class="form-control" min="1" v-model="formValue.order"/>
-                        </div>
+                        <input type="number" :class="'form-control '+error.class.order" min="1" v-model="formValue.order"/>
+                        <div class="red">@{{ error.text.order }}</div>
                     </div>
                     <div class="form-group">
                         <label>From</label>
-                        <div class="input-group date">
-                            <input type="time" class="form-control" v-model="formValue.from" />
-                        </div>
+                        <input type="time" :class="'form-control '+error.class.from" v-model="formValue.from" />
+                        <div class="red">@{{ error.text.from }}</div>
                     </div>
                     <div class="form-group">
                         <label>Until</label>
-                        <div class="input-group date">
-                            <input type="time" class="form-control" v-model="formValue.until" />
-                        </div>
+                        <input type="time" :class="'form-control '+error.class.until" v-model="formValue.until" />
+                        <div class="red">@{{ error.text.until }}</div>
                     </div>
                     <span v-if="!formValue.checked">
                         <div class="form-group">
                             <label>Active From Date</label>
-                            <div class="input-group da  te">
-                                <input type="date" class="form-control" v-model="formValue.activeFromDate" />
-                            </div>
+                            <input type="date" :class="'form-control '+error.class.activeFromDate" v-model="formValue.activeFromDate" />
+                            <div class="red">@{{ error.text.activeFromDate }}</div>
                         </div>
                         <div class="form-group">
                             <label>Active Until Date</label>
-                            <div class="input-group date">
-                                <input type="date" class="form-control" v-model="formValue.activeUntilDate" />
-                            </div>
+                            <input type="date" :class="'form-control '+error.class.activeUntilDate" v-model="formValue.activeUntilDate" />
+                            <div class="red">@{{ error.text.activeUntilDate }}</div>
                         </div>
                     </span>
                     <div class="form-check">
@@ -109,35 +104,40 @@
                 error: {
                     class: {
                         order: "",
-                        form: "",
+                        from: "",
                         until: "",
-                        activeFormDate: "",
+                        activeFromDate: "",
                         activeUntilDate: "",
                         checked: ""
                     },
                     text: {
                         order: "",
-                        form: "",
+                        from: "",
                         until: "",
-                        activeFormDate: "",
+                        activeFromDate: "",
                         activeUntilDate: "",
                         checked: ""
                     },
                 },
                 formValue: {
-                    order: "",
-                    form: null,
-                    until: null,
-                    activeFormDate: null,
-                    activeUntilDate: null,
+                    order: 1,
+                    from: moment().format('hh:mm'),
+                    until: moment().format('hh:mm'),
+                    activeFromDate: moment().format('YYYY-DD-MM'),
+                    activeUntilDate: moment().format('YYYY-DD-MM'),
                     checked: true
                 }
             },
             mounted() {
+
             },
             methods: {
                 required(value) {
                     return (value.length < 1) ? true : false
+                },
+                isNumber(value) {
+                    var regex = /^[0-9.,]+$/
+                    return !regex.test(value)
                 },
                 popUpError() {
                     swal({
@@ -154,33 +154,73 @@
                     })
                 },
                 resetForm() {
-
+                    this.formValue.order = 1
+                    this.formValue.from = moment().format('hh:mm')
+                    this.formValue.until = moment().format('hh:mm')
+                    this.formValue.activeFromDate = moment().format('YYYY-DD-MM')
+                    this.formValue.activeUntilDate = moment().format('YYYY-DD-MM')
+                    this.formValue.checked = true
                 },
                 validateForm(action) {
                     if(this.required(this.formValue.order)) {
                         this.error.text.order = "order must be filled"
                         this.error.class.order = "border-red"
-                    }else {
+                    }else if(this.isNumber(this.formValue.order)) {
+                        this.error.text.order = "order must be number"
+                        this.error.class.order = "border-red"
+                    }else if(this.formValue.order <= 0) {
+                        this.error.text.order = "order must more than 0"
+                        this.error.class.order = "border-red"
+                    } else {
                         this.error.text.order = ""
                         this.error.class.order = ""
                     }
 
-                    // if(this.required(this.formValue.from)) {
-                    //
-                    // }
-                    //
-                    // if(this.required(this.formValue.until)) {
-                    //
-                    // }
+                    if(this.formValue.from == "") {
+                        this.error.text.from = "from must be filled"
+                        this.error.class.from = "border-red"
+                    }else {
+                        this.error.text.from = ""
+                        this.error.class.from = ""
+                    }
+
+                    if(this.formValue.until == "") {
+                        this.error.text.until = "until must be filled"
+                        this.error.class.until = "border-red"
+                    }else {
+                        this.error.text.until = ""
+                        this.error.class.until = ""
+                    }
+
                     if(this.formValue.checked != true) {
-                        console.log(123123)
-                        // if(this.required(this.formValue.activeFormDate)) {
-                        //
-                        // }
-                        //
-                        // if(this.required(this.formValue.activeUntilDate)) {
-                        //
-                        // }
+                        if(this.formValue.activeFromDate == "") {
+                            this.error.text.activeFromDate = "active form date must be filled"
+                            this.error.class.activeFromDate = "border-red"
+                        }else {
+                            this.error.text.activeFromDate = ""
+                            this.error.class.activeFromDate = ""
+                        }
+
+                        if(this.formValue.activeUntilDate == "") {
+                            this.error.text.activeUntilDate = "active until date must be filled"
+                            this.error.class.activeUntilDate = "border-red"
+                        }else {
+                            this.error.text.activeUntilDate = ""
+                            this.error.class.activeUntilDate = ""
+                        }
+                    }else {
+                        this.error.text.activeFromDate = ""
+                        this.error.class.activeFromDate = ""
+                        this.error.text.activeUntilDate = ""
+                        this.error.class.activeUntilDate = ""
+                    }
+
+                    if(this.error.class.order == "" && this.error.class.from == "" && this.error.class.until == "" && this.error.class.activeFromDate == "" && this.error.class.activeUntilDate == "") {
+                        if(action == "add") {
+
+                        }else if(action == "edit") {
+
+                        }
                     }
                 },
                 fillEditForm(id) {

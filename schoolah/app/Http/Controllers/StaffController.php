@@ -9,6 +9,7 @@ use App\Grade;
 use App\Guardian;
 use App\Mail\SendEmail;
 use App\Packet;
+use App\ScheduleShift;
 use App\School;
 use App\Student;
 use App\StudentClass;
@@ -731,23 +732,71 @@ class StaffController extends Controller
         return response()->json($contributorTeacher, 200);
     }
 
-    public function addScheduleShift()
+    public function getAllScheduleShift()
     {
+        $schoolId = Auth::user()->school_id;
+        $scheduleShifts = ScheduleShift::where('school_id', $schoolId)->orderBy("active_from_date" ,"asc")->get();
 
+        return response()->json($scheduleShifts, 200);
     }
 
-    public function editScheduleShift()
+    public function addScheduleShift(Request $request)
     {
+        $schoolId = Auth::user()->school_id;
+        $activeFromDate = null;
+        $activeUntilDate = null;
+        if(! ($request->checked)) {
+            $activeFromDate = $request->activeFromDate;
+            $activeUntilDate = $request->activeUntilDate;
+        }
 
+        $scheduleShift = ScheduleShift::create([
+            'school_id' => $schoolId,
+            'from' => $request->from,
+            'until' => $request->until,
+            'active_from_date' => $activeFromDate,
+            'active_until_date' => $activeUntilDate,
+            'shift' => $request->order
+        ]);
+
+        return response()->json($scheduleShift, 200);
     }
 
-    public function findScheduleShift()
+    public function editScheduleShift(Request $request)
     {
+        $schoolId = Auth::user()->school_id;
+        $activeFromDate = null;
+        $activeUntilDate = null;
+        if(! ($request->checked)) {
+            $activeFromDate = $request->activeFromDate;
+            $activeUntilDate = $request->activeUntilDate;
+        }
 
+        $scheduleShift = ScheduleShift::where("id", $request->id)->first();
+        $scheduleShift->update([
+            'school_id' => $schoolId,
+            'from' => $request->from,
+            'until' => $request->until,
+            'active_from_date' => $activeFromDate,
+            'active_until_date' => $activeUntilDate,
+            'shift' => $request->order
+        ]);
+
+        return response()->json($request->all(), 200);
     }
 
-    public function deleteScheduleShift()
+    public function getScheduleShift(Request $request)
     {
+        $scheduleShift = ScheduleShift::where("id", $request->id)->first();
 
+        return response()->json($scheduleShift, 200);
+    }
+
+    public function deleteScheduleShift(Request $request)
+    {
+        $scheduleShift = ScheduleShift::where("id", $request->id)->first();
+        $scheduleShift->delete();
+
+        return response()->json($scheduleShift, 200);
     }
 }

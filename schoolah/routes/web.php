@@ -101,7 +101,11 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/get-teacher-name-by-teacher-id/{teacher_id}', 'StaffController@getTeacherNameByTeacherId');
             Route::post('/add-packet-contributor', 'StaffController@addPacketContributor');
             Route::post('/delete-packet-contributor', 'StaffController@deletePacketContributor');
-
+            Route::post('/add-schedule-shift', 'StaffController@addScheduleShift');
+            Route::post('/edit-schedule-shift', 'StaffController@editScheduleShift');
+            Route::post('/delete-schedule-shift', 'StaffController@deleteScheduleShift');
+            Route::get('/get-all-schedule-shift', 'StaffController@getAllScheduleShift');
+            Route::post('/get-schedule-shift', 'StaffController@getScheduleShift');
         });
         Route::group(['middleware' => 'resetavatar'], function () {
             Route::group(['middleware' => 'teacher', 'prefix' => 'teacher'], function () {

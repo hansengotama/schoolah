@@ -24,14 +24,24 @@
                         <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Name</th>
+                            <th scope="col">Order</th>
+                            <th scope="col">From</th>
+                            <th scope="col">Until</th>
+                            <th scope="col">Active from date</th>
+                            <th scope="col">Active until date</th>
                             <th scope="col">Action</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr v-for="(shift, index) in shifts">
+                        <tr v-for="(shift, index) in scheduleShifts">
                             <td>@{{ shift.number }}</td>
-                            <td>@{{ shift.name }}</td>
+                            <td>@{{ shift.shift }}</td>
+                            <td>@{{ shift.from }}</td>
+                            <td>@{{ shift.until }}</td>
+                            <td v-if="shift.active_from_date == null">Default</td>
+                            <td v-else>@{{ shift.active_from_date }}</td>
+                            <td v-if="shift.active_from_date == null">Default</td>
+                            <td v-else>@{{ shift.active_until_date }}</td>
                             <td>
                                 <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#edit-shift" @click="fillEditForm(shift.id)">Edit</button>
                                 <button class="btn btn-danger btn-xs" @click="confirmDeleteShift(shift.id)">Delete</button>
@@ -92,6 +102,55 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="edit-shift">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Shift</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Order</label>
+                        <input type="number" :class="'form-control '+error.class.order" min="1" v-model="formValue.order"/>
+                        <div class="red">@{{ error.text.order }}</div>
+                    </div>
+                    <div class="form-group">
+                        <label>From</label>
+                        <input type="time" :class="'form-control '+error.class.from" v-model="formValue.from" />
+                        <div class="red">@{{ error.text.from }}</div>
+                    </div>
+                    <div class="form-group">
+                        <label>Until</label>
+                        <input type="time" :class="'form-control '+error.class.until" v-model="formValue.until" />
+                        <div class="red">@{{ error.text.until }}</div>
+                    </div>
+                    <span v-if="!formValue.checked">
+                        <div class="form-group">
+                            <label>Active From Date</label>
+                            <input type="date" :class="'form-control '+error.class.activeFromDate" v-model="formValue.activeFromDate" />
+                            <div class="red">@{{ error.text.activeFromDate }}</div>
+                        </div>
+                        <div class="form-group">
+                            <label>Active Until Date</label>
+                            <input type="date" :class="'form-control '+error.class.activeUntilDate" v-model="formValue.activeUntilDate" />
+                            <div class="red">@{{ error.text.activeUntilDate }}</div>
+                        </div>
+                    </span>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" v-model="formValue.checked">
+                        <label class="form-check-label">Default</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" @click="validateForm('edit')">Edit</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 @endsection
 
@@ -100,7 +159,7 @@
         var app = new Vue({
             el: '#app',
             data: {
-                shifts: {},
+                scheduleShifts: {},
                 error: {
                     class: {
                         order: "",
@@ -126,10 +185,11 @@
                     activeFromDate: moment().format('YYYY-DD-MM'),
                     activeUntilDate: moment().format('YYYY-DD-MM'),
                     checked: true
-                }
+                },
+                selectedScheduleShiftId: null
             },
             mounted() {
-
+                this.getAllScheduleShift()
             },
             methods: {
                 required(value) {
@@ -217,17 +277,123 @@
 
                     if(this.error.class.order == "" && this.error.class.from == "" && this.error.class.until == "" && this.error.class.activeFromDate == "" && this.error.class.activeUntilDate == "") {
                         if(action == "add") {
-
+                            this.addScheduleShift()
                         }else if(action == "edit") {
-
+                            this.editScheduleShift()
                         }
                     }
                 },
-                fillEditForm(id) {
+                getAllScheduleShift() {
+                    axios.get("{{ url('staff/get-all-schedule-shift') }}")
+                    .then(function (response) {
+                        if(response.status == 200) {
+                            app.scheduleShifts = response.data
 
+                            let index = 1
+                            app.scheduleShifts.forEach((shift) => {
+                                shift.number = index
+                                shift.from = shift.from.replace(":00", "")
+                                shift.until = shift.until.replace(":00", "")
+                                if(shift.active_from_date || shift.active_until_date) {
+                                    shift.active_from_date = moment(shift.active_from_date).format('YYYY-DD-MM')
+                                    shift.active_until_date = moment(shift.active_until_date).format('YYYY-DD-MM')
+                                }
+                                index++
+                            })
+                        }
+                    })
+                },
+                addScheduleShift() {
+                    axios.post("{{ url('staff/add-schedule-shift') }}", app.formValue)
+                    .then(function (response) {
+                        if(response.status == 200) {
+                            $('#add-shift').modal('toggle');
+                            app.getAllScheduleShift()
+                            app.popUpSuccess()
+                        }else {
+                            app.popUpError()
+                        }
+                    })
+                    .catch(function (error) {
+                        app.popUpError()
+                    })
+                },
+                editScheduleShift() {
+                    axios.post("{{ url('staff/edit-schedule-shift') }}", {
+                        id: app.selectedScheduleShiftId,
+                        order: app.formValue.order,
+                        from: app.formValue.from,
+                        until: app.formValue.until,
+                        activeFromDate: app.formValue.activeFromDate,
+                        activeUntilDate: app.formValue.activeUntilDate,
+                        checked: app.formValue.checked
+                    })
+                    .then(function (response) {
+                        if(response.status == 200) {
+                            $('#edit-shift').modal('toggle');
+                            app.getAllScheduleShift()
+                            app.popUpSuccess()
+                        }else {
+                            app.popUpError()
+                        }
+                    })
+                    .catch(function (error) {
+                        app.popUpError()
+                    })
+                },
+                fillEditForm(id) {
+                    axios.post("{{ url('staff/get-schedule-shift') }}", {
+                        id: id
+                    })
+                    .then(function (response) {
+                        if(response.status == 200) {
+                            app.selectedScheduleShiftId = response.data.id
+                            app.formValue.order = response.data.shift
+                            app.formValue.from = response.data.from
+                            app.formValue.until = response.data.until
+                            if(response.data.active_from_date && response.data.active_until_date) {
+                                app.formValue.activeFromDate = moment(response.data.active_from_date).format('YYYY-DD-MM')
+                                app.formValue.activeUntilDate = moment(response.data.active_until_date).format('YYYY-DD-MM')
+                                app.formValue.checked = false
+                            }else {
+                                app.formValue.checked = true
+                            }
+                        }
+                    })
+                    .catch(function (error) {
+
+                    })
                 },
                 confirmDeleteShift(id) {
-
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
+                        type: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, delete it!'
+                    }).then((result) => {
+                        if (result.value) {
+                            this.deleteContributorShift(id)
+                        }
+                    })
+                },
+                deleteContributorShift(id) {
+                    axios.post("{{ url('staff/delete-schedule-shift') }}", {
+                        id: id
+                    })
+                    .then(function (response) {
+                        if(response.status == 200) {
+                            app.getAllScheduleShift()
+                            app.popUpSuccess()
+                        }else {
+                            app.popUpError()
+                        }
+                    })
+                    .catch(function (error) {
+                        app.popUpError()
+                    })
                 }
             }
         })

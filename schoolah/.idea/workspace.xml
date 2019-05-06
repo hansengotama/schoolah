@@ -2,16 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1ac09e87-2e0a-4910-bd77-7e9f8479a70c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/ContributorTeacher.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/ScheduleShift.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Course.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Course.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/StaffController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/StaffController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Packet.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Packet.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Teacher.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Teacher.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/user/staff/packet.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/staff/packet.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/user/staff/shift.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/staff/shift.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
@@ -29,8 +22,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/user/staff/packet.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="199">
-              <caret line="280" column="18" lean-forward="true" selection-start-line="280" selection-start-column="18" selection-end-line="284" selection-end-column="18" />
+            <state relative-caret-position="7728">
+              <caret line="555" column="20" selection-start-line="555" selection-start-column="20" selection-end-line="567" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -38,8 +31,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resources/views/user/staff/shift.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1846">
-              <caret line="221" selection-start-line="221" selection-end-line="221" />
+            <state relative-caret-position="288">
+              <caret line="287" column="25" lean-forward="true" selection-start-line="287" selection-start-column="25" selection-end-line="287" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -47,8 +40,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/StaffController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="735" selection-start-line="735" selection-end-line="735" />
+            <state relative-caret-position="302">
+              <caret line="737" column="104" selection-start-line="737" selection-start-column="104" selection-end-line="737" selection-end-column="104" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/ScheduleShift.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="252">
+              <caret line="9" column="85" selection-start-line="9" selection-start-column="85" selection-end-line="9" selection-end-column="85" />
             </state>
           </provider>
         </entry>
@@ -56,8 +58,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/web.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="102" column="51" selection-start-line="102" selection-start-column="26" selection-end-line="102" selection-end-column="51" />
+            <state relative-caret-position="890">
+              <caret line="107" column="44" selection-start-line="107" selection-start-column="44" selection-end-line="107" selection-end-column="44" />
             </state>
           </provider>
         </entry>
@@ -66,22 +68,16 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>teacherName</find>
-      <find>addPacketContributor</find>
-      <find>selectedPacketId</find>
-      <find>validate</find>
       <find>valid</find>
       <find>view cont</find>
       <find>View Cont</find>
       <find>contributor</find>
       <find>contributors</find>
       <find>add-packet-contributor</find>
-      <find>number</find>
       <find>deleteContributor</find>
       <find>addPack</find>
       <find>viewContributor</find>
       <find>getPacketContributor</find>
-      <find>toggle</find>
       <find>get-all-teacher-for-option</find>
       <find>whereNotIn</find>
       <find>auth</find>
@@ -96,6 +92,12 @@
       <find>isNumb</find>
       <find>activeFromDate</find>
       <find>form</find>
+      <find>number</find>
+      <find>toggle</find>
+      <find>fillEditForm</find>
+      <find>console</find>
+      <find>getA</find>
+      <find>getAllScheduleShift</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -104,7 +106,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/Http/Middleware/Guardian.php" />
         <option value="$PROJECT_DIR$/resources/views/user/staff/finance.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Middleware/ResetPassword.php" />
         <option value="$PROJECT_DIR$/resources/views/auth/login.blade.php" />
@@ -151,8 +152,9 @@
         <option value="$PROJECT_DIR$/app/ContributionTeacher.php" />
         <option value="$PROJECT_DIR$/app/ContributorTeacher.php" />
         <option value="$PROJECT_DIR$/app/Teacher.php" />
-        <option value="$PROJECT_DIR$/routes/web.php" />
         <option value="$PROJECT_DIR$/resources/views/user/staff/packet.blade.php" />
+        <option value="$PROJECT_DIR$/app/ScheduleShift.php" />
+        <option value="$PROJECT_DIR$/routes/web.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/StaffController.php" />
         <option value="$PROJECT_DIR$/resources/views/user/staff/shift.blade.php" />
       </list>
@@ -263,7 +265,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -373,6 +374,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -463,16 +465,21 @@
       <workItem from="1556886194606" duration="1440000" />
       <workItem from="1556977908321" duration="5081000" />
       <workItem from="1557035736507" duration="18874000" />
+      <workItem from="1557054655673" duration="77000" />
+      <workItem from="1557066800708" duration="84000" />
+      <workItem from="1557142958173" duration="4585000" />
+      <workItem from="1557150857956" duration="3623000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="225775000" />
+    <option name="totallyTimeSpent" value="234144000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="64" y="-11" width="1857" height="1092" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.28634605" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.29961306" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -485,7 +492,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.32925585" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="10" sideWeight="0.4997236" visible="true" weight="0.22120285" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" sideWeight="0.4997236" visible="true" weight="0.20591234" />
       <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.5002764" side_tool="true" weight="0.2701325" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -497,9 +504,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/resources/views/user/staff/finance.blade.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/home.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="481">
@@ -729,13 +733,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2019_04_13_080746_create_schedule_shifts_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="314">
-          <caret line="18" column="12" selection-start-line="18" selection-start-column="12" selection-end-line="18" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Packet.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="392">
@@ -781,20 +778,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/web.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="102" column="51" selection-start-line="102" selection-start-column="26" selection-end-line="102" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/StaffController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="735" selection-start-line="735" selection-end-line="735" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/layouts/app-admin.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="782">
@@ -802,20 +785,46 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/vue-bootstrap-datetimepicker/dist/vue-bootstrap-datetimepicker.js">
-      <provider selected="true" editor-type-id="text-editor" />
+    <entry file="file://$PROJECT_DIR$/node_modules/vue-bootstrap-datetimepicker/dist/vue-bootstrap-datetimepicker.js" />
+    <entry file="file://$PROJECT_DIR$/database/migrations/2019_04_13_080746_create_schedule_shifts_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="174">
+          <caret line="16" column="12" lean-forward="true" selection-start-line="16" selection-start-column="12" selection-end-line="24" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/web.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="890">
+          <caret line="107" column="44" selection-start-line="107" selection-start-column="44" selection-end-line="107" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/ScheduleShift.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="9" column="85" selection-start-line="9" selection-start-column="85" selection-end-line="9" selection-end-column="85" />
+        </state>
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/user/staff/packet.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="280" column="18" lean-forward="true" selection-start-line="280" selection-start-column="18" selection-end-line="284" selection-end-column="18" />
+        <state relative-caret-position="7728">
+          <caret line="555" column="20" selection-start-line="555" selection-start-column="20" selection-end-line="567" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/StaffController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="302">
+          <caret line="737" column="104" selection-start-line="737" selection-start-column="104" selection-end-line="737" selection-end-column="104" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/user/staff/shift.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1846">
-          <caret line="221" selection-start-line="221" selection-end-line="221" />
+        <state relative-caret-position="288">
+          <caret line="287" column="25" lean-forward="true" selection-start-line="287" selection-start-column="25" selection-end-line="287" selection-end-column="25" />
         </state>
       </provider>
     </entry>

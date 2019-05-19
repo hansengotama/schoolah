@@ -13,7 +13,7 @@
         #table {
             width: 100%;
             text-align: center;
-            margin-top: 5em;
+            margin-top: 2em;
             margin-bottom: 5em;
         }
         .table-head {
@@ -67,7 +67,12 @@
             </div>
         </div>
         <div v-else>
-            <div class="container">
+            <div class="container" style="margin-top: 3em">
+                <div class="col-md-12" style="padding: 0">
+                    <button class="btn btn-primary" @click="backToClass()">
+                        <i class="fa fa-arrow-left"></i> Back to class
+                    </button>
+                </div>
                 <table id="table">
                     <thead>
                         <tr class="table-head">
@@ -349,6 +354,9 @@
                     .catch(function (error) {
                         app.popUpError()
                     })
+                },
+                backToClass() {
+                    this.page = "class"
                 }
             }
         })

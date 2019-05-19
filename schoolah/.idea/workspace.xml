@@ -2,10 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1ac09e87-2e0a-4910-bd77-7e9f8479a70c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/ScheduleShift.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/ScheduleClass.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/user/staff/class-schedule.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Course.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Course.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/StaffController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/StaffController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/user/staff/shift.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/staff/shift.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/TeacherController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/TeacherController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Question.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Question.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/QuestionChoice.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/QuestionChoice.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Teacher.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Teacher.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/app-admin.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/app-admin.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/user/teacher/packet-question.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/teacher/packet-question.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -16,41 +23,26 @@
   </component>
   <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
+    <execution>
+      <executable />
+    </execution>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/user/staff/packet.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="7728">
-              <caret line="555" column="20" selection-start-line="555" selection-start-column="20" selection-end-line="567" selection-end-column="22" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/resources/views/user/staff/shift.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="287" column="25" lean-forward="true" selection-start-line="287" selection-start-column="25" selection-end-line="287" selection-end-column="25" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/StaffController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="302">
-              <caret line="737" column="104" selection-start-line="737" selection-start-column="104" selection-end-line="737" selection-end-column="104" />
+            <state relative-caret-position="70">
+              <caret line="824" column="89" selection-start-line="824" selection-start-column="89" selection-end-line="824" selection-end-column="89" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/ScheduleShift.php">
+        <entry file="file://$PROJECT_DIR$/app/ScheduleClass.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="9" column="85" selection-start-line="9" selection-start-column="85" selection-end-line="9" selection-end-column="85" />
+            <state relative-caret-position="84">
+              <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
             </state>
           </provider>
         </entry>
@@ -58,8 +50,42 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/web.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="890">
-              <caret line="107" column="44" selection-start-line="107" selection-start-column="44" selection-end-line="107" selection-end-column="44" />
+            <state relative-caret-position="228">
+              <caret line="111" column="75" selection-start-line="111" selection-start-column="61" selection-end-line="111" selection-end-column="75" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/user/staff/class-schedule.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="3220">
+              <caret line="343" column="105" selection-start-line="343" selection-start-column="105" selection-end-line="343" selection-end-column="105" />
+              <folding>
+                <element signature="e#2865#2884#0#HTML" expanded="true" />
+                <element signature="e#2929#2948#0#HTML" expanded="true" />
+                <element signature="e#2995#3014#0#HTML" expanded="true" />
+                <element signature="e#3062#3081#0#HTML" expanded="true" />
+                <element signature="e#3127#3146#0#HTML" expanded="true" />
+                <element signature="e#3191#3210#0#HTML" expanded="true" />
+                <element signature="e#3179#3196#0#HTML" expanded="true" />
+                <element signature="e#3280#3303#0#HTML" expanded="true" />
+                <element signature="e#3342#3365#0#HTML" expanded="true" />
+                <element signature="e#3404#3427#0#HTML" expanded="true" />
+                <element signature="e#3528#3551#0#HTML" expanded="true" />
+                <element signature="e#3466#3489#0#HTML" expanded="true" />
+                <element signature="e#3590#3613#0#HTML" expanded="true" />
+                <element signature="e#5040#5080#0#HTML" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/user/staff/class.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="200">
+              <caret line="917" column="22" lean-forward="true" selection-start-line="905" selection-start-column="20" selection-end-line="917" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -68,36 +94,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>valid</find>
-      <find>view cont</find>
-      <find>View Cont</find>
-      <find>contributor</find>
-      <find>contributors</find>
-      <find>add-packet-contributor</find>
-      <find>deleteContributor</find>
-      <find>addPack</find>
-      <find>viewContributor</find>
-      <find>getPacketContributor</find>
-      <find>get-all-teacher-for-option</find>
-      <find>whereNotIn</find>
-      <find>auth</find>
-      <find>getAllTeacherForOption</find>
-      <find>back</find>
-      <find>delete-con</find>
-      <find>delete-packet-contributor</find>
-      <find>validateForm</find>
-      <find>:class=</find>
-      <find>isNumber</find>
-      <find>must more</find>
-      <find>isNumb</find>
-      <find>activeFromDate</find>
-      <find>form</find>
-      <find>number</find>
-      <find>toggle</find>
-      <find>fillEditForm</find>
+      <find>studentCodes</find>
+      <find>get-teacher</find>
+      <find>border</find>
+      <find>selectedClass</find>
+      <find>selectChoiceCourse</find>
+      <find>add-schedule</find>
+      <find>validateSchedule</find>
+      <find>getTeac</find>
+      <find>must be se</find>
+      <find>manage-s</find>
+      <find>add-sc</find>
+      <find>getAllSchedule</find>
+      <find>selectedClassId</find>
+      <find>addSchedule</find>
+      <find>wit</find>
+      <find>with</find>
+      <find>page</find>
+      <find>search</find>
+      <find>addS</find>
+      <find>manage</find>
+      <find>manageSchedule</find>
+      <find>getAllClassSchedule</find>
+      <find>day</find>
+      <find>setSchedule</find>
+      <find>getCourseFromHtml</find>
+      <find>getSelectedCourse</find>
       <find>console</find>
-      <find>getA</find>
-      <find>getAllScheduleShift</find>
+      <find>modal-footer</find>
+      <find>swa</find>
+      <find>manage-schedule</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -106,19 +132,12 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/resources/views/user/staff/finance.blade.php" />
-        <option value="$PROJECT_DIR$/app/Http/Middleware/ResetPassword.php" />
-        <option value="$PROJECT_DIR$/resources/views/auth/login.blade.php" />
-        <option value="$PROJECT_DIR$/database/migrations/2019_04_13_080734_create_teachers_table.php" />
-        <option value="$PROJECT_DIR$/app/Guardian.php" />
-        <option value="$PROJECT_DIR$/resources/views/user/staff/guardian.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/user/staff/teacher.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/user/staff/student.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/mail/school.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/user/teacher/finance.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/layouts/app.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Kernel.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/TeacherController.php" />
         <option value="$PROJECT_DIR$/resources/views/reset-password.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Middleware/ResetAvatar.php" />
         <option value="$PROJECT_DIR$/resources/views/reset-avatar.blade.php" />
@@ -136,7 +155,6 @@
         <option value="$PROJECT_DIR$/database/migrations/2019_04_13_080750_create_schedule_details_table.php" />
         <option value="$PROJECT_DIR$/database/migrations/2019_04_13_080747_create_schedule_shifts_table.php" />
         <option value="$PROJECT_DIR$/database/migrations/2019_04_13_080745_create_schedule_shift_types_table.php" />
-        <option value="$PROJECT_DIR$/resources/views/layouts/app-admin.blade.php" />
         <option value="$PROJECT_DIR$/database/migrations/2019_05_01_115526_add_shift_to_schedule_shifts_table.php" />
         <option value="$PROJECT_DIR$/resources/views/user/staff/course.blade.php" />
         <option value="$PROJECT_DIR$/database/migrations/2019_04_13_080755_create_contributor_teachers_table.php" />
@@ -146,17 +164,25 @@
         <option value="$PROJECT_DIR$/database/migrations/2019_04_13_080749_create_schedule_classes_table.php" />
         <option value="$PROJECT_DIR$/database/migrations/2019_04_13_080746_create_schedule_shifts_table.php" />
         <option value="$PROJECT_DIR$/resources/views/user/staff/class.blade.php" />
-        <option value="$PROJECT_DIR$/app/Course.php" />
         <option value="$PROJECT_DIR$/app/Packet.php" />
         <option value="$PROJECT_DIR$/app/User.php" />
         <option value="$PROJECT_DIR$/app/ContributionTeacher.php" />
         <option value="$PROJECT_DIR$/app/ContributorTeacher.php" />
-        <option value="$PROJECT_DIR$/app/Teacher.php" />
         <option value="$PROJECT_DIR$/resources/views/user/staff/packet.blade.php" />
         <option value="$PROJECT_DIR$/app/ScheduleShift.php" />
-        <option value="$PROJECT_DIR$/routes/web.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/StaffController.php" />
         <option value="$PROJECT_DIR$/resources/views/user/staff/shift.blade.php" />
+        <option value="$PROJECT_DIR$/storage/framework/views/a2a0a78ffd1f65a89af79d2c5adeb0d45272e7e7.php" />
+        <option value="$PROJECT_DIR$/app/QuestionChoice.php" />
+        <option value="$PROJECT_DIR$/app/Question.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/TeacherController.php" />
+        <option value="$PROJECT_DIR$/resources/views/user/teacher/packet-question.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/layouts/app-admin.blade.php" />
+        <option value="$PROJECT_DIR$/app/Teacher.php" />
+        <option value="$PROJECT_DIR$/app/Course.php" />
+        <option value="$PROJECT_DIR$/app/ScheduleClass.php" />
+        <option value="$PROJECT_DIR$/routes/web.php" />
+        <option value="$PROJECT_DIR$/resources/views/user/staff/class-schedule.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/StaffController.php" />
       </list>
     </option>
   </component>
@@ -293,24 +319,6 @@
             <path>
               <item name="schoolah" type="b2602c69:ProjectViewProjectNode" />
               <item name="schoolah" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="Http" type="462c0819:PsiDirectoryNode" />
-              <item name="Middleware" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="schoolah" type="b2602c69:ProjectViewProjectNode" />
-              <item name="schoolah" type="462c0819:PsiDirectoryNode" />
-              <item name="database" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="schoolah" type="b2602c69:ProjectViewProjectNode" />
-              <item name="schoolah" type="462c0819:PsiDirectoryNode" />
-              <item name="database" type="462c0819:PsiDirectoryNode" />
-              <item name="migrations" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="schoolah" type="b2602c69:ProjectViewProjectNode" />
-              <item name="schoolah" type="462c0819:PsiDirectoryNode" />
               <item name="public" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -346,6 +354,14 @@
               <item name="views" type="462c0819:PsiDirectoryNode" />
               <item name="user" type="462c0819:PsiDirectoryNode" />
               <item name="staff" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="schoolah" type="b2602c69:ProjectViewProjectNode" />
+              <item name="schoolah" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="user" type="462c0819:PsiDirectoryNode" />
+              <item name="teacher" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="schoolah" type="b2602c69:ProjectViewProjectNode" />
@@ -468,18 +484,22 @@
       <workItem from="1557054655673" duration="77000" />
       <workItem from="1557066800708" duration="84000" />
       <workItem from="1557142958173" duration="4585000" />
-      <workItem from="1557150857956" duration="3623000" />
+      <workItem from="1557150857956" duration="3933000" />
+      <workItem from="1557205469717" duration="168000" />
+      <workItem from="1557220136476" duration="602000" />
+      <workItem from="1558174905690" duration="19511000" />
+      <workItem from="1558259527264" duration="15942000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="234144000" />
+    <option name="totallyTimeSpent" value="270677000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="64" y="-11" width="1857" height="1092" extended-state="6" />
+    <frame x="65" y="-4" width="1855" height="1084" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.29961306" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.31398562" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -492,8 +512,8 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.32925585" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="10" sideWeight="0.4997236" visible="true" weight="0.20591234" />
-      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.5002764" side_tool="true" weight="0.2701325" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" sideWeight="0.498618" visible="true" weight="0.30479103" />
+      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.501382" side_tool="true" weight="0.29765546" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -504,64 +524,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/resources/views/home.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="481">
-          <caret line="156" column="52" selection-start-line="156" selection-start-column="39" selection-end-line="156" selection-end-column="52" />
-          <folding>
-            <element signature="e#6001#6021#0#HTML" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/user/admin/feedback.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="601">
-          <caret line="95" column="45" selection-start-line="95" selection-start-column="45" selection-end-line="95" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Feedback.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="9" column="28" selection-start-line="9" selection-start-column="28" selection-end-line="9" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/SchoolController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/HomeController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="181">
-          <caret line="135" column="14" lean-forward="true" selection-start-line="135" selection-start-column="14" selection-end-line="135" selection-end-column="14" />
-          <folding>
-            <element signature="e#40#57#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/StudentController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/TeacherController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="12" column="44" selection-start-line="12" selection-start-column="20" selection-end-line="12" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/HasRelationships.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="227">
@@ -587,13 +549,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Student.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="15" column="5" lean-forward="true" selection-start-line="15" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/StudentClass.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="420">
@@ -605,13 +560,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="532">
           <caret line="19" column="8" selection-start-line="19" selection-start-column="8" selection-end-line="19" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/TeacherClass.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="17" column="33" selection-start-line="17" selection-start-column="33" selection-end-line="17" selection-end-column="33" />
         </state>
       </provider>
     </entry>
@@ -705,13 +653,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/user/staff/course.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="116" column="14" selection-start-line="116" selection-start-column="14" selection-end-line="116" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/user/staff/guardian.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="349">
@@ -733,20 +674,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Packet.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="392">
-          <caret line="14" column="32" selection-start-line="14" selection-start-column="32" selection-end-line="14" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Course.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="532">
-          <caret line="19" column="45" selection-start-line="19" selection-start-column="45" selection-end-line="19" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Middleware/Teacher.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -764,27 +691,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Teacher.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="600">
-          <caret line="24" column="29" selection-start-line="24" selection-start-column="29" selection-end-line="24" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/user/staff/class.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="563">
-          <caret line="99" column="26" selection-start-line="99" selection-start-column="26" selection-end-line="106" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/layouts/app-admin.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="782">
-          <caret line="148" column="13" selection-start-line="148" selection-start-column="13" selection-end-line="148" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/vue-bootstrap-datetimepicker/dist/vue-bootstrap-datetimepicker.js" />
     <entry file="file://$PROJECT_DIR$/database/migrations/2019_04_13_080746_create_schedule_shifts_table.php">
       <provider selected="true" editor-type-id="text-editor">
@@ -793,10 +699,69 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/web.php">
+    <entry file="file://$PROJECT_DIR$/resources/views/user/staff/shift.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="890">
-          <caret line="107" column="44" selection-start-line="107" selection-start-column="44" selection-end-line="107" selection-end-column="44" />
+        <state relative-caret-position="288">
+          <caret line="287" column="25" selection-start-line="287" selection-start-column="25" selection-end-line="287" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/user/staff/course.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="253" column="13" lean-forward="true" selection-start-line="100" selection-start-column="8" selection-end-line="253" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/StudentController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/QuestionChoice.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="392">
+          <caret line="14" column="40" selection-start-line="14" selection-start-column="40" selection-end-line="14" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Packet.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="12" column="26" selection-start-line="12" selection-start-column="20" selection-end-line="12" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Question.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="12" column="35" selection-start-line="12" selection-start-column="35" selection-end-line="12" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/user/teacher/packet-question.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1445">
+          <caret line="97" column="26" selection-start-line="97" selection-start-column="26" selection-end-line="97" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/TeacherController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="462">
+          <caret line="83" column="41" selection-start-line="83" selection-start-column="41" selection-end-line="83" selection-end-column="41" />
+          <folding>
+            <element signature="e#40#67#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/user/staff/packet.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="116">
+          <caret line="82" column="22" lean-forward="true" selection-start-line="82" selection-start-column="22" selection-end-line="89" selection-end-column="22" />
         </state>
       </provider>
     </entry>
@@ -807,24 +772,96 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/user/staff/packet.blade.php">
+    <entry file="file://$PROJECT_DIR$/app/ScheduleDetailPacket.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7728">
-          <caret line="555" column="20" selection-start-line="555" selection-start-column="20" selection-end-line="567" selection-end-column="22" />
+        <state relative-caret-position="168">
+          <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Student.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="294">
+          <caret line="13" column="5" lean-forward="true" selection-start-line="13" selection-start-column="5" selection-end-line="14" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/layouts/app-admin.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="392">
+          <caret line="80" column="123" selection-start-line="80" selection-start-column="123" selection-end-line="80" selection-end-column="123" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Teacher.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="25" column="5" lean-forward="true" selection-start-line="25" selection-start-column="5" selection-end-line="30" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Course.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="574">
+          <caret line="25" column="5" selection-start-line="25" selection-start-column="5" selection-end-line="25" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/user/staff/class.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="917" column="22" lean-forward="true" selection-start-line="905" selection-start-column="20" selection-end-line="917" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/web.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="111" column="75" selection-start-line="111" selection-start-column="61" selection-end-line="111" selection-end-column="75" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/user/staff/class-schedule.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3220">
+          <caret line="343" column="105" selection-start-line="343" selection-start-column="105" selection-end-line="343" selection-end-column="105" />
+          <folding>
+            <element signature="e#2865#2884#0#HTML" expanded="true" />
+            <element signature="e#2929#2948#0#HTML" expanded="true" />
+            <element signature="e#2995#3014#0#HTML" expanded="true" />
+            <element signature="e#3062#3081#0#HTML" expanded="true" />
+            <element signature="e#3127#3146#0#HTML" expanded="true" />
+            <element signature="e#3191#3210#0#HTML" expanded="true" />
+            <element signature="e#3179#3196#0#HTML" expanded="true" />
+            <element signature="e#3280#3303#0#HTML" expanded="true" />
+            <element signature="e#3342#3365#0#HTML" expanded="true" />
+            <element signature="e#3404#3427#0#HTML" expanded="true" />
+            <element signature="e#3528#3551#0#HTML" expanded="true" />
+            <element signature="e#3466#3489#0#HTML" expanded="true" />
+            <element signature="e#3590#3613#0#HTML" expanded="true" />
+            <element signature="e#5040#5080#0#HTML" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/ScheduleClass.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/TeacherClass.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/StaffController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="302">
-          <caret line="737" column="104" selection-start-line="737" selection-start-column="104" selection-end-line="737" selection-end-column="104" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/user/staff/shift.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="287" column="25" lean-forward="true" selection-start-line="287" selection-start-column="25" selection-end-line="287" selection-end-column="25" />
+        <state relative-caret-position="70">
+          <caret line="824" column="89" selection-start-line="824" selection-start-column="89" selection-end-line="824" selection-end-column="89" />
         </state>
       </provider>
     </entry>

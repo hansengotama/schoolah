@@ -9,6 +9,7 @@ use App\Grade;
 use App\Guardian;
 use App\Mail\SendEmail;
 use App\Packet;
+use App\ScheduleClass;
 use App\ScheduleShift;
 use App\School;
 use App\Student;
@@ -145,7 +146,7 @@ class StaffController extends Controller
         return response()->json($request->all(), 200);
     }
 
-    public function manageClass()
+    public function manageClassView()
     {
         return view('user.staff.class');
     }
@@ -798,5 +799,84 @@ class StaffController extends Controller
         $scheduleShift->delete();
 
         return response()->json($scheduleShift, 200);
+    }
+
+    public function manageClassScheduleView()
+    {
+        return view('user.staff.class-schedule');
+    }
+
+    public function getSelectedCourse($day, $shift, $classId)
+    {
+        $teacherClass = TeacherClass::where('grade_id', $classId);
+        $teacherId = $teacherClass->pluck('teacher_id');
+        $courseId = $teacherClass->pluck('course_id');
+        $scheduleClassTeacherId = ScheduleClass::where("day", $day)
+            ->where('order', $shift)
+            ->whereIn('teacher_id', $teacherId)
+            ->whereNotIn('grade_id', [$classId])
+            ->pluck('teacher_id');
+
+        if($scheduleClassTeacherId->isEmpty()) {
+            $courses = Course::whereIn("id", $courseId)
+                ->select("id", "name")
+                ->get();
+        }else {
+            $teacherClass = $teacherClass->whereIn("teacher_id", $scheduleClassTeacherId)->pluck("course_id");
+
+            $courses = Course::whereIn("id", $courseId)
+                ->whereNotIn("id", $teacherClass)
+                ->select("id", "name")
+                ->get();
+        }
+
+        return response()->json($courses, 200);
+    }
+
+    public function addSchedule(Request $request)
+    {
+        $teacherClass = TeacherClass::where("grade_id", $request->classId)->where("course_id", $request->courseId)->first();
+
+        $scheduleClass = ScheduleClass::where("order", $request->shift)->where("day", $request->day)->where("grade_id", $request->classId)->first();
+
+        if($scheduleClass == null) {
+            ScheduleClass::create([
+                "teacher_id" => $teacherClass->teacher_id,
+                "grade_id" => $request->classId,
+                "course_id" => $request->courseId,
+                "order" => $request->shift,
+                "day" => $request->day
+            ]);
+        }else {
+            $scheduleClass->update([
+                "teacher_id" => $teacherClass->teacher_id,
+                "grade_id" => $request->classId,
+                "course_id" => $request->courseId,
+                "order" => $request->shift,
+                "day" => $request->day
+            ]);
+        }
+
+        return response()->json($request->all(), 200);
+    }
+
+    public function getAllClassSchedule($class_id)
+    {
+        $scheduleClasses = ScheduleClass::where("grade_id", $class_id)->with(["teacher", "course"])->get();
+        foreach ($scheduleClasses as $scheduleClass) {
+            $user = User::where("id", $scheduleClass->teacher->user_id)->first();
+            $scheduleClass->teacher->name = $user->name;
+        }
+
+        return response()->json($scheduleClasses, 200);
+    }
+
+    public function deleteSchedule(Request $request)
+    {
+        $scheduleClass = ScheduleClass::where("order", $request->shift)->where("day", $request->day)->where("grade_id", $request->classId)->first();
+
+        $scheduleClass->delete();
+
+        return response()->json($request->all(), 200);
     }
 }

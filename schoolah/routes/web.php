@@ -16,8 +16,8 @@ Auth::routes();
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/', 'HomeController@index')->name('home');
     Route::get('/home', 'HomeController@index')->name('home');
-    Route::get('/get-user-data', 'HomeController@getUserData');
     Route::get('/logout', 'HomeController@logout')->name('logout');
+    Route::get('/get-user-data', 'HomeController@getUserData');
     Route::get('/reset-password', 'HomeController@resetPassword');
     Route::post('/reset-password-action', 'HomeController@resetPasswordAction');
     Route::get('/reset-avatar', 'HomeController@resetAvatar');
@@ -28,6 +28,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
         Route::get('/manage-school-view', 'AdminController@schoolView')->name('manage-school-view');
+        Route::get('/feedback-view', 'AdminController@feedbackView')->name('feedback-view');
         Route::get('/get-all-school', 'AdminController@getAllSchool');
         Route::post('/get-school', 'AdminController@getSchool');
         Route::post('/add-school', 'AdminController@addSchool');
@@ -38,7 +39,6 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/find-staff', 'AdminController@findStaff');
         Route::post('/edit-staff', 'AdminController@editStaff');
         Route::post('/delete-staff', 'AdminController@deleteStaff');
-        Route::get('/feedback-view', 'AdminController@feedbackView')->name('feedback-view');
         Route::get('/get-all-feedback', 'AdminController@getAllFeedback');
         Route::post('/delete-feedback', 'AdminController@deleteFeedback');
     });
@@ -47,7 +47,8 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/manage-teacher-view', 'StaffController@manageTeacherView')->name('manage-teacher-view');
             Route::get('/manage-student-view', 'StaffController@manageStudentView')->name('manage-student-view');
             Route::get('/manage-guardian-view', 'StaffController@manageGuardianView')->name('manage-guardian-view');
-            Route::get('/manage-class-view', 'StaffController@manageClass')->name('staff-manage-class-view');
+            Route::get('/manage-class-view', 'StaffController@manageClassView')->name('staff-manage-class-view');
+            Route::get('/manage-class-schedule-view', 'StaffController@manageClassScheduleView')->name('staff-manage-class-schedule-view');
             Route::get('/manage-finance-view', 'StaffController@manageFinance')->name('manage-finance-view');
             Route::get('/manage-packet-view', 'StaffController@managePacketView')->name('manage-packet-view');
             Route::get('/manage-course-view', 'StaffController@manageCourseView')->name('manage-course-view');
@@ -106,11 +107,22 @@ Route::group(['middleware' => ['auth']], function () {
             Route::post('/delete-schedule-shift', 'StaffController@deleteScheduleShift');
             Route::get('/get-all-schedule-shift', 'StaffController@getAllScheduleShift');
             Route::post('/get-schedule-shift', 'StaffController@getScheduleShift');
+            Route::get('/get-selected-course/{day}/{shift}/{class_id}', 'StaffController@getSelectedCourse');
+            Route::post('/add-schedule', 'StaffController@addSchedule');
+            Route::post('/delete-schedule', 'StaffController@deleteSchedule');
+            Route::get('/get-all-class-schedule/{class_id}', 'StaffController@getAllClassSchedule');
+
         });
         Route::group(['middleware' => 'resetavatar'], function () {
             Route::group(['middleware' => 'teacher', 'prefix' => 'teacher'], function () {
                 Route::get('/manage-class-view', 'TeacherController@manageClassView')->name('manage-class-view');
                 Route::get('/manage-packet-question-view', 'TeacherController@managePacketQuestionView')->name('manage-packet-question-view');
+                Route::get('/get-packet-question', 'TeacherController@packetQuestion');
+                Route::post('/add-question', 'TeacherController@addQuestion');
+                Route::post('/edit-question', 'TeacherController@editQuestion');
+                Route::post('/delete-question', 'TeacherController@deleteQuestion');
+                Route::get('/get-all-question/{packet_id}', 'TeacherController@getAllQuestion');
+                Route::get('/get-question/{question_id}', 'TeacherController@getQuestionById');
             });
             Route::group(['middleware' => 'student', 'prefix' => 'student'], function () {
 
@@ -122,5 +134,3 @@ Route::group(['middleware' => ['auth']], function () {
     });
 
 });
-
-Auth::routes();

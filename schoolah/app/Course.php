@@ -19,4 +19,9 @@ class Course extends Model
     {
         return $this->hasMany(Packet::class);
     }
+
+    public function scheduleClass()
+    {
+        return $this->hasOne(ScheduleClass::class);
+    }
 }

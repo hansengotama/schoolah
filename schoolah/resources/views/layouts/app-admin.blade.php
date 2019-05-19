@@ -77,6 +77,11 @@
                         </li>
                     </ul>
                     <ul class="navbar-nav">
+                        <li class="nav-item {{ (Request::route()->getName() == 'staff-manage-class-schedule-view') ? 'active' : '' }}">
+                            <a class="nav-link white" href="{{ route('staff-manage-class-schedule-view') }}">Class Schedule<span class="sr-only">(current)</span></a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav">
                         <li class="nav-item {{ (Request::route()->getName() == 'manage-course-view') ? 'active' : '' }}">
                             <a class="nav-link white" href="{{ route('manage-course-view') }}">Course <span class="sr-only">(current)</span></a>
                         </li>
@@ -99,7 +104,7 @@
                         </li>
                     </ul>
                     <ul class="navbar-nav">
-                        <li class="nav-item {{ (Request::route()->getName() == 'manage-packet-view') ? 'active' : '' }}">
+                        <li class="nav-item {{ (Request::route()->getName() == 'manage-packet-question-view') ? 'active' : '' }}">
                             <a class="nav-link white" href="{{ route('manage-packet-question-view') }}">Packet Question <span class="sr-only">(current)</span></a>
                         </li>
                     </ul>

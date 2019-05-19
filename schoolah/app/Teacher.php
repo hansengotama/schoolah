@@ -24,4 +24,9 @@ class Teacher extends Model
     {
         return $this->hasOne(ContributorTeacher::class);
     }
+
+    public function scheduleClass()
+    {
+        return $this->hasOne(ScheduleClass::class);
+    }
 }

@@ -15,15 +15,15 @@ class CreateScheduleDetailsTable extends Migration
     {
         Schema::create('schedule_details', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('schedule_class_id')->unsigned();
+            $table->integer('schedule_class_id')->unsigned()->nullable();
             $table->foreign('schedule_class_id')->references('id')->on('schedule_classes')->onDelete('cascade');
             $table->integer('school_id')->unsigned();
             $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
+            $table->integer('class_id')->unsigned();
+            $table->foreign('class_id')->references('id')->on('grades')->onDelete('cascade');
             $table->string('schedule_type');
             $table->string('name');
-            $table->integer('level');
-            $table->dateTime('start_date');
-            $table->dateTime('end_date');
+            $table->dateTime('date');
             $table->timestamps();
         });
     }

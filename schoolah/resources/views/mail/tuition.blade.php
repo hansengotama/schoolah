@@ -109,35 +109,32 @@
                     </tr>
                     <tr>
                         <td class="content">
-                            <h2 style="color: black !important;">Hi, {{ $e_message['name'] }}</h2>
+                            <h3 style="color: black !important;text-align: center">Payment Reminder </h3>
+                            <p style="color: black !important;">Dear, <b>Mr/Mrs {{ $e_message['name'] }}</b></p>
                             <p style="color: black !important;">
-                                Thanks for trusting Schoolah, hope you enjoy using Schoolah.
-                                Below is your username and password please keep it and don't tell it to other people.
+                                Your outstanding bill is <b>Rp {{ $e_message['price'] }},-</b> for the following :
                             </p>
                             <table>
                                 <tr>
                                     <td style="text-align: left">
                                         <p style="color: black !important;">
-                                            Username : <b style="color: black !important; text-decoration: none !important;">{{ $e_message['email'] }}</b> <br>
-                                            Password : <b>{{ $e_message['password'] }}</b> <br>
-                                            School : <b>{{ $e_message['school_name'] }}</b> <br>
-                                            Role : <b>{{ $e_message['role'] }}</b>
+                                            Student Name : <b>{{ $e_message['name'] }}</b> <br>
+                                            Description : <b>{{ $e_message['description'] }}</b> <br>
                                         </p>
                                         <p style="color: black !important;">
-                                            Please change your password after you login!
+                                            This is a gentle reminder to make the payment by <b>{{ $e_message['dueDate'] }}</b>.
+                                        </p>
+                                        <p style="color: red;">
+                                            Please upload the proof of transaction to Schoolah once payment has been made.
                                         </p>
                                     </td>
                                 </tr>
                             </table>
 
-                            <p style="color: black !important;">“Work hard, be kind and amazing things will happen.” </p>
-
-                            <p><em style="color: black !important;">– Conan O'Brien</em></p>
-
+                            <p style="color: black !important;">Thank you for your attention and please reach me if you have any questions. </p>
                         </td>
                     </tr>
                 </table>
-
             </td>
         </tr>
         <tr>

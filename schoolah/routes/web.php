@@ -49,10 +49,10 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/manage-guardian-view', 'StaffController@manageGuardianView')->name('manage-guardian-view');
             Route::get('/manage-class-view', 'StaffController@manageClassView')->name('staff-manage-class-view');
             Route::get('/manage-class-schedule-view', 'StaffController@manageClassScheduleView')->name('staff-manage-class-schedule-view');
-            Route::get('/manage-finance-view', 'StaffController@manageFinance')->name('manage-finance-view');
             Route::get('/manage-packet-view', 'StaffController@managePacketView')->name('manage-packet-view');
             Route::get('/manage-course-view', 'StaffController@manageCourseView')->name('manage-course-view');
             Route::get('/manage-schedule-shift-view', 'StaffController@manageScheduleShiftView')->name('manage-schedule-shift-view');
+            Route::get('/manage-tuition-view', 'StaffController@manageTuitionView')->name('manage-tuition-view');
             Route::get('/get-all-teacher', 'StaffController@getAllTeacher');
             Route::post('/add-teacher', 'StaffController@addTeacher');
             Route::post('/get-teacher', 'StaffController@getTeacher');
@@ -97,6 +97,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::post('/edit-packet', 'StaffController@editPacket');
             Route::post('/delete-packet', 'StaffController@deletePacket');
             Route::get('/get-all-packet', 'StaffController@getAllPacket');
+            Route::get('/get-all-exam-packet', 'StaffController@getAllExamPacket');
             Route::get('/get-packet/{packet_id}', 'StaffController@getPacketById');
             Route::get('/get-packet-contributor/{packet_id}', 'StaffController@getPacketContributor');
             Route::get('/get-teacher-name-by-teacher-id/{teacher_id}', 'StaffController@getTeacherNameByTeacherId');
@@ -111,7 +112,16 @@ Route::group(['middleware' => ['auth']], function () {
             Route::post('/add-schedule', 'StaffController@addSchedule');
             Route::post('/delete-schedule', 'StaffController@deleteSchedule');
             Route::get('/get-all-class-schedule/{class_id}', 'StaffController@getAllClassSchedule');
-
+            Route::post('/add-tuition', 'StaffController@addTuition');
+            Route::get('/get-tuition/{class_id}', 'StaffController@getTuitionByClassId');
+            Route::post('/create-schedule-holiday', 'StaffController@createScheduleHoliday');
+            Route::get('/get-holiday-schedules/{class_id}', 'StaffController@getHolidaySchedules');
+            Route::post('/remove-holiday-schedule', 'StaffController@removeHolidaySchedule');
+            Route::post('/create-schedule-exam', 'StaffController@createScheduleExam');
+            Route::get('/get-exam-schedules/{class_id}', 'StaffController@getExamSchedules');
+            Route::post('/remove-exam-schedule', 'StaffController@removeExamSchedule');
+            Route::get('/get-exam-schedule/{id}', 'StaffController@getExamScheduleById');
+            Route::post('/edit-exam-schedule', 'StaffController@editExamSchedule');
         });
         Route::group(['middleware' => 'resetavatar'], function () {
             Route::group(['middleware' => 'teacher', 'prefix' => 'teacher'], function () {

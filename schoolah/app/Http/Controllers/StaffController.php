@@ -8,14 +8,20 @@ use App\Grade;
 
 use App\Guardian;
 use App\Mail\SendEmail;
+use App\Mail\SendEmailTuition;
+use App\Mail\SendEmailTuitionParent;
 use App\Packet;
 use App\ScheduleClass;
+use App\ScheduleDetail;
+use App\ScheduleDetailPacket;
 use App\ScheduleShift;
 use App\School;
 use App\Student;
 use App\StudentClass;
 use App\Teacher;
 use App\TeacherClass;
+use App\Tuition;
+use App\TuitionHistory;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -158,7 +164,7 @@ class StaffController extends Controller
         $user = User::where('school_id', $schoolId)->pluck('id')->all();
         $teachers = Teacher::whereNotIn("id", $grade)
             ->whereIn("user_id", $user)
-            ->with(['user'=>function($query) {
+            ->with(['user' => function ($query) {
                 $query->select('id', 'name');
             }])
             ->select('id as value', 'user_id')->get();
@@ -353,18 +359,18 @@ class StaffController extends Controller
         return view('user.staff.student');
     }
 
-    public function manageFinance()
+    public function manageTuitionView()
     {
-        return view('user.staff.finance');
+        return view('user.staff.tuition');
     }
 
     public function getAllStudent($class_id)
     {
         $schoolId = Auth::user()->school_id;
 
-        if($class_id == 0) {
+        if ($class_id == 0) {
             $users = User::where("school_id", $schoolId)->where("role", "student")->get();
-        }else {
+        } else {
 
         }
         foreach ($users as $user) {
@@ -503,7 +509,8 @@ class StaffController extends Controller
         return response()->json($request->all(), 200);
     }
 
-    public function getStudent($student_id) {
+    public function getStudent($student_id)
+    {
         $student = Student::where("id", $student_id)->with('user')->first();
 
         return response()->json($student, 200);
@@ -561,11 +568,13 @@ class StaffController extends Controller
         return response()->json($request->all(), 200);
     }
 
-    public function managePacketView() {
+    public function managePacketView()
+    {
         return view('user.staff.packet');
     }
 
-    public function getTeacherClassCourse($class_id) {
+    public function getTeacherClassCourse($class_id)
+    {
         $teacherClasses = TeacherClass::where("grade_id", $class_id)->with(["course", "teacher"])->get();
         foreach ($teacherClasses as $teacherClass) {
             $teacher = User::where("id", $teacherClass->teacher->user_id)->first();
@@ -575,7 +584,8 @@ class StaffController extends Controller
         return response()->json($teacherClasses, 200);
     }
 
-    public function addTeacherClassCourse(Request $request) {
+    public function addTeacherClassCourse(Request $request)
+    {
         TeacherClass::create([
             "teacher_id" => $request->teacherId,
             "grade_id" => $request->classId,
@@ -639,6 +649,14 @@ class StaffController extends Controller
     {
         $schoolId = Auth::user()->school_id;
         $packets = Packet::where('school_id', $schoolId)->with('course')->get();
+
+        return response()->json($packets, 200);
+    }
+
+    public function getAllExamPacket()
+    {
+        $schoolId = Auth::user()->school_id;
+        $packets = Packet::where('school_id', $schoolId)->where('type', 'Exam')->with('course')->get();
 
         return response()->json($packets, 200);
     }
@@ -736,7 +754,7 @@ class StaffController extends Controller
     public function getAllScheduleShift()
     {
         $schoolId = Auth::user()->school_id;
-        $scheduleShifts = ScheduleShift::where('school_id', $schoolId)->orderBy("active_from_date" ,"asc")->get();
+        $scheduleShifts = ScheduleShift::where('school_id', $schoolId)->orderBy("active_from_date", "asc")->get();
 
         return response()->json($scheduleShifts, 200);
     }
@@ -746,7 +764,7 @@ class StaffController extends Controller
         $schoolId = Auth::user()->school_id;
         $activeFromDate = null;
         $activeUntilDate = null;
-        if(! ($request->checked)) {
+        if (!($request->checked)) {
             $activeFromDate = $request->activeFromDate;
             $activeUntilDate = $request->activeUntilDate;
         }
@@ -768,7 +786,7 @@ class StaffController extends Controller
         $schoolId = Auth::user()->school_id;
         $activeFromDate = null;
         $activeUntilDate = null;
-        if(! ($request->checked)) {
+        if (!($request->checked)) {
             $activeFromDate = $request->activeFromDate;
             $activeUntilDate = $request->activeUntilDate;
         }
@@ -817,11 +835,11 @@ class StaffController extends Controller
             ->whereNotIn('grade_id', [$classId])
             ->pluck('teacher_id');
 
-        if($scheduleClassTeacherId->isEmpty()) {
+        if ($scheduleClassTeacherId->isEmpty()) {
             $courses = Course::whereIn("id", $courseId)
                 ->select("id", "name")
                 ->get();
-        }else {
+        } else {
             $teacherClass = $teacherClass->whereIn("teacher_id", $scheduleClassTeacherId)->pluck("course_id");
 
             $courses = Course::whereIn("id", $courseId)
@@ -839,7 +857,7 @@ class StaffController extends Controller
 
         $scheduleClass = ScheduleClass::where("order", $request->shift)->where("day", $request->day)->where("grade_id", $request->classId)->first();
 
-        if($scheduleClass == null) {
+        if ($scheduleClass == null) {
             ScheduleClass::create([
                 "teacher_id" => $teacherClass->teacher_id,
                 "grade_id" => $request->classId,
@@ -847,7 +865,7 @@ class StaffController extends Controller
                 "order" => $request->shift,
                 "day" => $request->day
             ]);
-        }else {
+        } else {
             $scheduleClass->update([
                 "teacher_id" => $teacherClass->teacher_id,
                 "grade_id" => $request->classId,
@@ -878,5 +896,194 @@ class StaffController extends Controller
         $scheduleClass->delete();
 
         return response()->json($request->all(), 200);
+    }
+
+    public function addTuition(Request $request)
+    {
+        $schoolId = Auth::user()->school_id;
+        foreach ($request->class as $grade) {
+            $studentClasses = StudentClass::where("grade_id", $grade)->with(["student" => function ($query) {
+                $query->with(["user", "guardian" => function ($query) {
+                    $query->with("user");
+                }]);
+            }])->get();
+
+            $tuition = Tuition::create([
+                "school_id" => $schoolId,
+                "price" => $request->price,
+                "due_date" => $request->dueDate,
+                "description" => $request->description
+            ]);
+
+            foreach ($studentClasses as $studentClass) {
+                $studentEmail = $studentClass->student->user->email;
+                $guardianEmail = $studentClass->student->guardian->user->email;
+
+                TuitionHistory::create([
+                    "tuition_id" => $tuition->id,
+                    "student_id" => $studentClass->student->id,
+                    "class_id" => $studentClass->grade_id,
+                    "status" => "unpaid",
+                ]);
+
+                $data = [
+                    "price" => number_format($request->price, "0", ",", "."),
+                    "description" => $request->description,
+                    "dueDate" => Carbon::parse($request->dueDate)->format("d M Y"),
+                    "name" => $studentClass->student->user->name,
+                    "guardian_name" => $studentClass->student->guardian->user->name
+                ];
+
+                Mail::to($studentEmail)->send(new SendEmailTuition('Tuition', $data));
+                Mail::to($guardianEmail)->send(new SendEmailTuitionParent('Tuition', $data));
+            }
+        }
+
+        return response()->json($request->all(), 200);
+    }
+
+    public function getTuitionByClassId($class_id)
+    {
+        $tuitionHistory = TuitionHistory::where("class_id", $class_id)->with(["tuition", "student" => function ($query) {
+            $query->with("user");
+        }])->get()->groupBy("tuition_id");
+
+        return response()->json($tuitionHistory, 200);
+    }
+
+    public function createScheduleHoliday(Request $request)
+    {
+        $schoolId = Auth::user()->school_id;
+
+        $startDate = new \DateTime($request->startDate);
+        $endDate = new \DateTime($request->endDate);
+        $endDate->modify('+1 day');
+
+        $interval = \DateInterval::createFromDateString('1 day');
+        $period = new \DatePeriod($startDate, $interval, $endDate);
+
+        foreach ($period as $dt) {
+            ScheduleDetail::create([
+                "class_id" => $request->classId,
+                "school_id" => $schoolId,
+                "schedule_type" => "holiday",
+                "name" => $request->name,
+                "date" => $dt->format("Y-m-d H:i:s"),
+            ]);
+        }
+
+        return response()->json($request->all(), 200);
+    }
+
+    public function getHolidaySchedules($class_id)
+    {
+        $scheduleDetails = ScheduleDetail::where("schedule_type", "holiday")
+            ->where("class_id", $class_id)
+            ->orderBy('date', 'DESC')->get();
+
+        return response()->json($scheduleDetails, 200);
+    }
+
+    public function removeHolidaySchedule(Request $request)
+    {
+        $scheduleDetail = ScheduleDetail::where("id", $request->id)->first();
+        $scheduleDetail->delete();
+
+        return response()->json($request->all(), 200);
+    }
+
+    public function createScheduleExam(Request $request)
+    {
+        $schoolId = Auth::user()->school_id;
+        $date = new \DateTime($request->date);
+
+        if($request->fullDay) {
+            $scheduleDetail = ScheduleDetail::create([
+                "class_id" => $request->classId,
+                "school_id" => $schoolId,
+                "schedule_type" => "exam",
+                "name" => $request->name,
+                "date" => $date->format("Y-m-d H:i:s"),
+            ]);
+
+            ScheduleDetailPacket::create([
+                "packet_id" => $request->packetId,
+                "schedule_detail_id" => $scheduleDetail->id
+            ]);
+        }else {
+            $day = $date->format("w");
+            $day = (int)$day;
+            $shifts = $request->shift;
+            foreach ($shifts as $shift) {
+                $scheduleClass = ScheduleClass::where("grade_id", $request->classId)
+                    ->where("order", $shift)
+                    ->where("day", $day)
+                    ->first();
+
+                ScheduleDetail::create([
+                    "schedule_class_id" => $scheduleClass->id,
+                    "class_id" => $request->classId,
+                    "school_id" => $schoolId,
+                    "schedule_type" => "exam",
+                    "name" => $request->name,
+                    "date" => $date->format("Y-m-d H:i:s"),
+                ]);
+            }
+        }
+
+        return response()->json($request->all(), 200);
+    }
+
+    public function getExamSchedules($class_id)
+    {
+        $scheduleDetails = ScheduleDetail::where("schedule_type", "exam")
+            ->where("class_id", $class_id)
+            ->orderBy('date', 'DESC')->get();
+
+        foreach ($scheduleDetails as $scheduleDetail) {
+            $scheduleDetailPacket = ScheduleDetailPacket::where("schedule_detail_id", $scheduleDetail->id)
+                ->with("packet")
+                ->first();
+            $scheduleDetail->schedule_detail_packet = $scheduleDetailPacket;
+        }
+        return response()->json($scheduleDetails, 200);
+    }
+
+    public function removeExamSchedule(Request $request)
+    {
+        $scheduleDetail = ScheduleDetail::where("id", $request->id)->first();
+        $scheduleDetailPacket = ScheduleDetailPacket::where("schedule_detail_id", $scheduleDetail->id)->first();
+
+        $scheduleDetailPacket->delete();
+        $scheduleDetail->delete();
+
+        return response()->json($request->all(), 200);
+    }
+
+    public function getExamScheduleById($id)
+    {
+        $scheduleDetail = ScheduleDetail::where("id", $id)->first();
+        $scheduleDetail->schedule_detail_packet = ScheduleDetailPacket::where("schedule_detail_id", $scheduleDetail->id)->first();
+
+        return response()->json($scheduleDetail, 200);
+    }
+
+    public function editExamSchedule(Request $request)
+    {
+        $date = new \DateTime($request->date);
+
+        $scheduleDetail = ScheduleDetail::where("id", $request->scheduleDetailId)->first();
+        $scheduleDetailPacket = ScheduleDetailPacket::where("schedule_detail_id", $request->scheduleDetailId)->first();
+
+        $scheduleDetail->update([
+            "class_id" => $request->classId,
+            "schedule_type" => "exam",
+            "name" => $request->name,
+            "date" => $date->format("Y-m-d H:i:s"),
+        ]);
+
+        $scheduleDetailPacket->update([
+            "packet_id" => $request->packetId,
+        ]);
     }
 }

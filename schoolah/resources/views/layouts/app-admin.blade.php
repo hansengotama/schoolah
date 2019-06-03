@@ -96,6 +96,11 @@
                             <a class="nav-link white" href="{{ route('manage-packet-view') }}">Packet<span class="sr-only">(current)</span></a>
                         </li>
                     </ul>
+                    <ul class="navbar-nav">
+                        <li class="nav-item {{ (Request::route()->getName() == 'manage-tuition-view') ? 'active' : '' }}">
+                            <a class="nav-link white" href="{{ route('manage-tuition-view') }}">Tuition<span class="sr-only">(current)</span></a>
+                        </li>
+                    </ul>
                 @endif
                 @if(Auth::user()->role == 'teacher')
                     <ul class="navbar-nav">

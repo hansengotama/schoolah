@@ -182,8 +182,8 @@
                     order: 1,
                     from: moment().format('hh:mm'),
                     until: moment().format('hh:mm'),
-                    activeFromDate: moment().format('YYYY-DD-MM'),
-                    activeUntilDate: moment().format('YYYY-DD-MM'),
+                    activeFromDate: moment().format('YYYY-MM-DD'),
+                    activeUntilDate: moment().format('YYYY-MM-DD'),
                     checked: true
                 },
                 selectedScheduleShiftId: null
@@ -217,8 +217,8 @@
                     this.formValue.order = 1
                     this.formValue.from = moment().format('hh:mm')
                     this.formValue.until = moment().format('hh:mm')
-                    this.formValue.activeFromDate = moment().format('YYYY-DD-MM')
-                    this.formValue.activeUntilDate = moment().format('YYYY-DD-MM')
+                    this.formValue.activeFromDate = moment().format('YYYY-MM-DD')
+                    this.formValue.activeUntilDate = moment().format('YYYY-MM-DD')
                     this.formValue.checked = true
                 },
                 validateForm(action) {
@@ -264,7 +264,10 @@
                         if(this.formValue.activeUntilDate == "") {
                             this.error.text.activeUntilDate = "active until date must be filled"
                             this.error.class.activeUntilDate = "border-red"
-                        }else {
+                        }else if(moment(this.formValue.activeFromDate) > moment(this.formValue.activeUntilDate)) {
+                            this.error.text.activeUntilDate = "active until date must after or same date with form date"
+                            this.error.class.activeUntilDate = "border-red"
+                        }else{
                             this.error.text.activeUntilDate = ""
                             this.error.class.activeUntilDate = ""
                         }
@@ -295,8 +298,8 @@
                                 shift.from = shift.from.replace(":00", "")
                                 shift.until = shift.until.replace(":00", "")
                                 if(shift.active_from_date || shift.active_until_date) {
-                                    shift.active_from_date = moment(shift.active_from_date).format('YYYY-DD-MM')
-                                    shift.active_until_date = moment(shift.active_until_date).format('YYYY-DD-MM')
+                                    shift.active_until_date = moment(shift.active_until_date).format('DD MMM YYYY')
+                                    shift.active_from_date = moment(shift.active_from_date).format('DD MMM YYYY')
                                 }
                                 index++
                             })
@@ -352,8 +355,8 @@
                             app.formValue.from = response.data.from
                             app.formValue.until = response.data.until
                             if(response.data.active_from_date && response.data.active_until_date) {
-                                app.formValue.activeFromDate = moment(response.data.active_from_date).format('YYYY-DD-MM')
-                                app.formValue.activeUntilDate = moment(response.data.active_until_date).format('YYYY-DD-MM')
+                                app.formValue.activeFromDate = moment(response.data.active_from_date).format('YYYY-MM-DD')
+                                app.formValue.activeUntilDate = moment(response.data.active_until_date).format('YYYY-MM-DD')
                                 app.formValue.checked = false
                             }else {
                                 app.formValue.checked = true

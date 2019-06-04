@@ -23,6 +23,7 @@ class CreateScheduleDetailsTable extends Migration
             $table->foreign('class_id')->references('id')->on('grades')->onDelete('cascade');
             $table->string('schedule_type');
             $table->string('name');
+            $table->integer('shift')->nullable();
             $table->dateTime('date');
             $table->timestamps();
         });

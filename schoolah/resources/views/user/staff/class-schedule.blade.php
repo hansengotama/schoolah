@@ -22,6 +22,14 @@
         .mt-2em {
             margin-top: 2em;
         }
+        .coursename {
+            border: 1px solid #bbe3f1;
+            border-radius: 1em;
+            background: #bbe3f1;
+        }
+        .coursename h6 {
+            margin-bottom: 0;
+        }
     </style>
 @endsection
 
@@ -85,6 +93,7 @@
                                 <th scope="col">#</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Packet Name</th>
+                                <th scope="col">Shift</th>
                                 <th scope="col">Date</th>
                                 <th scope="col">Action</th>
                             </tr>
@@ -94,6 +103,7 @@
                                 <td>@{{ index+1 }}</td>
                                 <td>@{{ examSchedule.name }}</td>
                                 <td>@{{ examSchedule.schedule_detail_packet.packet.name }}</td>
+                                <td>@{{ examSchedule.shift }}</td>
                                 <td>@{{ examSchedule.date }}</td>
                                 <td>
                                     <button class="btn btn-primary" @click="fillFormExamSchedule(examSchedule.id)">Edit</button>
@@ -255,12 +265,11 @@
                                 </select>
                                 <div class="red">@{{ errorExam.text.packet }}</div>
                             </div>
-                            <div class="form-group" v-if="!formExam.fullDay">
+                            <div class="form-group">
                                 <label>Shift</label>
-                                <select :class="'custom-select '+ errorExam.class.shift" multiple v-model="formExam.shifts">
+                                <select :class="'form-control '+ errorExam.class.shift" v-model="formExam.shift">
                                     <option v-for="shift in selectChoice.shifts" :value="shift.value">@{{ shift.value }}</option>
                                 </select>
-                                <small>press ctrl for select more than 1</small>
                                 <div class="red">@{{ errorExam.text.shift }}</div>
                             </div>
                             <div class="form-check">
@@ -303,12 +312,11 @@
                                 </select>
                                 <div class="red">@{{ errorExam.text.packet }}</div>
                             </div>
-                            <div class="form-group" v-if="!formExam.fullDay">
+                            <div class="form-group">
                                 <label>Shift</label>
-                                <select :class="'custom-select '+ errorExam.class.shift" multiple v-model="formExam.shifts">
+                                <select :class="'form-control '+ errorExam.class.shift" v-model="formExam.shift">
                                     <option v-for="shift in selectChoice.shifts" :value="shift.value">@{{ shift.value }}</option>
                                 </select>
-                                <small>press ctrl for select more than 1</small>
                                 <div class="red">@{{ errorExam.text.shift }}</div>
                             </div>
                             <div class="form-check">
@@ -342,7 +350,7 @@
                 },
                 formExam: {
                     name: "",
-                    shifts: [],
+                    shift: 1,
                     date: moment().format('YYYY-MM-DD'),
                     packetId: 0,
                     fullDay: true,
@@ -552,8 +560,8 @@
 
                                 for (let i = 0; i < data.length; i++) {
                                     $(".schedule-" + data[i].day + "-" + data[i].order).html(function () {
-                                        return "<div class='coursename'>" + data[i].course.name + "</div>" +
-                                            "<div><h6>" + data[i].teacher.name + "</h6><div>"
+                                        return "<div class='coursename' style='margin: 0 2em'><h6>" + data[i].course.name + "</h6></div>" +
+                                            "<div style='margin: 0 2em'><h6>" + data[i].teacher.name + "</h6><div>"
                                     })
                                 }
                             }
@@ -654,6 +662,7 @@
                                 $("#add-holiday-schedule").modal("hide")
                                 app.resetHolidayForm()
                                 app.popUpSuccess()
+                                app.getHolidaySchedules()
                             }else {
                                 app.popUpError()
                             }
@@ -744,14 +753,9 @@
                         this.errorExam.class.name = ""
                     }
 
-                    if(!this.formExam.fullDay) {
-                        if(this.formExam.shifts.length == 0) {
-                            this.errorExam.text.shift = "shift must be selected (at least 1)"
-                            this.errorExam.class.shift = "border-red"
-                        }else {
-                            this.errorExam.text.shift = ""
-                            this.errorExam.class.shift = ""
-                        }
+                    if(this.formExam.shift == 0) {
+                        this.errorExam.text.shift = "shift must be selected"
+                        this.errorExam.class.shift = "border-red"
                     }else {
                         this.errorExam.text.shift = ""
                         this.errorExam.class.shift = ""
@@ -781,9 +785,9 @@
                         this.errorExam.class.shift == "" &&
                         this.errorExam.class.date == "" &&
                         this.errorExam.class.packet == "") {
-                        if(action = "edit") {
+                        if(action == "edit") {
                             this.editExam()
-                        }else if(action = "add") {
+                        }else if(action == "add") {
                             this.createExam()
                         }
                     }
@@ -807,7 +811,7 @@
                 },
                 resetExamForm() {
                     this.formExam.name = ""
-                    this.formExam.shifts = []
+                    this.formExam.shift = 1
                     this.formExam.date = moment().format('YYYY-MM-DD')
                     this.formExam.packetId = 0
                     this.formExam.fullDay = true
@@ -863,6 +867,7 @@
                             app.formExam.packetId = data.schedule_detail_packet.packet_id
                             app.formExam.date = moment(data.date).format('YYYY-MM-DD')
                             app.formExam.name = data.name
+                            app.formExam.shift = data.shift
                             $("#edit-exam-schedule").modal("show")
                         }else {
                             app.popUpError()

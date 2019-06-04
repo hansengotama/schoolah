@@ -979,7 +979,7 @@ class StaffController extends Controller
     {
         $scheduleDetails = ScheduleDetail::where("schedule_type", "holiday")
             ->where("class_id", $class_id)
-            ->orderBy('date', 'DESC')->get();
+            ->orderBy('date', 'ASC')->get();
 
         return response()->json($scheduleDetails, 200);
     }
@@ -1004,31 +1004,13 @@ class StaffController extends Controller
                 "schedule_type" => "exam",
                 "name" => $request->name,
                 "date" => $date->format("Y-m-d H:i:s"),
+                "shift" => $request->shift
             ]);
 
             ScheduleDetailPacket::create([
                 "packet_id" => $request->packetId,
                 "schedule_detail_id" => $scheduleDetail->id
             ]);
-        }else {
-            $day = $date->format("w");
-            $day = (int)$day;
-            $shifts = $request->shift;
-            foreach ($shifts as $shift) {
-                $scheduleClass = ScheduleClass::where("grade_id", $request->classId)
-                    ->where("order", $shift)
-                    ->where("day", $day)
-                    ->first();
-
-                ScheduleDetail::create([
-                    "schedule_class_id" => $scheduleClass->id,
-                    "class_id" => $request->classId,
-                    "school_id" => $schoolId,
-                    "schedule_type" => "exam",
-                    "name" => $request->name,
-                    "date" => $date->format("Y-m-d H:i:s"),
-                ]);
-            }
         }
 
         return response()->json($request->all(), 200);
@@ -1038,7 +1020,7 @@ class StaffController extends Controller
     {
         $scheduleDetails = ScheduleDetail::where("schedule_type", "exam")
             ->where("class_id", $class_id)
-            ->orderBy('date', 'DESC')->get();
+            ->orderBy('date', 'ASC')->get();
 
         foreach ($scheduleDetails as $scheduleDetail) {
             $scheduleDetailPacket = ScheduleDetailPacket::where("schedule_detail_id", $scheduleDetail->id)
@@ -1080,6 +1062,7 @@ class StaffController extends Controller
             "schedule_type" => "exam",
             "name" => $request->name,
             "date" => $date->format("Y-m-d H:i:s"),
+            "shift" => $request->shift
         ]);
 
         $scheduleDetailPacket->update([

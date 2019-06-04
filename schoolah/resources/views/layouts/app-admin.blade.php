@@ -78,7 +78,7 @@
                     </ul>
                     <ul class="navbar-nav">
                         <li class="nav-item {{ (Request::route()->getName() == 'staff-manage-class-schedule-view') ? 'active' : '' }}">
-                            <a class="nav-link white" href="{{ route('staff-manage-class-schedule-view') }}">Class Schedule<span class="sr-only">(current)</span></a>
+                            <a class="nav-link white" href="{{ route('staff-manage-class-schedule-view') }}">Schedule<span class="sr-only">(current)</span></a>
                         </li>
                     </ul>
                     <ul class="navbar-nav">
@@ -101,6 +101,11 @@
                             <a class="nav-link white" href="{{ route('manage-tuition-view') }}">Tuition<span class="sr-only">(current)</span></a>
                         </li>
                     </ul>
+                    <ul class="navbar-nav">
+                        <li class="nav-item {{ (Request::route()->getName() == 'manage-period-view') ? 'active' : '' }}">
+                            <a class="nav-link white" href="{{ route('manage-period-view') }}">Period<span class="sr-only">(current)</span></a>
+                        </li>
+                    </ul>
                 @endif
                 @if(Auth::user()->role == 'teacher')
                     <ul class="navbar-nav">
@@ -111,6 +116,11 @@
                     <ul class="navbar-nav">
                         <li class="nav-item {{ (Request::route()->getName() == 'manage-packet-question-view') ? 'active' : '' }}">
                             <a class="nav-link white" href="{{ route('manage-packet-question-view') }}">Packet Question <span class="sr-only">(current)</span></a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav">
+                        <li class="nav-item {{ (Request::route()->getName() == 'manage-schedule-view') ? 'active' : '' }}">
+                            <a class="nav-link white" href="{{ route('manage-schedule-view') }}">Schedule <span class="sr-only">(current)</span></a>
                         </li>
                     </ul>
                 @endif

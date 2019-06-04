@@ -11,6 +11,7 @@ use App\Mail\SendEmail;
 use App\Mail\SendEmailTuition;
 use App\Mail\SendEmailTuitionParent;
 use App\Packet;
+use App\PeriodDateDetail;
 use App\ScheduleClass;
 use App\ScheduleDetail;
 use App\ScheduleDetailPacket;
@@ -1068,5 +1069,60 @@ class StaffController extends Controller
         $scheduleDetailPacket->update([
             "packet_id" => $request->packetId,
         ]);
+    }
+
+    public function managePeriodView()
+    {
+        return view('user.staff.period');
+    }
+
+    public function createPeriod(Request $request)
+    {
+        $schoolId = Auth::user()->school_id;
+
+        PeriodDateDetail::create([
+            "period" => $request->period,
+            "school_id" => $schoolId,
+            "start_date" => $request->startDate,
+            "end_date" => $request->endDate
+        ]);
+
+        return response()->json($request->all(), 200);
+    }
+
+    public function getAllPeriod()
+    {
+        $schoolId = Auth::user()->school_id;
+        $periodDateDetail = PeriodDateDetail::where("school_id", $schoolId)->get();
+
+        return response()->json($periodDateDetail->all(), 200);
+    }
+
+    public function deletePeriod(Request $request)
+    {
+        $periodDateDetail = PeriodDateDetail::where("id", $request->id)->first();
+        $periodDateDetail->delete();
+
+        return response()->json($periodDateDetail, 200);
+    }
+
+    public function getPeriodById($id)
+    {
+        $periodDateDetail = PeriodDateDetail::where("id", $id)->first();
+
+        return response()->json($periodDateDetail, 200);
+    }
+
+    public function editPeriod(Request $request)
+    {
+        $periodDateDetail = PeriodDateDetail::where("id", $request->periodId)->first();
+
+        $periodDateDetail->update([
+            "period" => $request->period,
+            "start_date" => $request->startDate,
+            "end_date" => $request->endDate
+        ]);
+
+        return response()->json($periodDateDetail, 200);
     }
 }

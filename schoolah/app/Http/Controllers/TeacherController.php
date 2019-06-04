@@ -6,6 +6,7 @@ use App\ContributorTeacher;
 use App\Packet;
 use App\Question;
 use App\QuestionChoice;
+use App\ScheduleClass;
 use App\Teacher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,6 +21,11 @@ class TeacherController extends Controller
     public function managePacketQuestionView()
     {
         return view('user.teacher.packet-question');
+    }
+
+    public function manageScheduleView()
+    {
+        return view('user.teacher.schedule');
     }
 
     public function packetQuestion()
@@ -109,5 +115,16 @@ class TeacherController extends Controller
 
             $flag++;
         }
+    }
+
+    public function getSchedule()
+    {
+        $user_id = Auth::user()->id;
+
+        $teacher = Teacher::where("user_id", $user_id)->first();
+        $teacher_id = $teacher->id;
+        $schedule_class = ScheduleClass::where("teacher_id", $teacher_id)->with("grade")->get();
+
+        dd($schedule_class);
     }
 }

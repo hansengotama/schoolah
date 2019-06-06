@@ -902,6 +902,7 @@ class StaffController extends Controller
     public function addTuition(Request $request)
     {
         $schoolId = Auth::user()->school_id;
+
         foreach ($request->class as $grade) {
             $studentClasses = StudentClass::where("grade_id", $grade)->with(["student" => function ($query) {
                 $query->with(["user", "guardian" => function ($query) {
@@ -1093,9 +1094,9 @@ class StaffController extends Controller
     public function getAllPeriod()
     {
         $schoolId = Auth::user()->school_id;
-        $periodDateDetail = PeriodDateDetail::where("school_id", $schoolId)->get();
+        $periodDateDetails = PeriodDateDetail::where("school_id", $schoolId)->orderBy("period", "asc")->get();
 
-        return response()->json($periodDateDetail->all(), 200);
+        return response()->json($periodDateDetails, 200);
     }
 
     public function deletePeriod(Request $request)
@@ -1124,5 +1125,13 @@ class StaffController extends Controller
         ]);
 
         return response()->json($periodDateDetail, 200);
+    }
+
+    public function getPeriodForOption()
+    {
+        $schoolId = Auth::user()->school_id;
+        $periodDateDetails = PeriodDateDetail::where("school_id", $schoolId)->orderBy("period", "asc")->select("period as value")->get();
+
+        return response()->json($periodDateDetails, 200);
     }
 }

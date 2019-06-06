@@ -211,7 +211,7 @@
                     if(this.required(this.formValue.endDate)) {
                         this.error.class.endDate = "border-red"
                         this.error.text.endDate = "end date must be required"
-                    }else if(moment(this.formValue.startDate) < moment()) {
+                    }else if(moment(this.formValue.endDate) < moment()) {
                         this.error.class.endDate = "border-red"
                         this.error.text.endDate = "end date cant be today or the day before"
                     }else if(moment(this.formValue.endDate) < moment(this.formValue.startDate)){

@@ -182,7 +182,7 @@
                         <div class="form-group">
                             <label>Period</label>
                             <select type="text" :class="'form-control '+error.class.period" v-model="formValue.period">
-                                <option v-for="period in selectChoice.periods" :value=period.value>@{{ period.name }}</option>
+                                <option v-for="period in selectChoice.periods" :value=period.value>@{{ period.value }}</option>
                             </select>
                             <div class="red">@{{ error.text.period }}</div>
                         </div>
@@ -228,7 +228,7 @@
                         <div class="form-group">
                             <label>Period</label>
                             <select type="text" :class="'form-control '+error.class.period" v-model="formValue.period">
-                                <option v-for="period in selectChoice.periods" :value=period.value>@{{ period.name }}</option>
+                                <option v-for="period in selectChoice.periods" :value=period.value>@{{ period.value }}</option>
                             </select>
                             <div class="red">@{{ error.text.period }}</div>
                         </div>
@@ -391,10 +391,7 @@
                         name: "--select level--",
                         value: 0
                     }],
-                    periods: [{
-                        name: "--select period--",
-                        value: 0
-                    }],
+                    periods: [],
                     guardianTeachers: [{
                         guardianTeacherName: "--select guardian teacher--",
                         value: 0
@@ -480,13 +477,18 @@
                     }
                 },
                 getPeriodChoice() {
-                    let period = this.selectChoice.periods
-                    for(let i=2019; i<2100; i++) {
-                        period.push({
-                            "name" : i,
-                            "value" : i
-                        })
-                    }
+                    axios.get("{{ url('staff/get-period-option') }}")
+                    .then(function (response) {
+                        if(response.status) {
+                            let data = response.data
+                            console.log(data[0].value)
+                            app.formValue.period = data[0].value
+
+                            for (let i=0; i<data.length; i++) {
+                                app.selectChoice.periods.push(data[i])
+                            }
+                        }
+                    })
                 },
                 getGuardianTeacher() {
                     this.selectChoice.guardianTeachers = [{
@@ -494,7 +496,7 @@
                         value: 0
                     }]
 
-                    axios.get('get-guardian-teacher')
+                    axios.get('{{ url('staff/get-guardian-teacher') }}')
                     .then(function (response) {
                         if(response.status == 200) {
                             let guardianTeachers = app.selectChoice.guardianTeachers
@@ -553,7 +555,7 @@
                 resetForm() {
                     this.formValue.name = ""
                     this.formValue.level = 0
-                    this.formValue.period = 0
+                    this.formValue.period = this.selectChoice.periods[0].value
                     this.formValue.guardianTeacherId = 0
                     this.getGuardianTeacher()
                 },
@@ -937,7 +939,7 @@
                     this.formValueTeacher.name = ""
                     this.formValueTeacher.teacherId = 0
                     this.formValueTeacher.courseId = 0
-                }
+                },
             }
         })
     </script>

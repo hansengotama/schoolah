@@ -4,10 +4,14 @@ namespace App\Http\Controllers;
 
 use App\ContributorTeacher;
 use App\Packet;
+use App\PeriodDateDetail;
 use App\Question;
 use App\QuestionChoice;
 use App\ScheduleClass;
+use App\ScheduleDetail;
+use App\ScheduleShift;
 use App\Teacher;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -115,16 +119,114 @@ class TeacherController extends Controller
 
             $flag++;
         }
+
+        return response()->json($request->all(), 200);
     }
 
     public function getSchedule()
     {
+        $schoolId = Auth::user()->school_id;
         $user_id = Auth::user()->id;
 
         $teacher = Teacher::where("user_id", $user_id)->first();
         $teacher_id = $teacher->id;
-        $schedule_class = ScheduleClass::where("teacher_id", $teacher_id)->with("grade")->get();
+        $schedule_classes = ScheduleClass::where("teacher_id", $teacher_id)
+            ->with(["grade", "course"])
+            ->orderBy('day' ,'asc')
+            ->get();
 
-        dd($schedule_class);
+        $classSchedules = [];
+
+        foreach ($schedule_classes as $schedule_class) {
+            $period = $schedule_class->grade->period;
+            $periodDateDetail = PeriodDateDetail::where("period", $period)
+                ->where("school_id", $schoolId)
+                ->first();
+
+            if($periodDateDetail) {
+                $start = new \DateTime($periodDateDetail->start_date);
+                $end = new \DateTime($periodDateDetail->end_date);
+                if($start->format("w") < $end->format("w"))
+                    $end = $end->modify('+1 month');
+
+                $interval = \DateInterval::createFromDateString('1 month');
+                $period = new \DatePeriod($start, $interval, $end);
+                $totalPeriod = iterator_count($period);
+                $count = 0;
+                foreach ($period as $dt) {
+                    $year = $dt->format("Y");
+                    $month = $dt->format("m");
+                    $num = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+
+                    $count++;
+
+                    if($totalPeriod == $count)
+                        $num = (int)$end->format("d");
+
+                    for ($dayNumber = ($count == 1) ? (int)$dt->format("d") : 0; $dayNumber <= $num; $dayNumber++) {
+                        $date = new \DateTime($year . "-" . $month . "-" . $dayNumber);
+                        $day = (int)$date->format("w");
+
+                        if($schedule_class->day === $day) {
+                            $shift = ScheduleShift::where("school_id", $schoolId)
+                                ->where("shift", $schedule_class->order)
+                                ->whereDate("active_from_date", "<=", $date)
+                                ->whereDate("active_until_date", ">=", $date)
+                                ->first();
+
+                            if($shift == null) {
+                                $shift = ScheduleShift::where("school_id", $schoolId)
+                                    ->where("shift", $schedule_class->order)
+                                    ->where("active_from_date", null)
+                                    ->where("active_until_date", null)
+                                    ->first();
+                            }
+
+                            ($dayNumber >= 10) ?: $dayNumber = "0" . $dayNumber;
+
+                            $startDate = $year . "-" . $month . "-" . $dayNumber. "T" .$shift->from;
+                            $endDate = $year . "-" . $month . "-" . $dayNumber. "T" .$shift->until;
+                            $title = $schedule_class->grade->name . " (" . $schedule_class->course->name . ")";
+
+                            $object = new \stdClass();
+                            $object->start = $startDate;
+                            $object->end = $endDate;
+                            $object->title = $title;
+                            $object->class = $schedule_class->grade->id;
+                            $object->date = $year . "-" . $month . "-" . $dayNumber . " " . "00:00:00";
+
+                            $classSchedules[] = $object;
+                        }
+                    }
+                }
+            }
+        }
+
+        $scheduleDetails = ScheduleDetail::where("school_id", $schoolId)
+            ->where(function ($query) {
+                $query->where("schedule_type", "exam")
+                    ->orWhere("schedule_type", "holiday");
+            })
+            ->get();
+
+        $classHolidays = [];
+        foreach ($scheduleDetails as $scheduleDetail) {
+            $class_id = $scheduleDetail->class_id;
+            $date = $scheduleDetail->date;
+
+            $object = new \stdClass();
+            $object->class = $class_id;
+            $object->date = $date;
+            $classHolidays[] = $object;
+        }
+
+        foreach ($classSchedules as $key => $classSchedule) {
+            foreach($classHolidays as $classHoliday) {
+                if($classSchedule->date === $classHoliday->date && $classSchedule->class === $classHoliday->class)
+                    unset($classSchedules[$key]);
+            }
+        }
+
+        return response()->json($classSchedules, 200);
     }
 }

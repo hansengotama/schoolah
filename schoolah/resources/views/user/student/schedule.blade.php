@@ -24,18 +24,18 @@
         var app = new Vue({
             el: '#app',
             data: {
-                teacherSchedules: []
+                studentSchedules: []
             },
             mounted() {
                 this.getDataCalender()
             },
             methods: {
                 getDataCalender() {
-                    axios.get("{{ url('teacher/get-schedule') }}")
+                    axios.get("{{ url('student/get-schedule') }}")
                     .then(function (response) {
                         if(response.status) {
-                            app.teacherSchedules = Object.values(response.data)
-                            console.log(app.teacherSchedules)
+                            app.studentSchedules = Object.values(response.data)
+                            console.log(app.studentSchedules)
                             app.setCalender()
                         }
                     })
@@ -53,7 +53,7 @@
                         editable: false,
                         eventLimit: true,
                         showNonCurrentDates: false,
-                        events: this.teacherSchedules
+                        events: this.studentSchedules
                     });
                 }
             }

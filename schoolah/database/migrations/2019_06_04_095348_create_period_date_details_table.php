@@ -17,7 +17,7 @@ class CreatePeriodDateDetailsTable extends Migration
             $table->increments('id');
             $table->integer('school_id')->unsigned();
             $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
-            $table->integer('period');
+            $table->integer('period')->unique();
             $table->dateTime('start_date');
             $table->dateTime('end_date');
             $table->timestamps();

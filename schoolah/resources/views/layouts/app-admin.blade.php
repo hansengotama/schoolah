@@ -17,7 +17,10 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <!-- Font google -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:400,400i,600,600i,700,700i,900,900i" rel="stylesheet">
+    <!-- Full Calender -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.css" rel="stylesheet">
     <!--  Custom CSS -->
+
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     @yield('css')
     <style>
@@ -124,6 +127,18 @@
                         </li>
                     </ul>
                 @endif
+                @if(Auth::user()->role == 'student')
+                    <ul class="navbar-nav">
+                        <li class="nav-item {{ (Request::route()->getName() == 'student-schedule-view') ? 'active' : '' }}">
+                            <a class="nav-link white" href="{{ route('student-schedule-view') }}">Schedule <span class="sr-only">(current)</span></a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav">
+                        <li class="nav-item {{ (Request::route()->getName() == 'student-quiz-view') ? 'active' : '' }}">
+                            <a class="nav-link white" href="{{ route('student-quiz-view') }}">Quiz <span class="sr-only">(current)</span></a>
+                        </li>
+                    </ul>
+                @endif
             </div>
             <div class="navbar-text">
                 <ul class="navbar-nav">
@@ -160,6 +175,8 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <!-- Vue -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <!-- Full Calender -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.js"></script>
 
     @yield('js')
     <script>

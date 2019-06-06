@@ -27,6 +27,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/edit-profile-action', 'HomeController@editProfileAction');
 
     Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
+        Route::get('/', 'HomeController@index')->name('home');
         Route::get('/manage-school-view', 'AdminController@schoolView')->name('manage-school-view');
         Route::get('/feedback-view', 'AdminController@feedbackView')->name('feedback-view');
         Route::get('/get-all-school', 'AdminController@getAllSchool');
@@ -44,6 +45,7 @@ Route::group(['middleware' => ['auth']], function () {
     });
     Route::group(['middleware' => 'resetpassword'], function () {
         Route::group(['middleware' => 'staff', 'prefix' => 'staff'], function () {
+            Route::get('/', 'HomeController@index')->name('home');
             Route::get('/manage-teacher-view', 'StaffController@manageTeacherView')->name('manage-teacher-view');
             Route::get('/manage-student-view', 'StaffController@manageStudentView')->name('manage-student-view');
             Route::get('/manage-guardian-view', 'StaffController@manageGuardianView')->name('manage-guardian-view');
@@ -128,6 +130,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/get-period/{id}', 'StaffController@getPeriodById');
             Route::post('/delete-period', 'StaffController@deletePeriod');
             Route::post('/edit-period', 'StaffController@editPeriod');
+            Route::get('/get-period-option', 'StaffController@getPeriodForOption');
         });
         Route::group(['middleware' => 'resetavatar'], function () {
             Route::group(['middleware' => 'teacher', 'prefix' => 'teacher'], function () {
@@ -143,11 +146,14 @@ Route::group(['middleware' => ['auth']], function () {
                 Route::get('/get-schedule', 'TeacherController@getSchedule');
             });
             Route::group(['middleware' => 'student', 'prefix' => 'student'], function () {
-
+                Route::get('/', 'HomeController@index')->name('home');
+                Route::get('/student-schedule-view', 'StudentController@studentScheduleView')->name('student-schedule-view');
+                Route::get('/student-quiz-view', 'StudentController@studentQuizView')->name('student-quiz-view');
+                Route::get('/get-schedule', 'StudentController@getSchedule');
             });
         });
         Route::group(['middleware' => 'guardian', 'prefix' => 'guardian'], function () {
-
+            Route::get('/', 'HomeController@index')->name('home');
         });
     });
 

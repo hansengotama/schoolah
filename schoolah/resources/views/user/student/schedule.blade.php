@@ -5,11 +5,20 @@
         .fc-time {
             display: block !important;
         }
+        .title-font {
+            border-bottom: 6px solid #51a9c5;
+            padding-bottom: 6px;
+            font-size: 50px;
+            color: #51a9c5;
+        }
     </style>
 @endsection
 
 @section('content')
     <div class="ui container mt-5">
+        <h3 class="text-right text-uppercase title-font mb-5">
+            <b>Schedule</b>
+        </h3>
         <div class="ui grid">
             <div class="ui sixteen column">
                 <div id="calendar"></div>

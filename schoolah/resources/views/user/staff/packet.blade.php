@@ -25,6 +25,7 @@
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Name</th>
+                            <th scope="col">Level</th>
                             <th scope="col">Course Name</th>
                             <th scope="col">Type</th>
                             <th scope="col">Action</th>
@@ -34,6 +35,7 @@
                         <tr v-for="(packet, index) in packets">
                             <td>@{{ packet.number }}</td>
                             <td>@{{ packet.name }}</td>
+                            <td>@{{ packet.level }}</td>
                             <td>@{{ packet.course.name }}</td>
                             <td>@{{ packet.type }}</td>
                             <td>
@@ -157,6 +159,13 @@
                             </select>
                             <div class="red">@{{ error.text.course }}</div>
                         </div>
+                        <div class="form-group">
+                            <label>Level</label>
+                            <select :class="'form-control '+error.class.level" v-model="formValue.level">
+                                <option v-for="level in selectChoice.levels" :value=level.value>@{{ level.value }}</option>
+                            </select>
+                            <div class="red">@{{ error.text.level }}</div>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -201,6 +210,13 @@
                             </select>
                             <div class="red">@{{ error.text.course }}</div>
                         </div>
+                        <div class="form-group">
+                            <label>Level</label>
+                            <select :class="'form-control '+error.class.level" v-model="formValue.level">
+                                <option v-for="level in selectChoice.levels" :value=level.value>@{{ level.value }}</option>
+                            </select>
+                            <div class="red">@{{ error.text.level }}</div>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -225,7 +241,8 @@
                     courseId: 0,
                     type: "--select type--",
                     totalUsedQuestion: 0,
-                    name: ""
+                    name: "",
+                    level: 7
                 },
                 formValueContributor: {
                     teacherId: 0,
@@ -236,13 +253,15 @@
                         name: "",
                         type: "",
                         course: "",
-                        totalUsedQuestion: ""
+                        totalUsedQuestion: "",
+                        level: "",
                     },
                     class: {
                         name: "",
                         type: "",
                         course: "",
-                        totalUsedQuestion: ""
+                        totalUsedQuestion: "",
+                        level: "",
                     }
                 },
                 errorContributor: {
@@ -259,20 +278,22 @@
                         { name: "Quiz" },
                         { name: "Exam" }
                     ],
-                    courses: {
+                    courses: [{
                         name: "--select course--",
                         id: 0
-                    },
-                    contributorTeachers: {
+                    }],
+                    contributorTeachers: [{
                         code: "--select teacher--",
                         id: 0
-                    }
+                    }],
+                    levels: []
                 },
                 selectedPacket: 0,
                 selectedPacketId: 0
             },
             mounted() {
                 this.getSelectChoiceCourse()
+                this.getSelectChoiceLevel()
                 this.getAllPacket()
             },
             methods: {
@@ -315,6 +336,15 @@
                         }
                     })
                 },
+                getSelectChoiceLevel() {
+                    let levels = this.selectChoice.levels
+
+                    for (let i = 7; i <= 12; i++) {
+                        levels.push({
+                            "value" : i
+                        })
+                    }
+                },
                 getSelectChoiceContributorTeacher() {
                     this.selectChoice.contributorTeachers = [{
                         code: "--select teacher--",
@@ -338,6 +368,7 @@
                     this.formValue.type = "--select type--"
                     this.formValue.totalUsedQuestion = 0
                     this.formValue.name = ""
+                    this.formValue.level = 7
                 },
                 fillEditForm(id) {
                     axios.get("{{ url('staff/get-packet/') }}/"+id)
@@ -350,6 +381,7 @@
                             app.formValue.type = data.type
                             app.formValue.name = data.name
                             app.selectedPacket = data.id
+                            app.formValue.level = data.level
                         }
                     })
                 },
@@ -465,6 +497,7 @@
                     axios.post("{{ url('staff/edit-packet') }}", {
                         packetId: app.selectedPacket,
                         courseId: app.formValue.courseId,
+                        level: app.formValue.level,
                         type: app.formValue.type,
                         name: app.formValue.name,
                         totalUsedQuestion: app.formValue.totalUsedQuestion,

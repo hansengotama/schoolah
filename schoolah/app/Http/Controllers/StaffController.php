@@ -640,7 +640,8 @@ class StaffController extends Controller
             'type' => $type,
             'name' => $name,
             'total_used_question' => $totalUsedQuestion,
-            'school_id' => $schoolId
+            'school_id' => $schoolId,
+            'level' => $request->level
         ]);
 
         return response()->json($packet, 200);
@@ -683,7 +684,8 @@ class StaffController extends Controller
             'type' => $type,
             'name' => $name,
             'total_used_question' => $totalUsedQuestion,
-            'school_id' => $schoolId
+            'school_id' => $schoolId,
+            'level' => $request->level
         ]);
 
         return response()->json($packet, 200);

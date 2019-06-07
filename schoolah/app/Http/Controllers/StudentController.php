@@ -183,4 +183,46 @@ class StudentController extends Controller
 
         return response()->json($classSchedules, 200);
     }
+
+    public function getCourse()
+    {
+        $schoolId = Auth::user()->school_id;
+        $user_id = Auth::user()->id;
+        $now = Carbon::now();
+
+        $student = Student::where("user_id", $user_id)->first();
+        $periodDateDetail = PeriodDateDetail::where("school_id", $schoolId)
+            ->where("start_date", "<=", $now)
+            ->where("end_date", ">=", $now)
+            ->first();
+
+        $studentClasses = StudentClass::where("student_id", $student->id)
+            ->with(["grade" => function($query) use ($periodDateDetail) {
+                $query->where("period", $periodDateDetail->period);
+            }])
+            ->get();
+
+        $class = null;
+
+        foreach ($studentClasses as $studentClass) {
+            if ($studentClass->grade != null) {
+                $class = $studentClass;
+
+                break;
+            }
+        }
+
+        $scheduleClasses = ScheduleClass::where('grade_id', $class->grade_id)
+            ->select("course_id", "grade_id", "teacher_id")
+            ->with(["course", "teacher", "grade"])
+            ->get()
+            ->unique('course_id');
+
+        return response()->json($scheduleClasses, 200);
+    }
+
+    public function getQuestion($level)
+    {
+
+    }
 }

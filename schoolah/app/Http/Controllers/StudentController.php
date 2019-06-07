@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Packet;
 use App\PeriodDateDetail;
 use App\ScheduleClass;
 use App\ScheduleDetail;
@@ -221,8 +222,27 @@ class StudentController extends Controller
         return response()->json($scheduleClasses, 200);
     }
 
-    public function getQuestion($level)
+    public function getQuizPacket($level, $course_id)
     {
+        $schoolId = Auth::user()->school_id;
 
+        $packets = Packet::where("school_id", $schoolId)
+            ->where("type", "Quiz")
+            ->where("course_id", $course_id)
+            ->where("level", $level)
+            ->inRandomOrder();
+
+        $packet = $packets->first();
+        $packet_used_questions = $packet->total_used_question;
+
+        $packet = Packet::where("id", $packet->id)->with(["question" => function($query) use ($packet_used_questions) {
+            $query->with(["questionChoices" => function($query) {
+                $query->inRandomOrder();
+            }])
+            ->inRandomOrder()
+            ->take($packet_used_questions);
+        }])->first();
+
+        return response()->json($packet, 200);
     }
 }

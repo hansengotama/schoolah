@@ -151,7 +151,7 @@ Route::group(['middleware' => ['auth']], function () {
                 Route::get('/student-quiz-view', 'StudentController@studentQuizView')->name('student-quiz-view');
                 Route::get('/get-schedule', 'StudentController@getSchedule');
                 Route::get('/get-course', 'StudentController@getCourse');
-                Route::get('/get-question/{level}', 'StudentController@getQuestion');
+                Route::get('/get-quiz-packet/{level}/{course_id}', 'StudentController@getQuizPacket');
             });
         });
         Route::group(['middleware' => 'guardian', 'prefix' => 'guardian'], function () {

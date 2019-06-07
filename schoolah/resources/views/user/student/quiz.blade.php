@@ -56,6 +56,12 @@
             border: 1px solid #feec48;
             background: #feec48;
         }
+        .cursor-pointer {
+            cursor: pointer;
+        }
+        .background-answer {
+            background: #99cada;
+        }
     </style>
 @endsection
 
@@ -95,7 +101,7 @@
             <div class="col-md-12">
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="start-quiz mt-5">
+                        <div class="start-quiz mt-5" @click="startQuiz()">
                             <b>Start Quiz</b>
                         </div>
                     </div>
@@ -123,6 +129,24 @@
                 </div>
             </div>
         </div>
+        <div v-show="page=='quiz-time'">
+            <div class="container mt-5">
+{{--                <h4>Start Quiz</h4>--}}
+                <div class="col-md-12">
+                    <div class="row" v-for="(question, index) in packet.question">
+                        <div class="mb-4">
+                            <div><b>@{{ index+1 }}. @{{ question.text }}</b></div>
+                            <div v-for="(choice, indexChoice) in question.question_choices" class="mx-3">
+                                <div v-if="indexChoice==0" :class="'cursor-pointer question-' + question.id" @click = "getAnswer(question.id, choice.id)" :id="'answer-' + choice.id">a. @{{ choice.text }}</div>
+                                <div v-if="indexChoice==1" :class="'cursor-pointer question-' + question.id" @click = "getAnswer(question.id, choice.id)" :id="'answer-' + choice.id">b. @{{ choice.text }}</div>
+                                <div v-if="indexChoice==2" :class="'cursor-pointer question-' + question.id" @click = "getAnswer(question.id, choice.id)" :id="'answer-' + choice.id">c. @{{ choice.text }}</div>
+                                <div v-if="indexChoice==3" :class="'cursor-pointer question-' + question.id" @click = "getAnswer(question.id, choice.id)" :id="'answer-' + choice.id">d. @{{ choice.text }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
 
@@ -138,10 +162,15 @@
                         name: ""
                     }
                 },
-                questions: {}
+                packet: {}
             },
             mounted() {
                 this.getCourses()
+                window.onbeforeunload = () => {
+                    if(this.page == "quiz-time")
+                        return "Are you sure?"
+
+                }
             },
             methods: {
                 getCourses() {
@@ -155,7 +184,6 @@
                 goQuiz(course) {
                     this.selectedCourse = course
                     this.page = "go-quiz"
-                    console.log(course)
                     this.getHistory()
                 },
                 getHistory() {
@@ -165,14 +193,28 @@
                     this.page = "quiz"
                 },
                 startQuiz() {
-                    axios.get("{{ url('student/get-history/') }}"+app.selectedCourse.grade.level)
+                    axios.get("{{ url('student/get-quiz-packet') }}/"+app.selectedCourse.grade.level+"/"+app.selectedCourse.course.id)
                     .then(function (response) {
                         if(response.status) {
-
+                            app.packet = response.data
+                            console.log(app.packet)
+                            app.quizTime()
                         }
                     })
-                }
-            }
+                },
+                quizTime() {
+                    this.page = "quiz-time"
+                },
+                getAnswer(questionId, choiceId) {
+                    let object = $(".question-"+questionId)
+                    $.each( object, function( key, value ) {
+                        if($(value).hasClass("background-answer"))
+                            $(value).removeClass("background-answer")
+                    });
+
+                    $("#answer-"+choiceId).addClass("background-answer")
+                },
+            },
         })
     </script>
 @endsection

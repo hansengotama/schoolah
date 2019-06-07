@@ -62,6 +62,11 @@
         .background-answer {
             background: #99cada;
         }
+        .timer-duration {
+            font-size: 32px;
+            margin-bottom: 5px;
+            color: green;
+        }
     </style>
 @endsection
 
@@ -131,19 +136,26 @@
         </div>
         <div v-show="page=='quiz-time'">
             <div class="container mt-5">
-{{--                <h4>Start Quiz</h4>--}}
-                <div class="col-md-12">
+                <div class="col-md-2">
+                    <div class="text-center timer-duration" style="position: fixed; margin-left: 31em;">
+                        @{{ timer.text }}
+                    </div>
+                </div>
+                <div class="col-md-10">
                     <div class="row" v-for="(question, index) in packet.question">
                         <div class="mb-4">
                             <div><b>@{{ index+1 }}. @{{ question.text }}</b></div>
-                            <div v-for="(choice, indexChoice) in question.question_choices" class="mx-3">
-                                <div v-if="indexChoice==0" :class="'cursor-pointer question-' + question.id" @click = "getAnswer(question.id, choice.id)" :id="'answer-' + choice.id">a. @{{ choice.text }}</div>
-                                <div v-if="indexChoice==1" :class="'cursor-pointer question-' + question.id" @click = "getAnswer(question.id, choice.id)" :id="'answer-' + choice.id">b. @{{ choice.text }}</div>
-                                <div v-if="indexChoice==2" :class="'cursor-pointer question-' + question.id" @click = "getAnswer(question.id, choice.id)" :id="'answer-' + choice.id">c. @{{ choice.text }}</div>
-                                <div v-if="indexChoice==3" :class="'cursor-pointer question-' + question.id" @click = "getAnswer(question.id, choice.id)" :id="'answer-' + choice.id">d. @{{ choice.text }}</div>
+                            <div v-for="(choice, indexChoice) in question.question_choices" class="mx-3" @click = "getAnswer(question.id, choice.id)">
+                                <div v-if="indexChoice==0" :class="'cursor-pointer question-' + question.id" :id="'answer-' + choice.id">a. @{{ choice.text }}</div>
+                                <div v-if="indexChoice==1" :class="'cursor-pointer question-' + question.id" :id="'answer-' + choice.id">b. @{{ choice.text }}</div>
+                                <div v-if="indexChoice==2" :class="'cursor-pointer question-' + question.id" :id="'answer-' + choice.id">c. @{{ choice.text }}</div>
+                                <div v-if="indexChoice==3" :class="'cursor-pointer question-' + question.id" :id="'answer-' + choice.id">d. @{{ choice.text }}</div>
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="text-center">
+                    <button class="btn btn-primary mb-5 mt-5" style="width: 60%" @click="validateAnswer()">Submit</button>
                 </div>
             </div>
         </div>
@@ -162,17 +174,32 @@
                         name: ""
                     }
                 },
-                packet: {}
+                packet: {},
+                questionAnswerData: [],
+                timer: {
+                    time: moment().add(10, "seconds"),
+                    text: "00:00"
+                },
+                questionLength: 0
             },
             mounted() {
                 this.getCourses()
                 window.onbeforeunload = () => {
                     if(this.page == "quiz-time")
                         return "Are you sure?"
-
                 }
             },
             methods: {
+                findInArrayOfObject(key, value, array) {
+                    let response = false
+
+                    for (var i = 0; i < array.length; i++) {
+                        if (array[i][key] === value)
+                            response = array[i]
+                    }
+
+                    return response
+                },
                 getCourses() {
                     axios.get("{{ url('student/get-course') }}")
                     .then(function (response) {
@@ -197,13 +224,51 @@
                     .then(function (response) {
                         if(response.status) {
                             app.packet = response.data
-                            console.log(app.packet)
                             app.quizTime()
+                            app.questionLength = response.data.question.length
                         }
                     })
                 },
                 quizTime() {
                     this.page = "quiz-time"
+                    this.startTimer()
+                },
+                startTimer() {
+                    let diff = moment.duration(this.timer.time.diff(moment()))
+                    let minute = diff.get('minutes') > 9 ? diff.get('minutes') : '0'+diff.get('minutes')
+                    let second = diff.get('seconds') > 9 ? diff.get('seconds') : '0'+diff.get('seconds')
+
+                    if(parseInt(minute) < 1)
+                        $(".timer-duration").css("color", "red")
+
+
+                    this.timer.text = minute+' : '+second
+                    if(!(minute <= 0 && second <= 0))
+                        setTimeout(() => this.startTimer(), 100)
+                    else {
+                        Swal.fire({
+                            position: 'center',
+                            type: 'warning',
+                            title: "Time's up. Your answer(s) have been automatically saved! :)",
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                        this.submitAnswer()
+                    }
+
+                },
+                validateAnswer() {
+                    if(this.questionLength == this.questionAnswerData.length)
+                        this.submitAnswer()
+                    else {
+                        Swal.fire(
+                            'Not all question are filled in',
+                            'Please recheck! :)',
+                        )
+                    }
+                },
+                submitAnswer() {
+                    this.page = "go-quiz"
                 },
                 getAnswer(questionId, choiceId) {
                     let object = $(".question-"+questionId)
@@ -213,8 +278,22 @@
                     });
 
                     $("#answer-"+choiceId).addClass("background-answer")
+
+                    this.getAnswerData(questionId, choiceId)
                 },
-            },
+                getAnswerData(questionId, choiceId) {
+                    let data = this.findInArrayOfObject("question_id", questionId, this.questionAnswerData)
+
+                    if(data) {
+                        data.choice_id = choiceId
+                    }else {
+                        this.questionAnswerData.push({
+                            "question_id" : questionId,
+                            "choice_id" : choiceId
+                        })
+                    }
+                },
+            }
         })
     </script>
 @endsection

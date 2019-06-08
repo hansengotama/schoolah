@@ -19,4 +19,9 @@ class Packet extends Model
     {
         return $this->hasMany(Question::class);
     }
+
+    public function studentPackets()
+    {
+        return $this->hasMany(StudentPacket::class);
+    }
 }

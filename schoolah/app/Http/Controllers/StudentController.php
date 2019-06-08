@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Packet;
 use App\PeriodDateDetail;
+use App\QuestionChoice;
 use App\ScheduleClass;
 use App\ScheduleDetail;
 use App\ScheduleShift;
 use App\Student;
+use App\StudentAnswer;
 use App\StudentClass;
+use App\StudentPacket;
 use Carbon\Carbon;
 use function foo\func;
 use Illuminate\Http\Request;
@@ -244,5 +247,109 @@ class StudentController extends Controller
         }])->first();
 
         return response()->json($packet, 200);
+    }
+
+    public function checkAnswer(Request $request) {
+        $user_id = Auth::user()->id;
+        $student = Student::where("user_id", $user_id)->first();
+
+        $results = [];
+        $resultTrue = 0;
+        $totalQuestion = 0;
+        foreach ($request->question_answers as $question_answer) {
+            $questionChoice = QuestionChoice::where("id", $question_answer["choice_id"])
+                            ->where("question_id", $question_answer["question_id"])
+                            ->first();
+
+            if($questionChoice) {
+                $results = array_merge($results, [[
+                    "result" => $questionChoice->is_answer,
+                    "question_choice_id" => $questionChoice->id,
+                    "question_id" => $question_answer["question_id"]
+                ]]);
+                if($questionChoice->is_answer == 1)
+                    $resultTrue++;
+            }else {
+                $results = array_merge($results, [[
+                    "result" => 0,
+                    "question_id" => $question_answer["question_id"],
+                    "question_choice_id" => null
+                ]]);
+            }
+
+            $totalQuestion++;
+        }
+
+        $resultFalse = $totalQuestion - $resultTrue;
+        $point = $resultTrue * 2;
+
+        $studentPacket = StudentPacket::create([
+            "student_id"    => $student->id,
+            "packet_id"     => $request->packet_id,
+            "score"         => $point
+        ]);
+
+        foreach ($results as $result) {
+            StudentAnswer::create([
+                "student_packet_id"     => $studentPacket->id,
+                "question_id"           => $result["question_id"],
+                "question_choice_id"    => $result["question_choice_id"]
+            ]);
+        }
+
+        $percentage = ($resultTrue/$totalQuestion) * 100;
+        $object = new \stdClass();
+        $object->result_false = $resultFalse;
+        $object->result_true = $resultTrue;
+        $object->total_question = $totalQuestion;
+        $object->percentage = $percentage;
+
+        return response()->json($object, 200);
+    }
+
+    public function getPacketHistoryByCourseId($course_id) {
+        $schoolId = Auth::user()->school_id;
+        $user_id = Auth::user()->id;
+        $student = Student::where("user_id", $user_id)->first();
+
+        $packets = Packet::where("school_id", $schoolId)
+            ->where("course_id", $course_id)
+            ->with(["studentPackets" => function($query) use($student) {
+                $query->where("student_id", $student->id);
+            }])
+            ->get();
+
+        $studentPackets = [];
+        $totalScore = 0;
+        foreach ($packets as $packet) {
+            foreach ($packet->studentPackets as $studentPacket) {
+                $totalScore = $totalScore+ $studentPacket->score;
+                $object = new \stdClass();
+                $object->student_packet_id = $studentPacket->id;
+                $object->packet_id = $studentPacket->packet_id;
+                $object->score = $studentPacket->score;
+                $object->created_at = date("d M Y", strtotime($studentPacket->created_at));
+                $object->time = date("H:i:s", strtotime($studentPacket->created_at));
+                $studentPackets[] = $object;
+            }
+        }
+
+        $data = [
+            "total_score" => $totalScore,
+            "student_packets" => $studentPackets
+        ];
+
+        return response()->json($data, 200);
+    }
+
+    public function getPacketHistoryDetail($student_packet_id)
+    {
+        $studentAnswers = StudentAnswer::where("student_packet_id", $student_packet_id)
+            ->with(["questionChoice", "question" => function ($query) {
+                $query->with("questionChoices");
+            }])
+            ->get();
+
+        return response()->json($studentAnswers, 200);
     }
 }

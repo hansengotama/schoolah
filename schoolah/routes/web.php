@@ -152,6 +152,10 @@ Route::group(['middleware' => ['auth']], function () {
                 Route::get('/get-schedule', 'StudentController@getSchedule');
                 Route::get('/get-course', 'StudentController@getCourse');
                 Route::get('/get-quiz-packet/{level}/{course_id}', 'StudentController@getQuizPacket');
+                Route::post('/check-answer', 'StudentController@checkAnswer');
+                Route::get('/get-packet-history/{course_id}', 'StudentController@getPacketHistoryByCourseId');
+                Route::get('/get-packet-history/{course_id}', 'StudentController@getPacketHistoryByCourseId');
+                Route::get('/get-packet-history-detail/{student_packet_id}', 'StudentController@getPacketHistoryDetail');
             });
         });
         Route::group(['middleware' => 'guardian', 'prefix' => 'guardian'], function () {

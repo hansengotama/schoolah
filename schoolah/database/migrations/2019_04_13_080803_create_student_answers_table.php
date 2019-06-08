@@ -19,8 +19,8 @@ class CreateStudentAnswersTable extends Migration
             $table->foreign('student_packet_id')->references('id')->on('student_packets')->onDelete('cascade');
             $table->integer('question_id')->unsigned();
             $table->foreign('question_id')->references('id')->on('questions')->onDelete('cascade');
-            $table->string('answer');
-            $table->string('is_right');
+            $table->integer('question_choice_id')->unsigned()->nullable();
+            $table->foreign('question_choice_id')->references('id')->on('question_choices')->onDelete('cascade');
             $table->timestamps();
         });
     }

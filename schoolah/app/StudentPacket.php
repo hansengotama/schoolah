@@ -9,4 +9,8 @@ class StudentPacket extends Model
     protected $fillable = [
         'student_id', 'packet_id', 'score'
     ];
+
+    public function studentAnswers() {
+        return $this->hasMany(StudentAnswer::class);
+    }
 }

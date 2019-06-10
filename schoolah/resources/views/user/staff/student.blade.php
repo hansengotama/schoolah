@@ -373,7 +373,6 @@
                     axios.get("{{ url('staff/find-student') }}/"+id)
                     .then(function (response) {
                         if(response.status == 200) {
-                            console.log(response.data)
                             let data = response.data
                             app.formStudent.name = data.name
                             app.formStudent.studentCode = data.studentCode

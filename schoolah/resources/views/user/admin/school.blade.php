@@ -670,7 +670,6 @@
                     })
                 },
                 deleteStaff(id) {
-                    console.log(id)
                     axios.post("{{ url('admin/delete-staff') }}", {
                         id: id
                     })

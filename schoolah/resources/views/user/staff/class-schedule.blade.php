@@ -487,7 +487,6 @@
                     axios.get("{{ url('staff/get-selected-course') }}/" + app.selectedDay + "/" + app.selectedShift + "/" + app.selectedClassId)
                     .then(function (response) {
                         if (response.status) {
-                            console.log(response.data)
                             app.selectChoiceCourse = [{
                                 name: "--select course--",
                                 id: 0
@@ -821,7 +820,6 @@
                     .then(function (response) {
                         if(response.status) {
                             app.examSchedules = response.data
-                            console.log(app.examSchedules)
                         }
                     })
                 },

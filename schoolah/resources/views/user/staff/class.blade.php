@@ -481,7 +481,6 @@
                     .then(function (response) {
                         if(response.status) {
                             let data = response.data
-                            console.log(data[0].value)
                             app.formValue.period = data[0].value
 
                             for (let i=0; i<data.length; i++) {

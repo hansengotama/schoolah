@@ -466,7 +466,6 @@
             },
             beforeDestroy() {
                 this.resetTimer()
-                console.log(213213)
             }
         })
     </script>

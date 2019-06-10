@@ -158,7 +158,6 @@
                     axios.post('/reset-avatar-action', requestData)
                     .then(function (response) {
                         if(response.status == 200) {
-                            console.log(response.data)
                             app.popUpSuccess()
                             window.location = "/home"
                         }else {

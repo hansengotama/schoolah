@@ -35,7 +35,6 @@
                     .then(function (response) {
                         if(response.status) {
                             app.teacherSchedules = Object.values(response.data)
-                            console.log(app.teacherSchedules)
                             app.setCalender()
                         }
                     })

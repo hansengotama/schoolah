@@ -152,6 +152,9 @@ Route::group(['middleware' => ['auth']], function () {
                 Route::get('/student-schedule-view', 'StudentController@studentScheduleView')->name('student-schedule-view');
                 Route::get('/student-quiz-view', 'StudentController@studentQuizView')->name('student-quiz-view');
                 Route::get('/tuition-view', 'StudentController@tuitionView')->name('tuition-view');
+                Route::get('/assignment-view', 'StudentController@assignmentView')->name('assignment-view');
+                Route::get('/course-view', 'StudentController@courseView')->name('course-view');
+                Route::get('/absence-view', 'StudentController@absenceView')->name('absence-view');
                 Route::get('/get-schedule', 'StudentController@getSchedule');
                 Route::get('/get-course', 'StudentController@getCourse');
                 Route::get('/get-quiz-packet/{level}/{course_id}', 'StudentController@getQuizPacket');

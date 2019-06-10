@@ -143,6 +143,21 @@
                             <a class="nav-link white" href="{{ route('tuition-view') }}">Tuition <span class="sr-only">(current)</span></a>
                         </li>
                     </ul>
+                    <ul class="navbar-nav">
+                        <li class="nav-item {{ (Request::route()->getName() == 'assignment-view') ? 'active' : '' }}">
+                            <a class="nav-link white" href="{{ route('assignment-view') }}">Assignment <span class="sr-only">(current)</span></a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav">
+                        <li class="nav-item {{ (Request::route()->getName() == 'course-view') ? 'active' : '' }}">
+                            <a class="nav-link white" href="{{ route('course-view') }}">Course<span class="sr-only">(current)</span></a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav">
+                        <li class="nav-item {{ (Request::route()->getName() == 'absence-view') ? 'active' : '' }}">
+                            <a class="nav-link white" href="{{ route('absence-view') }}">Absence<span class="sr-only">(current)</span></a>
+                        </li>
+                    </ul>
                 @endif
             </div>
             <div class="navbar-text">

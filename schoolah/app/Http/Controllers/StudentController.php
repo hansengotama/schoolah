@@ -43,6 +43,21 @@ class StudentController extends Controller
         return view('user.student.tuition');
     }
 
+    public function assignmentView()
+    {
+        return view('user.student.assignment');
+    }
+
+    public function courseView()
+    {
+        return view('user.student.course');
+    }
+
+    public function absenceView()
+    {
+        return view('user.student.absence');
+    }
+
     public function getSchedule()
     {
         $schoolId = Auth::user()->school_id;

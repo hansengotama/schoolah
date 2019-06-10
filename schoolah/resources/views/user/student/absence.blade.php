@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <div>Packet</div>
+    <div>Absence</div>
 
 @endsection
 

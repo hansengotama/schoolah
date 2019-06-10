@@ -131,6 +131,8 @@ Route::group(['middleware' => ['auth']], function () {
             Route::post('/delete-period', 'StaffController@deletePeriod');
             Route::post('/edit-period', 'StaffController@editPeriod');
             Route::get('/get-period-option', 'StaffController@getPeriodForOption');
+            Route::post('/reject-tuition', 'StaffController@rejectTuition');
+            Route::post('/approve-tuition', 'StaffController@approveTuition');
         });
         Route::group(['middleware' => 'resetavatar'], function () {
             Route::group(['middleware' => 'teacher', 'prefix' => 'teacher'], function () {

@@ -143,13 +143,26 @@
                                 <td>@{{ index+1 }}</td>
                                 <td>@{{ tuitionStudent.student.user.name }}</td>
                                 <td>@{{ tuitionStudent.status }}</td>
-                                <td>@{{ tuitionStudent.payment_receipt }}</td>
-                                <td v-if="tuitionStudent.payment_receipt">
-                                    <button class="btn btn-info btn-xs" @click="approveTuition(id)">Approve</button>
-                                    <button class="btn btn-info btn-xs" @click="rejectTuition(id)">Reject</button>
+                                <td v-if="tuitionStudent.payment_receipt" class="text-center">
+                                    <a :href="tuitionStudent.payment_receipt_url" target="_blank">
+                                        <img :src="tuitionStudent.payment_receipt_url"
+                                             width="150px"
+                                             height="60px"
+                                             style="object-fit: cover"
+                                        >
+                                    </a>
                                 </td>
-                                <td v-else>
-
+                                <td v-else class="text-center">
+                                    not uploaded
+                                </td>
+                                <td v-if="tuitionStudent.payment_receipt">
+                                    <span v-if="tuitionStudent.status == 'pending'">
+                                        <button class="btn btn-info btn-xs" @click="approveTuition(tuitionStudent.id)">Approve</button>
+                                        <button class="btn btn-danger btn-xs" @click="rejectTuition(tuitionStudent.id)">Reject</button>
+                                    </span>
+                                    <span v-else>
+                                        -
+                                    </span>
                                 </td>
                             </tr>
                             </tbody>
@@ -222,9 +235,9 @@
                     })
                 },
                 resetForm() {
-                    this.formValue.price = 0,
+                    this.formValue.price = 0
                     this.formValue.description = ""
-                    this.formValue.dueDate = moment().add(1, 'M').format('YYYY-MM-DD'),
+                    this.formValue.dueDate = moment().add(1, 'M').format('YYYY-MM-DD')
                     this.formValue.class = []
                 },
                 validateForm() {
@@ -328,9 +341,55 @@
                 detailTuition(tuitionId) {
                     this.selectedTuitionId = tuitionId
                     this.tuitionStudents = this.tuitionDetails[this.selectedTuitionId]
-                    console.log(this.tuitionDetails[this.selectedTuitionId])
+                    this.tuitionStudents.forEach((tuitionStudent) => {
+                        if(tuitionStudent.payment_receipt_url)
+                            tuitionStudent.payment_receipt_url = tuitionStudent.payment_receipt_url.replace('public','')
+                    })
+
                     $("#tuition-detail").modal("show")
                 },
+                rejectTuition(tuitionId) {
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
+                        type: 'info',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, reject it!'
+                    }).then((result) => {
+                        if (result.value) {
+                            axios.post("{{ url('staff/reject-tuition') }}", {'id' : tuitionId})
+                            .then(function (response) {
+                                if(response.status) {
+                                    app.getTuition()
+                                    $("#tuition-detail").modal("hide")
+                                }
+                            })
+                        }
+                    })
+                },
+                approveTuition(tuitionId) {
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
+                        type: 'info',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, approve it!'
+                    }).then((result) => {
+                        if (result.value) {
+                            axios.post("{{ url('staff/approve-tuition') }}", {'id' : tuitionId})
+                            .then(function (response) {
+                                if(response.status) {
+                                    app.getTuition()
+                                    $("#tuition-detail").modal("hide")
+                                }
+                            })
+                        }
+                    })
+                }
             }
         })
     </script>

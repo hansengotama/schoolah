@@ -427,7 +427,8 @@ class StudentController extends Controller
         $image = $request->file->store('/public/tuition');
 
         $tuition_history->update([
-            "payment_receipt" => $image,
+            "payment_receipt"   => $image,
+            "status"            => "pending"
         ]);
 
         return response()->json($tuition_history, 200);

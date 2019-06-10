@@ -34,7 +34,12 @@
         height:267px !important;
         cursor: pointer;
     }
-
+    .bg-rejected {
+        background-color: #ef6767;
+    }
+    .bg-approved {
+        background-color: #b1d7ff;
+    }
     .crop img {
         display: block;
         width: 100vw;
@@ -68,7 +73,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr v-for="(tuition, index) in tuitions" :class="{'bg-unpaid': tuition.status=='unpaid'}">
+                            <tr v-for="(tuition, index) in tuitions" :class="{'bg-unpaid': tuition.status=='unpaid', 'bg-rejected': tuition.status=='rejected'}">
                                 <td>@{{ index+1 }}</td>
                                 <td>@{{ tuition.tuition_price }}</td>
                                 <td>@{{ tuition.tuition_description }}</td>
@@ -100,7 +105,13 @@
                             <label for="upload" class="w-80">
                                 <div v-if="image" class="crop">
                                     <img :src="image" class="image-upload">
-                                    <input type="file" id="upload" accept="image/*" @change="onFileChange" hidden>
+                                    <input type="file"
+                                           id="upload"
+                                           accept="image/*"
+                                           @change="onFileChange"
+                                           v-if="selectedTuition.status!='approved'"
+                                           hidden
+                                    />
                                 </div>
                                 <div class="upload-picture" v-else>
                                     <i class="fa fa-upload" style="font-size: 4rem"></i>
@@ -147,6 +158,7 @@
                     .then(function (response) {
                         if(response.status) {
                             app.selectedTuition = response.data
+                            console.log(app.selectedTuition)
                             $("#detail-modal").modal("show")
                             if(response.data.payment_receipt == null)
                                 app.image = null
@@ -186,6 +198,7 @@
                     .then(function (response) {
                         if(response.data) {
                             app.resetForm()
+                            app.getTuitions()
                             $("#detail-modal").modal("hide")
                         }
                     })

@@ -1136,4 +1136,26 @@ class StaffController extends Controller
 
         return response()->json($periodDateDetails, 200);
     }
+
+    public function rejectTuition(Request $request)
+    {
+        $tuitionHistory = TuitionHistory::where("id", $request->id)->first();
+
+        $tuitionHistory->update([
+            "status"            => "rejected"
+        ]);
+
+        return response()->json($request->all(), 200);
+    }
+
+    public function approveTuition(Request $request)
+    {
+        $tuitionHistory = TuitionHistory::where("id", $request->id)->first();
+
+        $tuitionHistory->update([
+            "status"            => "approved"
+        ]);
+
+        return response()->json($request->all(), 200);
+    }
 }

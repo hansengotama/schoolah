@@ -149,6 +149,7 @@ Route::group(['middleware' => ['auth']], function () {
                 Route::get('/', 'HomeController@index')->name('home');
                 Route::get('/student-schedule-view', 'StudentController@studentScheduleView')->name('student-schedule-view');
                 Route::get('/student-quiz-view', 'StudentController@studentQuizView')->name('student-quiz-view');
+                Route::get('/tuition-view', 'StudentController@tuitionView')->name('tuition-view');
                 Route::get('/get-schedule', 'StudentController@getSchedule');
                 Route::get('/get-course', 'StudentController@getCourse');
                 Route::get('/get-quiz-packet/{level}/{course_id}', 'StudentController@getQuizPacket');
@@ -156,6 +157,9 @@ Route::group(['middleware' => ['auth']], function () {
                 Route::get('/get-packet-history/{course_id}', 'StudentController@getPacketHistoryByCourseId');
                 Route::get('/get-packet-history/{course_id}', 'StudentController@getPacketHistoryByCourseId');
                 Route::get('/get-packet-history-detail/{student_packet_id}', 'StudentController@getPacketHistoryDetail');
+                Route::get('/get-tuitions', 'StudentController@getTuitions');
+                Route::get('/get-history-detail/{tuition_history_id}', 'StudentController@getHistoryDetail');
+                Route::post('/save-image', 'StudentController@saveImage');
             });
         });
         Route::group(['middleware' => 'guardian', 'prefix' => 'guardian'], function () {

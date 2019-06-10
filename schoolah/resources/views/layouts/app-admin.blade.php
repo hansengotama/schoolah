@@ -138,6 +138,11 @@
                             <a class="nav-link white" href="{{ route('student-quiz-view') }}">Quiz <span class="sr-only">(current)</span></a>
                         </li>
                     </ul>
+                    <ul class="navbar-nav">
+                        <li class="nav-item {{ (Request::route()->getName() == 'tuition-view') ? 'active' : '' }}">
+                            <a class="nav-link white" href="{{ route('tuition-view') }}">Tuition <span class="sr-only">(current)</span></a>
+                        </li>
+                    </ul>
                 @endif
             </div>
             <div class="navbar-text">

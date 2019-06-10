@@ -80,7 +80,10 @@ class HomeController extends Controller
 
         if ($user->role == "student" || $user->role == "teacher") {
             $user->avatar = $userDetail->avatar;
-            $user->teacher_code = $userDetail->teacher_code;
+            if($user->role == "teacher")
+                $user->teacher_code = $userDetail->teacher_code;
+            if($user->role == "student")
+                $user->student_code = $userDetail->student_code;
         }
 
         return $user;

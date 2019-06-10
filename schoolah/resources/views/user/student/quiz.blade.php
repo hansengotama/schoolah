@@ -61,6 +61,8 @@
         }
         .background-answer {
             background: #99cada;
+            border-radius: 25px;
+            padding-left: 15px;
         }
         .timer-duration {
             font-size: 32px;
@@ -72,12 +74,21 @@
         }
         .correctanswer {
             background: #99cada;
+            border-radius: 25px;
+            padding-left: 15px;
         }
         .wronganswer {
             background: red;
+            border-radius: 25px;
+            padding-left: 15px;
         }
         .notanswer {
             background: #d88db4;
+            border-radius: 25px;
+            padding-left: 15px;
+        }
+        .pad-left-15 {
+            padding-left: 15px;
         }
     </style>
 @endsection
@@ -167,11 +178,11 @@
                     <div class="mb-4" v-for="(question, index) in packet.question">
                         <div class="check-question" :id="index+1">
                             <div :id="'question' + question.id" class="question-text"><b>@{{ index+1 }}. @{{ question.text }}</b></div>
-                            <div v-for="(choice, indexChoice) in question.question_choices" class="mx-3" @click = "getAnswer(question.id, choice.id)">
-                                <div v-if="indexChoice==0" :class="'cursor-pointer question-' + question.id" :id="'answer-' + choice.id">a. @{{ choice.text }}</div>
-                                <div v-if="indexChoice==1" :class="'cursor-pointer question-' + question.id" :id="'answer-' + choice.id">b. @{{ choice.text }}</div>
-                                <div v-if="indexChoice==2" :class="'cursor-pointer question-' + question.id" :id="'answer-' + choice.id">c. @{{ choice.text }}</div>
-                                <div v-if="indexChoice==3" :class="'cursor-pointer question-' + question.id" :id="'answer-' + choice.id">d. @{{ choice.text }}</div>
+                            <div v-for="(choice, indexChoice) in question.question_choices" class="pad-left" @click = "getAnswer(question.id, choice.id)">
+                                <div v-if="indexChoice==1" :class="'pad-left-15 cursor-pointer question-' + question.id" :id="'answer-' + choice.id">b. @{{ choice.text }}</div>
+                                <div v-if="indexChoice==0" :class="'pad-left-15 cursor-pointer question-' + question.id" :id="'answer-' + choice.id">a. @{{ choice.text }}</div>
+                                <div v-if="indexChoice==2" :class="'pad-left-15 cursor-pointer question-' + question.id" :id="'answer-' + choice.id">c. @{{ choice.text }}</div>
+                                <div v-if="indexChoice==3" :class="'pad-left-15 cursor-pointer question-' + question.id" :id="'answer-' + choice.id">d. @{{ choice.text }}</div>
                             </div>
                         </div>
                     </div>
@@ -189,11 +200,11 @@
             <div class="container mt-5">
                 <div :class="'mb-4 '" v-for="(question, index) in historyDetails">
                     <div :id="'question-history-' + question.id" class="question-text"><b>@{{ index+1 }}. @{{ question.question.text }}</b></div>
-                    <div v-for="(choice, indexChoice) in question.question.question_choices" class="mx-3">
-                        <div v-if="indexChoice==0" :class="'question-history-' + question.id" :id="'answer-' + choice.id">a. @{{ choice.text }}</div>
-                        <div v-if="indexChoice==1" :class="'question-history-' + question.id" :id="'answer-' + choice.id">b. @{{ choice.text }}</div>
-                        <div v-if="indexChoice==2" :class="'question-history-' + question.id" :id="'answer-' + choice.id">c. @{{ choice.text }}</div>
-                        <div v-if="indexChoice==3" :class="'question-history-' + question.id" :id="'answer-' + choice.id">d. @{{ choice.text }}</div>
+                    <div v-for="(choice, indexChoice) in question.question.question_choices" class="pad-left">
+                        <div v-if="indexChoice==0" :class="'pad-left-15 question-history-' + question.id" :id="'answer-' + choice.id">a. @{{ choice.text }}</div>
+                        <div v-if="indexChoice==1" :class="'pad-left-15 question-history-' + question.id" :id="'answer-' + choice.id">b. @{{ choice.text }}</div>
+                        <div v-if="indexChoice==2" :class="'pad-left-15 question-history-' + question.id" :id="'answer-' + choice.id">c. @{{ choice.text }}</div>
+                        <div v-if="indexChoice==3" :class="'pad-left-15 question-history-' + question.id" :id="'answer-' + choice.id">d. @{{ choice.text }}</div>
                     </div>
                 </div>
             </div>
@@ -203,7 +214,7 @@
 
 @section('js')
     <script>
-        var minute = 1
+        var minute = 5
 
         var app = new Vue({
             el: '#app',
@@ -408,7 +419,7 @@
                     });
 
                     $("#answer-"+choiceId).addClass("background-answer")
-                    $("#answer-"+choiceId).parent(".mx-3").parent(".check-question").removeClass("notanswered")
+                    $("#answer-"+choiceId).parent(".pad-left").parent(".check-question").removeClass("notanswered")
 
                     this.getAnswerData(questionId, choiceId)
                 },
@@ -421,11 +432,6 @@
                     this.timer.time = moment().add(minute, "minutes")
                     this.timer.text = "00:00"
                 },
-                // removeAllClass() {
-                //     $(".notanswer").removeClass()
-                //     $(".wronganswer").removeClass()
-                //     $(".correctanswer").removeClass()
-                // },
                 viewHistory(studentPacketId) {
                     this.page = "result-view"
 

@@ -12,10 +12,14 @@ use App\Student;
 use App\StudentAnswer;
 use App\StudentClass;
 use App\StudentPacket;
+use App\Teacher;
+use App\Tuition;
+use App\TuitionHistory;
 use Carbon\Carbon;
 use function foo\func;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class StudentController extends Controller
 {
@@ -32,6 +36,11 @@ class StudentController extends Controller
     public function studentQuizView()
     {
         return view('user.student.quiz');
+    }
+
+    public function tuitionView()
+    {
+        return view('user.student.tuition');
     }
 
     public function getSchedule()
@@ -315,7 +324,7 @@ class StudentController extends Controller
         $packets = Packet::where("school_id", $schoolId)
             ->where("course_id", $course_id)
             ->with(["studentPackets" => function($query) use($student) {
-                $query->where("student_id", $student->id);
+                $query->where("student_id", $student->id)->orderBy("created_at", 'desc');
             }])
             ->get();
 
@@ -351,5 +360,76 @@ class StudentController extends Controller
             ->get();
 
         return response()->json($studentAnswers, 200);
+    }
+
+    public function getTuitions()
+    {
+        $schoolId = Auth::user()->school_id;
+        $user_id = Auth::user()->id;
+        $now = Carbon::now();
+
+        $student = Student::where("user_id", $user_id)->first();
+        $periodDateDetail = PeriodDateDetail::where("school_id", $schoolId)
+            ->where("start_date", "<=", $now)
+            ->where("end_date", ">=", $now)
+            ->first();
+
+        $studentClasses = StudentClass::where("student_id", $student->id)
+            ->with(["grade" => function($query) use ($periodDateDetail) {
+                $query->where("period", $periodDateDetail->period);
+            }])
+            ->get();
+
+        $class = null;
+
+        foreach ($studentClasses as $studentClass) {
+            if ($studentClass->grade != null) {
+                $class = $studentClass;
+
+                break;
+            }
+        }
+
+        $tuitionHistories = TuitionHistory::where("student_id", $student->id)
+                                ->where("class_id", $class->grade_id)
+                                ->with("tuition")
+                                ->get();
+
+        $tuitionDetails = [];
+
+        foreach($tuitionHistories as $tuitionHistory) {
+            $object = new \stdClass();
+            $object->tuiton_history_id = $tuitionHistory->id;
+            $object->tuition_price = "Rp. ".number_format($tuitionHistory->tuition->price, "0", ",", ".");
+            $object->tuition_description = $tuitionHistory->tuition->description;
+            $object->status = $tuitionHistory->status;
+            $object->payment_receipt = $tuitionHistory->payment_receipt;
+            $object->due_date = date("d M Y", strtotime($tuitionHistory->tuition->due_date));
+            $tuitionDetails[] = $object;
+        }
+
+        return response()->json($tuitionDetails, 200);
+    }
+
+    public function getHistoryDetail($tuition_history_id)
+    {
+        $tuition_history = TuitionHistory::where("id", $tuition_history_id)->first();
+
+        return response()->json($tuition_history, 200);
+    }
+
+    public function saveImage(Request $request)
+    {
+        $tuition_history = TuitionHistory::where("id", $request->id)->first();
+        $payment_receipt = $tuition_history->payment_receipt;
+        Storage::delete($payment_receipt);
+
+        $image = $request->file->store('/public/tuition');
+
+        $tuition_history->update([
+            "payment_receipt" => $image,
+        ]);
+
+        return response()->json($tuition_history, 200);
     }
 }

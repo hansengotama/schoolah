@@ -11,11 +11,14 @@
             font-size: 50px;
             color: #51a9c5;
         }
+        .fc-other-month {
+            background-color: #faf9f8;
+        }
     </style>
 @endsection
 
 @section('content')
-    <div class="ui container mt-5">
+    <div class="ui container mt-5 mb-5">
         <h3 class="text-right text-uppercase title-font mb-5">
             <b>Schedule</b>
         </h3>
@@ -61,7 +64,7 @@
                         navLinks: true,
                         editable: false,
                         eventLimit: true,
-                        showNonCurrentDates: false,
+                        // showNonCurrentDates: false,
                         events: this.studentSchedules
                     });
                 }

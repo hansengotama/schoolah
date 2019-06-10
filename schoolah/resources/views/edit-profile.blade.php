@@ -128,6 +128,7 @@
                                 }
 
                                 if(app.formData.role == "student") {
+                                    console.log(data)
                                     app.formData.code = data.student_code
                                 }else {
                                     app.formData.code = data.teacher_code

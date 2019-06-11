@@ -165,6 +165,7 @@ Route::group(['middleware' => ['auth']], function () {
                 Route::get('/get-tuitions', 'StudentController@getTuitions');
                 Route::get('/get-history-detail/{tuition_history_id}', 'StudentController@getHistoryDetail');
                 Route::post('/save-image', 'StudentController@saveImage');
+                Route::get('/get-teacher-profile/{grade_id}/{course_id}', 'StudentController@getTeacherProfile');
             });
         });
         Route::group(['middleware' => 'guardian', 'prefix' => 'guardian'], function () {

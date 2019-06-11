@@ -13,6 +13,7 @@ use App\StudentAnswer;
 use App\StudentClass;
 use App\StudentPacket;
 use App\Teacher;
+use App\TeacherClass;
 use App\Tuition;
 use App\TuitionHistory;
 use Carbon\Carbon;
@@ -447,5 +448,17 @@ class StudentController extends Controller
         ]);
 
         return response()->json($tuition_history, 200);
+    }
+
+    public function getTeacherProfile($grade_id, $course_id)
+    {
+        $teacher_class = TeacherClass::where("grade_id", $grade_id)
+            ->where("course_id", $course_id)
+            ->with(["teacher" => function($query) {
+                $query->with("user");
+            }])
+            ->first();
+
+        return response()->json($teacher_class, 200);
     }
 }

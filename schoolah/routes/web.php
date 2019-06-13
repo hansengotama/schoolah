@@ -139,6 +139,7 @@ Route::group(['middleware' => ['auth']], function () {
                 Route::get('/manage-class-view', 'TeacherController@manageClassView')->name('manage-class-view');
                 Route::get('/manage-schedule-view', 'TeacherController@manageScheduleView')->name('manage-schedule-view');
                 Route::get('/manage-packet-question-view', 'TeacherController@managePacketQuestionView')->name('manage-packet-question-view');
+                Route::get('/manage-absence-view', 'TeacherController@manageAbsenceView')->name('manage-absence-view');
                 Route::get('/get-packet-question', 'TeacherController@packetQuestion');
                 Route::post('/add-question', 'TeacherController@addQuestion');
                 Route::post('/edit-question', 'TeacherController@editQuestion');

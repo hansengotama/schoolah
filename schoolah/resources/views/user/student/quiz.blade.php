@@ -90,6 +90,17 @@
         .pad-left-15 {
             padding-left: 15px;
         }
+        body {
+            background-image: url("https://schoolah.dev.net/img/2.jpeg");
+            background-size: 100%;
+            background-repeat: repeat;
+            background-position: unset;
+            background-attachment: fixed;
+        }
+        body:after {
+            opacity: 0.5;
+            z-index: -9999;
+        }
     </style>
 @endsection
 

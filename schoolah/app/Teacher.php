@@ -29,4 +29,9 @@ class Teacher extends Model
     {
         return $this->hasOne(ScheduleClass::class);
     }
+
+    public function getAvatarUrlAttribute()
+    {
+        return ($this->avatar) ? url('/').$this->avatar : null;
+    }
 }

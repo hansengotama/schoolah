@@ -14,6 +14,17 @@
         .fc-other-month {
             background-color: #faf9f8;
         }
+        body {
+            background-image: url("https://schoolah.dev.net/img/2.jpeg");
+            background-size: 100%;
+            background-repeat: repeat;
+            background-position: unset;
+            background-attachment: fixed;
+        }
+        body:after {
+            opacity: 0.5;
+            z-index: -9999;
+        }
     </style>
 @endsection
 
@@ -22,13 +33,12 @@
         <h3 class="text-right text-uppercase title-font mb-5">
             <b>Schedule</b>
         </h3>
-        <div class="ui grid">
+        <div class="ui grid bg-white">
             <div class="ui sixteen column">
                 <div id="calendar"></div>
             </div>
         </div>
     </div>
-
 @endsection
 
 @section('js')

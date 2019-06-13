@@ -241,7 +241,7 @@ class StudentController extends Controller
             }
         }
 
-        $scheduleClasses = ScheduleClass::where('grade_id', $class->grade_id)
+        $scheduleClasses = TeacherClass::where('grade_id', $class->grade_id)
             ->select("course_id", "grade_id", "teacher_id")
             ->with(["course", "teacher", "grade"])
             ->get()
@@ -454,7 +454,7 @@ class StudentController extends Controller
     {
         $teacher_class = TeacherClass::where("grade_id", $grade_id)
             ->where("course_id", $course_id)
-            ->with(["teacher" => function($query) {
+            ->with(["course", "teacher" => function($query) {
                 $query->with("user");
             }])
             ->first();

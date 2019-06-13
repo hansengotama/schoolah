@@ -229,4 +229,9 @@ class TeacherController extends Controller
 
         return response()->json($classSchedules, 200);
     }
+
+    public function manageAbsenceView()
+    {
+
+    }
 }

@@ -33,6 +33,14 @@
             clear: both;
             z-index: 9999;
         }
+        #footer {
+            clear: both;
+            position: absolute;
+            bottom: 0;
+        }
+        .bg-white {
+            background-color: white;
+        }
     </style>
 </head>
 <body>
@@ -124,6 +132,11 @@
                     <ul class="navbar-nav">
                         <li class="nav-item {{ (Request::route()->getName() == 'manage-schedule-view') ? 'active' : '' }}">
                             <a class="nav-link white" href="{{ route('manage-schedule-view') }}">Schedule <span class="sr-only">(current)</span></a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav">
+                        <li class="nav-item {{ (Request::route()->getName() == 'manage-absence-view') ? 'active' : '' }}">
+                            <a class="nav-link white" href="{{ route('manage-absence-view') }}">Absence <span class="sr-only">(current)</span></a>
                         </li>
                     </ul>
                 @endif

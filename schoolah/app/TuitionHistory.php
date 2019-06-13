@@ -24,9 +24,8 @@ class TuitionHistory extends Model
         return $this->belongsTo(Student::class);
     }
 
-    public function getPaymentReceiptUrlAttribute() {
+    public function getPaymentReceiptUrlAttribute()
+    {
         return ($this->payment_receipt) ? url('/').$this->payment_receipt : null;
     }
-
-
 }

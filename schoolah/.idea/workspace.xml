@@ -3,16 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="1ac09e87-2e0a-4910-bd77-7e9f8479a70c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/StudentController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/StudentController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/TeacherController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/TeacherController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Teacher.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Teacher.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/TuitionHistory.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/TuitionHistory.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/app-admin.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/app-admin.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/user/student/course.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/student/course.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/user/student/quiz.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/student/quiz.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/user/student/schedule.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/student/schedule.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/user/student/tuition.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/student/tuition.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_04_13_080753_create_assignments_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_06_08_080753_create_assignments_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_04_13_080754_create_student_assignments_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_06_08_080754_create_student_assignments_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_04_13_080806_create_materials_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_06_08_080806_create_materials_table.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -31,11 +24,36 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/layouts/app-admin.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="269">
+            <state relative-caret-position="179">
               <caret line="140" column="25" selection-start-line="140" selection-start-column="25" selection-end-line="140" selection-end-column="25" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/database/migrations/2019_06_08_080753_create_assignments_table.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="56">
+              <caret line="16" column="37" lean-forward="true" selection-start-line="16" selection-start-column="37" selection-end-line="18" selection-end-column="110" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/database/migrations/2019_06_08_080754_create_student_assignments_table.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-419" />
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/database/migrations/2019_06_08_080806_create_materials_table.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="308">
+              <caret line="16" column="31" lean-forward="true" selection-start-line="16" selection-start-column="31" selection-end-line="16" selection-end-column="31" />
             </state>
           </provider>
         </entry>
@@ -118,8 +136,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/Tuition.php" />
-        <option value="$PROJECT_DIR$/app/Console/Commands/SendEmailTuition.php" />
         <option value="$PROJECT_DIR$/app/Console/Commands/SendEmailTuitionRemind.php" />
         <option value="$PROJECT_DIR$/resources/views/mail/tuition.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/mail/tuition-parent.blade.php" />
@@ -169,6 +185,8 @@
         <option value="$PROJECT_DIR$/routes/web.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/TeacherController.php" />
         <option value="$PROJECT_DIR$/resources/views/layouts/app-admin.blade.php" />
+        <option value="$PROJECT_DIR$/database/migrations/2019_06_08_080753_create_assignments_table.php" />
+        <option value="$PROJECT_DIR$/database/migrations/2019_06_08_080806_create_materials_table.php" />
       </list>
     </option>
   </component>
@@ -371,22 +389,22 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="AngularJS" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/database/migrations" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/resources/views/user/student" />
-      <recent name="$PROJECT_DIR$/resources/views/user/teacher" />
-      <recent name="$PROJECT_DIR$/resources/views/user/staff" />
-      <recent name="$PROJECT_DIR$/database/migrations" />
-      <recent name="$PROJECT_DIR$/resources/views/mail" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/resources/views/user/student" />
       <recent name="$PROJECT_DIR$/resources/views" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/database/migrations" />
+      <recent name="$PROJECT_DIR$/resources/views/user/student" />
+      <recent name="$PROJECT_DIR$/resources/views/user/teacher" />
+      <recent name="$PROJECT_DIR$/resources/views/user/staff" />
+      <recent name="$PROJECT_DIR$/resources/views/mail" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -492,18 +510,18 @@
       <workItem from="1560313382368" duration="13755000" />
       <workItem from="1560335368404" duration="1925000" />
       <workItem from="1560356470452" duration="187000" />
-      <workItem from="1560410318194" duration="485000" />
+      <workItem from="1560410318194" duration="2111000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="500979000" />
+    <option name="totallyTimeSpent" value="502605000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="64" y="-11" width="1857" height="1092" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49847096" visible="true" weight="0.37368712" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49847096" visible="true" weight="0.37368712" />
       <window_info id="Structure" order="1" sideWeight="0.50152904" side_tool="true" weight="0.32061914" />
       <window_info id="Favorites" order="2" sideWeight="0.50133336" side_tool="true" weight="0.31674957" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -516,7 +534,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.32925585" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="10" sideWeight="0.49695966" visible="true" weight="0.18756372" />
+      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.49695966" visible="true" weight="0.41794088" />
       <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.5030404" side_tool="true" weight="0.2293578" />
       <window_info anchor="bottom" id="TypeScript" order="12" weight="0.32925585" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -529,37 +547,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/Console/Kernel.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="7" column="6" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Console/Commands/SendEmailTuitionRemind.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="879">
-          <caret line="70" selection-start-line="70" selection-end-line="70" />
-          <folding>
-            <element signature="e#40#70#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/stubs/date/date_c.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-685">
-          <caret line="341" column="20" selection-start-line="341" selection-start-column="20" selection-end-line="341" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/user/teacher/packet-question.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-672">
-          <caret line="249" column="12" lean-forward="true" selection-start-line="249" selection-start-column="12" selection-end-line="252" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/user/teacher/schedule.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="160">
@@ -896,8 +883,34 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/layouts/app-admin.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="269">
+        <state relative-caret-position="179">
           <caret line="140" column="25" selection-start-line="140" selection-start-column="25" selection-end-line="140" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/migrations/2019_06_08_080754_create_student_assignments_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-419" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/migrations/2019_04_13_080806_create_materials_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="112">
+          <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/migrations/2019_06_08_080753_create_assignments_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="56">
+          <caret line="16" column="37" lean-forward="true" selection-start-line="16" selection-start-column="37" selection-end-line="18" selection-end-column="110" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/migrations/2019_06_08_080806_create_materials_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="16" column="31" lean-forward="true" selection-start-line="16" selection-start-column="31" selection-end-line="16" selection-end-column="31" />
         </state>
       </provider>
     </entry>

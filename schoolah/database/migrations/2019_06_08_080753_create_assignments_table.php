@@ -15,8 +15,8 @@ class CreateAssignmentsTable extends Migration
     {
         Schema::create('assignments', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('schedule_detail_id')->unsigned();
-            $table->foreign('schedule_detail_id')->references('id')->on('schedule_details')->onDelete('cascade');
+            $table->integer('teacher_class_id')->unsigned();
+            $table->foreign('teacher_class_id')->references('id')->on('teacher_classes')->onDelete('cascade');
             $table->string('name');
             $table->string('question_file');
             $table->string('description');

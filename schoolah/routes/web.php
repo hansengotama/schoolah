@@ -136,6 +136,7 @@ Route::group(['middleware' => ['auth']], function () {
         });
         Route::group(['middleware' => 'resetavatar'], function () {
             Route::group(['middleware' => 'teacher', 'prefix' => 'teacher'], function () {
+                Route::get('/', 'HomeController@index')->name('home');
                 Route::get('/manage-class-view', 'TeacherController@manageClassView')->name('manage-class-view');
                 Route::get('/manage-schedule-view', 'TeacherController@manageScheduleView')->name('manage-schedule-view');
                 Route::get('/manage-packet-question-view', 'TeacherController@managePacketQuestionView')->name('manage-packet-question-view');
@@ -147,6 +148,7 @@ Route::group(['middleware' => ['auth']], function () {
                 Route::get('/get-all-question/{packet_id}', 'TeacherController@getAllQuestion');
                 Route::get('/get-question/{question_id}', 'TeacherController@getQuestionById');
                 Route::get('/get-schedule', 'TeacherController@getSchedule');
+                Route::get('/get-teacher-class', 'TeacherController@getTeacherClasses');
             });
             Route::group(['middleware' => 'student', 'prefix' => 'student'], function () {
                 Route::get('/', 'HomeController@index')->name('home');

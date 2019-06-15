@@ -67,8 +67,8 @@ class StudentController extends Controller
 
         $student = Student::where("user_id", $user_id)->first();
         $periodDateDetail = PeriodDateDetail::where("school_id", $schoolId)
-            ->where("start_date", "<=", $now)
-            ->where("end_date", ">=", $now)
+            ->whereDate("start_date", "<=", $now)
+            ->whereDate("end_date", ">=", $now)
             ->first();
 
         $studentClasses = StudentClass::where("student_id", $student->id)

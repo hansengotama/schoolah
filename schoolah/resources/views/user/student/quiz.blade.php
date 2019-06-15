@@ -151,7 +151,7 @@
             <div class="col-md-12" style="margin-top: 5em">
                 <div class="row">
                     <div class="col-md-12">
-                        <table class="table ">
+                        <table class="table bg-white">
                             <thead>
                                 <tr>
                                     <th>No</th>
@@ -185,7 +185,7 @@
                         @{{ timer.text }}
                     </div>
                 </div>
-                <div class="col-md-10 p-0">
+                <div class="col-md-10 p-0 bg-white">
                     <div class="mb-4" v-for="(question, index) in packet.question">
                         <div class="check-question" :id="index+1">
                             <div :id="'question' + question.id" class="question-text"><b>@{{ index+1 }}. @{{ question.text }}</b></div>
@@ -208,8 +208,8 @@
                 <b class="container-button"><i class="fa fa-arrow-left" style="cursor: pointer; font-size: 28px" @click="backToGoQuiz()"></i></b>
                 <b>HISTORY</b>
             </div>
-            <div class="container mt-5">
-                <div :class="'mb-4 '" v-for="(question, index) in historyDetails">
+            <div class="container mt-5 bg-white">
+                <div :class="'mb-4'" v-for="(question, index) in historyDetails">
                     <div :id="'question-history-' + question.id" class="question-text"><b>@{{ index+1 }}. @{{ question.question.text }}</b></div>
                     <div v-for="(choice, indexChoice) in question.question.question_choices" class="pad-left">
                         <div v-if="indexChoice==0" :class="'pad-left-15 question-history-' + question.id" :id="'answer-' + choice.id">a. @{{ choice.text }}</div>

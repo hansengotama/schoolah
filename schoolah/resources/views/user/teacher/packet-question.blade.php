@@ -8,6 +8,19 @@
         .isAnswer {
             color: green;
         }
+        body {
+            background-image: url("https://schoolah.dev.net/img/2.jpeg");
+            background-size: 100%;
+            background-repeat: repeat;
+            background-position: unset;
+            background-attachment: fixed;
+        }
+        .title-font {
+            border-bottom: 6px solid #51a9c5;
+            padding-bottom: 6px;
+            font-size: 50px;
+            color: #51a9c5;
+        }
     </style>
 @endsection
 
@@ -16,12 +29,12 @@
         <div id="teacher-packet" v-if="this.page=='teacherPacket'">
             <div class="container">
                 <div class="row justify-content-center display-block">
-                    <div class="mt-5">
-                        <div class="col-md-12">
-                            <h3>Packet</h3>
-                        </div>
+                    <div class="ui container mt-5 mb-5">
+                        <h3 class="text-right text-uppercase title-font mb-5">
+                            <b>Packet</b>
+                        </h3>
                     </div>
-                    <div class="mt-4 table-margin">
+                    <div class="table-margin bg-white col-md-12">
                         <table class="table table-sm">
                             <thead>
                             <tr>
@@ -53,17 +66,18 @@
         <div id="question" v-else>
             <div class="container">
                 <div class="row justify-content-center display-block">
-                    <div class="mt-5">
-                        <div class="col-md-12">
-                            <h3>Manage Question</h3>
-                            <div class="font-weight-600">
-                                <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#add-question" @click="resetForm()">
-                                    <i class="fa fa-plus"></i> Add Question
-                                </button>
-                            </div>
-                        </div>
+                    <div class="ui container mt-5 mb-5">
+                        <h3 class="text-right text-uppercase title-font mb-5">
+                            <b class="float-left"><i class="fa fa-arrow-left" style="cursor: pointer; font-size: 28px" @click="backToPacket()"></i></b>
+                            <b>Manage Question</b>
+                        </h3>
                     </div>
-                    <div class="mt-4 table-margin">
+                    <div class="table-margin col-md-12 bg-white">
+                        <div class="font-weight-600 mb-4">
+                            <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#add-question" @click="resetForm()">
+                                <i class="fa fa-plus"></i> Add Question
+                            </button>
+                        </div>
                         <table class="table table-sm">
                             <thead>
                                 <tr>
@@ -88,13 +102,6 @@
                                 </tr>
                             </tbody>
                         </table>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="mt-5 float-right">
-                            <button class="btn btn-primary" @click="backToPacket()">
-                                <i class="fa fa-arrow-left"></i> Back to packet
-                            </button>
-                        </div>
                     </div>
                 </div>
             </div>

@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Material extends Model
 {
     protected $fillable = [
-        'schedule_detail_id', 'file', 'title', 'description'
+        'teacher_class_id', 'file', 'title', 'description'
     ];
 }

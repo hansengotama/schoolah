@@ -11,6 +11,7 @@ use App\ScheduleClass;
 use App\ScheduleDetail;
 use App\ScheduleShift;
 use App\Teacher;
+use App\TeacherClass;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -104,8 +105,6 @@ class TeacherController extends Controller
         $flag = 1;
         $questionChoices = QuestionChoice::where("question_id", $question->id)->pluck("id");
         foreach ($questionChoices as $key => $choice) {
-            $answer = false;
-
             if($request->answer == $flag) {
                 $answer = true;
             }else {
@@ -228,6 +227,33 @@ class TeacherController extends Controller
         }
 
         return response()->json($classSchedules, 200);
+    }
+
+    public function getTeacherClasses()
+    {
+        $schoolId = Auth::user()->school_id;
+        $user_id = Auth::user()->id;
+        $now = Carbon::now();
+
+        $periodDateDetail = PeriodDateDetail::where("school_id", $schoolId)
+            ->whereDate("start_date", "<=", $now)
+            ->whereDate("end_date", ">=", $now)
+            ->first();
+
+        $period = $periodDateDetail->period;
+
+        $teacher = Teacher::where("user_id", $user_id)->first();
+
+        $teacher_id = $teacher->id;
+
+        $teacher_classes = TeacherClass::where("teacher_id", $teacher_id)
+            ->with(["course", "grade" => function($query) use($period) {
+                $query->where("period", $period);
+            }])
+            ->orderBy("grade_id", "ASC")
+            ->get();
+
+        return response()->json($teacher_classes, 200);
     }
 
     public function manageAbsenceView()

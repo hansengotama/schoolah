@@ -5,12 +5,28 @@
         .fc-time {
             display: block !important;
         }
+        body {
+            background-image: url("https://schoolah.dev.net/img/2.jpeg");
+            background-size: 100%;
+            background-repeat: repeat;
+            background-position: unset;
+            background-attachment: fixed;
+        }
+        .title-font {
+            border-bottom: 6px solid #51a9c5;
+            padding-bottom: 6px;
+            font-size: 50px;
+            color: #51a9c5;
+        }
     </style>
 @endsection
 
 @section('content')
     <div class="ui container mt-5">
-        <div class="ui grid">
+        <h3 class="text-right text-uppercase title-font mb-5">
+            <b>Schedule</b>
+        </h3>
+        <div class="ui grid bg-white">
             <div class="ui sixteen column">
                 <div id="calendar"></div>
             </div>

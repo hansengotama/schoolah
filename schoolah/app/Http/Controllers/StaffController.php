@@ -1142,7 +1142,7 @@ class StaffController extends Controller
         $tuitionHistory = TuitionHistory::where("id", $request->id)->first();
 
         $tuitionHistory->update([
-            "status"            => "rejected"
+            "status" => "rejected"
         ]);
 
         return response()->json($request->all(), 200);
@@ -1153,7 +1153,7 @@ class StaffController extends Controller
         $tuitionHistory = TuitionHistory::where("id", $request->id)->first();
 
         $tuitionHistory->update([
-            "status"            => "approved"
+            "status" => "approved"
         ]);
 
         return response()->json($request->all(), 200);

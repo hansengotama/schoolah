@@ -531,6 +531,7 @@
                     }
                 },
                 addSchedule() {
+                    Swal.showLoading()
                     axios.post("{{ url('staff/add-schedule') }}", {
                         day: app.selectedDay,
                         shift: app.selectedShift,
@@ -582,6 +583,7 @@
                     })
                 },
                 removeSchedule() {
+                    Swal.showLoading()
                     axios.post("{{ url('staff/delete-schedule') }}", {
                         day: app.selectedDay,
                         shift: app.selectedShift,
@@ -654,6 +656,7 @@
                     }
                 },
                 createHoliday() {
+                    Swal.showLoading()
                     app.formHoliday.classId = app.selectedClassId
                     axios.post("{{  url('staff/create-schedule-holiday') }}", this.formHoliday)
                         .then(function (response) {
@@ -699,6 +702,7 @@
                     })
                 },
                 removeHoliday(id) {
+                    Swal.showLoading()
                     axios.post("{{ url('staff/remove-holiday-schedule') }}", {
                         id: id
                     })
@@ -792,6 +796,7 @@
                     }
                 },
                 createExam() {
+                    Swal.showLoading()
                     app.formExam.classId = app.selectedClassId
                     axios.post("{{ url('staff/create-schedule-exam') }}", this.formExam)
                     .then(function (response) {
@@ -839,6 +844,7 @@
                     })
                 },
                 removeExam(id) {
+                    Swal.showLoading()
                     axios.post("{{ url('staff/remove-exam-schedule') }}", {
                         id: id
                     })
@@ -873,6 +879,7 @@
                     })
                 },
                 editExam() {
+                    Swal.showLoading()
                     app.formExam.classId = app.selectedClassId
                     app.formExam.scheduleDetailId = app.selectedExamSchedule
 

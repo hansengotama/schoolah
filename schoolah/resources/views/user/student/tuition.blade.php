@@ -177,7 +177,7 @@
                     .then(function (response) {
                         if(response.status) {
                             app.selectedTuition = response.data
-                            console.log(app.selectedTuition)
+
                             $("#detail-modal").modal("show")
                             if(response.data.payment_receipt == null)
                                 app.image = null

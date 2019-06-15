@@ -260,6 +260,7 @@
                     }
                 },
                 createGuardian() {
+                    Swal.showLoading()
                     axios.post("{{ url('staff/add-guardian') }}", this.formValue)
                     .then(function (response) {
                         if(response.status == 200) {
@@ -275,6 +276,7 @@
                     })
                 },
                 editGuardian() {
+                    Swal.showLoading()
                     axios.post("{{ url('staff/edit-guardian') }}", {
                         "id": app.selectedGuardianId,
                         "name": app.formValue.name,
@@ -333,6 +335,7 @@
                     })
                 },
                 deleteGuardian(id) {
+                    Swal.showLoading()
                     axios.post("{{ url('staff/delete-guardian') }}", {
                         id: id
                     })

@@ -287,6 +287,7 @@
                     }
                 },
                 createTuition() {
+                    Swal.showLoading()
                     axios.post("{{ url('staff/add-tuition') }}", this.formValue)
                     .then(function (response) {
                         if(response.status) {
@@ -359,6 +360,7 @@
                         confirmButtonText: 'Yes, reject it!'
                     }).then((result) => {
                         if (result.value) {
+                            Swal.showLoading()
                             axios.post("{{ url('staff/reject-tuition') }}", {'id' : tuitionId})
                             .then(function (response) {
                                 if(response.status) {
@@ -380,6 +382,7 @@
                         confirmButtonText: 'Yes, approve it!'
                     }).then((result) => {
                         if (result.value) {
+                            Swal.showLoading()
                             axios.post("{{ url('staff/approve-tuition') }}", {'id' : tuitionId})
                             .then(function (response) {
                                 if(response.status) {

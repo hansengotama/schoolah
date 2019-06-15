@@ -401,6 +401,7 @@
                     })
                 },
                 deletePacket(id) {
+                    Swal.showLoading()
                     axios.post("{{ url('staff/delete-packet') }}", {
                         id: id
                     })
@@ -478,6 +479,7 @@
                     })
                 },
                 addPacket() {
+                    Swal.showLoading()
                     axios.post("{{ url('staff/add-packet') }}", this.formValue)
                     .then(function (response) {
                         if(response.status == 200) {
@@ -494,6 +496,7 @@
                     })
                 },
                 editPacket() {
+                    Swal.showLoading()
                     axios.post("{{ url('staff/edit-packet') }}", {
                         packetId: app.selectedPacket,
                         courseId: app.formValue.courseId,
@@ -563,6 +566,7 @@
                     })
                 },
                 addPacketContributor() {
+                    Swal.showLoading()
                     axios.post("{{ url('staff/add-packet-contributor') }}", {
                         teacherId: app.formValueContributor.teacherId,
                         packetId: app.selectedPacketId
@@ -601,6 +605,7 @@
                     })
                 },
                 deleteContributor(id) {
+                    Swal.showLoading()
                     axios.post("{{ url('staff/delete-packet-contributor') }}", {
                         id: id
                     })

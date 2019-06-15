@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Assignment;
 use App\ContributorTeacher;
 use App\Packet;
 use App\PeriodDateDetail;
@@ -256,8 +257,32 @@ class TeacherController extends Controller
         return response()->json($teacher_classes, 200);
     }
 
-    public function manageAbsenceView()
+    public function getTeacherClassById($teacher_class_id)
     {
+        $teacher_class = TeacherClass::where("id", $teacher_class_id)->first();
 
+        return response()->json($teacher_class, 200);
+    }
+
+    public function addAssignment(Request $request)
+    {
+        $file = $request->file->store('/public/assignment');
+
+        Assignment::create([
+            "teacher_class_id" => $request->teacher_class_id,
+            "name" => $request->name,
+            "question_file" => $file,
+            "description" => $request->description,
+            "due_date" => $request->due_date,
+        ]);
+
+        return response()->json($request->all(), 200);
+    }
+
+    public function getAssignments($teacher_class_id)
+    {
+        $assignments = Assignment::where("teacher_class_id", $teacher_class_id)->get();
+
+        return response()->json($assignments, 200);
     }
 }

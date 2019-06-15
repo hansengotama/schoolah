@@ -289,6 +289,7 @@
                     }
                 },
                 createTeacher() {
+                    Swal.showLoading()
                     axios.post("add-teacher", app.formValue)
                     .then(function (response) {
                         if(response.status == 200) {
@@ -327,6 +328,7 @@
                     })
                 },
                 editTeacher() {
+                    Swal.showLoading()
                     axios.post('{{ url('staff/edit-teacher') }}', {
                         "id": app.selectedTeacherId,
                         "name": app.formValue.name,
@@ -364,6 +366,7 @@
                     })
                 },
                 deleteTeacher(id) {
+                    Swal.showLoading()
                     axios.post("{{ url('staff/delete-teacher') }}", {
                         id: id
                     })

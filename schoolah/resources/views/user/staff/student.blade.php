@@ -332,6 +332,7 @@
                     this.formStudent.guardianId = 0
                 },
                 createStudent() {
+                    Swal.showLoading()
                     axios.post("add-student", this.formStudent)
                     .then(function (response) {
                         if(response.status == 200){
@@ -347,6 +348,7 @@
                     })
                 },
                 editStudent() {
+                    Swal.showLoading()
                     axios.post("edit-student", {
                         "id": app.studentSelected,
                         "name": app.formStudent.name,
@@ -400,6 +402,7 @@
                     })
                 },
                 deleteStudent(id) {
+                    Swal.showLoading()
                     axios.get("{{ url('staff/delete-student') }}/"+id)
                     .then((response) => {
                         if(response.status == 200) {

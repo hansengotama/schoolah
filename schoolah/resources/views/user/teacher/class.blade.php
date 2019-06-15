@@ -100,6 +100,13 @@
         #assignment {
             margin: 30px 40px;
         }
+        .btn-download {
+            border: none;
+            background-color: #50a9c5;
+            border-radius: 5px;
+            padding: 8px 12px;
+            color: white;
+        }
     </style>
 @endsection
 
@@ -146,26 +153,31 @@
                 <div class="row" v-if="tab=='assignment'">
                     <div class="container-details">
                         <div id="assignment">
-                            <button class="btn btn-primary btn-class">
+                            <button class="btn btn-primary btn-class" @click="addAssignment">
                                 <i class="fa fa-plus"></i> Assignment
                             </button>
                             <table class="table table-striped table-sm mt-3">
                                 <thead>
                                 <tr>
                                     <th width="10%">No</th>
-                                    <th width="40%">Title</th>
+                                    <th width="20%">Name</th>
+                                    <th width="30%">Description</th>
                                     <th width="30%">Due Date</th>
-                                    <th width="10%">Download</th>
+                                    <th width="20%">Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td class="vertical-align-middle">1</td>
-                                    <td class="vertical-align-middle">asd</td>
-                                    <td class="vertical-align-middle">asd</td>
+                                <tr v-for="(assignment, index) in assignments">
+                                    <td style="vertical-align:middle">@{{ index+1 }}</td>
+                                    <td style="vertical-align:middle">@{{ assignment.name }}</td>
+                                    <td style="vertical-align:middle">@{{ assignment.description }}</td>
+                                    <td style="vertical-align:middle">@{{ assignment.due_date }}</td>
                                     <td>
+                                        <button class="btn-download" @click="downloadAssignment(assignment.question_file)">
+                                            <i class="fa fa-download"></i>
+                                        </button>
                                         <button class="btn-download">
-                                            <i class="fa fa-download" style="color: white"></i>
+                                            <i class="fa fa-eye"></i>
                                         </button>
                                     </td>
                                 </tr>
@@ -186,6 +198,46 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="add-assignment">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add Assignment</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Name</label>
+                                <input type="text" :class="'form-control '+error.assignment.class.name" v-model="formData.assignment.name">
+                                <div class="red">@{{ error.assignment.text.name }}</div>
+                            </div>
+                            <div class="form-group">
+                                <label>Description</label>
+                                <input type="text" :class="'form-control '+error.assignment.class.description" v-model="formData.assignment.description">
+                                <div class="red">@{{ error.assignment.text.description }}</div>
+                            </div>
+                            <div class="form-group">
+                                <label>File</label>
+                                <input type="file" ref="file" :class="'form-control '+error.assignment.class.question_file" @change="assignmentFile()">
+                                <div class="red">@{{ error.assignment.text.question_file }}</div>
+                            </div>
+                            <div class="form-group">
+                                <label>Due Date</label>
+                                <input type="date" :class="'form-control '+error.assignment.class.due_date" v-model="formData.assignment.due_date" />
+                                <div class="red">@{{ error.assignment.text.due_date }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" @click="validateAssignment()">Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
 
@@ -195,14 +247,77 @@
             el: '#app',
             data: {
                 teacherClasses: {},
-                page: "class",
                 selectedTeacherClass: {},
-                tab: "assignment"
+                assignments: {},
+                page: "class",
+                tab: "assignment",
+                error: {
+                    assignment: {
+                        class: {
+                            name: "",
+                            description: "",
+                            question_file: "",
+                            due_date: "",
+                        },
+                        text: {
+                            name: "",
+                            description: "",
+                            question_file: "",
+                            due_date: ""
+                        }
+                    },
+                    material: {
+                        class: {
+                            file: "",
+                            title: "",
+                            description: ""
+                        },
+                        text: {
+                            file: "",
+                            title: "",
+                            description: ""
+                        }
+                    }
+                },
+                formData: {
+                    assignment: {
+                        name: "",
+                        description: "",
+                        question_file: "",
+                        due_date: moment().add(1, 'M').format('YYYY-MM-DD')
+                    },
+                    material: {
+                        file: "",
+                        title: "",
+                        description: ""
+                    }
+                }
             },
             mounted() {
                 this.getTeacherClasses()
             },
             methods: {
+                required(value) {
+                    return (value.length < 1) ? true : false
+                },
+                isNumber(value) {
+                    var regex = /^[0-9.,]+$/
+                    return !regex.test(value)
+                },
+                popUpError() {
+                    swal({
+                        heightAuto: true,
+                        type: 'error',
+                        title: 'Error!',
+                    })
+                },
+                popUpSuccess() {
+                    swal({
+                        heightAuto: true,
+                        type: 'success',
+                        title: 'Success!',
+                    })
+                },
                 findInArrayOfObject(key, value, array) {
                     let response = false
 
@@ -221,16 +336,120 @@
                         }
                     })
                 },
+                getTeacherClass() {
+                    axios.get("{{ url('teacher/get-teacher-class') }}/" + this.selectedTeacherClass.id)
+                    .then(function (response) {
+                        if(response.status) {
+                            app.selectedTeacherClass = response.data
+                        }
+                    })
+                },
                 goToClass(teacher_class_id) {
                     this.page = "class-detail"
                     this.selectedTeacherClass = this.findInArrayOfObject("id", teacher_class_id, this.teacherClasses)
-
+                    this.getAssignments()
                 },
                 backToClass() {
                     this.page = "class"
                 },
                 changeTab(tab) {
                     this.tab = tab
+                },
+                addAssignment() {
+                    $("#add-assignment").modal("show")
+                },
+                validateAssignment() {
+                    if(this.required(this.formData.assignment.name)) {
+                        this.error.assignment.text.name = "name must be required"
+                        this.error.assignment.class.name = "border-red"
+                    }else {
+                        this.error.assignment.text.name = ""
+                        this.error.assignment.class.name = ""
+                    }
+
+                    if(this.required(this.formData.assignment.description)) {
+                        this.error.assignment.text.description = "description must be required"
+                        this.error.assignment.class.description = "border-red"
+                    }else {
+                        this.error.assignment.text.description = ""
+                        this.error.assignment.class.description = ""
+                    }
+
+                    if(this.required(this.formData.assignment.due_date)) {
+                        this.error.assignment.text.due_date = "due date must be required"
+                        this.error.assignment.class.due_date = "border-red"
+                    }else if (moment(this.formData.assignment.due_date) < moment()) {
+                        this.error.assignment.text.due_date = "due date cant be today or the day before"
+                        this.error.assignment.class.due_date = "border-red"
+                    }else {
+                        this.error.assignment.text.due_date = ""
+                        this.error.assignment.class.due_date = ""
+                    }
+
+                    if(this.required(this.formData.assignment.question_file)) {
+                        this.error.assignment.text.question_file = "question file must be required"
+                        this.error.assignment.class.question_file = "border-red"
+                    }else {
+                        this.error.assignment.text.question_file = ""
+                        this.error.assignment.class.question_file = ""
+                    }
+
+                    if(this.error.assignment.text.name == "" &&
+                        this.error.assignment.text.description == "" &&
+                        this.error.assignment.text.due_date == "" &&
+                        this.error.assignment.text.question_file == "") {
+                        this.createAssignment()
+                    }
+                },
+                resetAssignment() {
+                    this.formValue.assignment.name = ""
+                    this.formValue.assignment.description = ""
+                    this.formValue.assignment.question_file = ""
+                    this.formValue.assignment.due_date = moment().add(1, 'M').format('YYYY-MM-DD')
+                },
+                createAssignment() {
+                    let formData = new FormData()
+
+                    formData.append('file', this.formData.assignment.question_file);
+                    formData.set('name', this.formData.assignment.name)
+                    formData.set('description', this.formData.assignment.description)
+                    formData.set('due_date', this.formData.assignment.due_date)
+                    formData.set('teacher_class_id', this.selectedTeacherClass.id)
+
+                    axios.post("{{ url('teacher/add-assignment') }}", formData)
+                    .then(function (response) {
+                        if(response.status) {
+                            app.getAssignments()
+                            app.popUpSuccess()
+                            app.resetAssignment()
+                            $("#add-assignment").modal("hide")
+                        }else {
+                            app.popUpError()
+                        }
+                    })
+                    .catch(function (error) {
+                        app.popUpError()
+                    })
+                },
+                getAssignments() {
+                    axios.get("{{ url('teacher/get-assignments') }}/"+this.selectedTeacherClass.id)
+                    .then(function (response) {
+                        if(response.status) {
+                            let baseUrl = window.location.origin
+                            let assignments = response.data
+                            for(let i=0; assignments.length > i; i++) {
+                                assignments[i].question_file = assignments[i].question_file.replace('public',baseUrl)
+                            }
+                            console.log(assignments)
+                            app.assignments = assignments
+                        }
+                    })
+                },
+                assignmentFile() {
+                    this.formData.assignment.question_file = this.$refs.file.files[0];
+                },
+                downloadAssignment(link) {
+                    window.open(link, '_blank');
                 }
             }
         })

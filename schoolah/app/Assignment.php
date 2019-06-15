@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Assignment extends Model
 {
     protected $fillable = [
-        'teacher_class_id', 'name', 'description', 'question_file', 'start_date', 'end_date'
+        'teacher_class_id', 'name', 'description', 'question_file', 'due_date'
     ];
+
+    public function getQuestionFileUrlAttribute()
+    {
+        return url('/').$this->question_file;
+    }
 }

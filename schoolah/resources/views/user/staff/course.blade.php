@@ -170,6 +170,7 @@
                     }
                 },
                 addCourse() {
+                    Swal.showLoading()
                     axios.post("{{ url('staff/add-course') }}", app.formValue)
                     .then(function (response) {
                         if(response.status == 200) {
@@ -186,6 +187,7 @@
                     })
                 },
                 editCourse() {
+                    Swal.showLoading()
                     axios.post("{{ url('staff/edit-course') }}",{
                         "id": app.selectedCourse,
                         "name": app.formValue.name
@@ -233,6 +235,7 @@
                     })
                 },
                 deleteCourse(id) {
+                    Swal.showLoading()
                     axios.post("{{ url('staff/delete-course') }}",{
                         "id": id,
                     })

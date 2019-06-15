@@ -31,6 +31,9 @@
                 <div id="calendar"></div>
             </div>
         </div>
+        <div v-if="loading" style="text-align: center">
+            <img src="{{ url('img/loading.gif')  }}" width="400px">
+        </div>
     </div>
 
 @endsection
@@ -40,7 +43,8 @@
         var app = new Vue({
             el: '#app',
             data: {
-                teacherSchedules: []
+                teacherSchedules: [],
+                loading: true
             },
             mounted() {
                 this.getDataCalender()
@@ -50,6 +54,7 @@
                     axios.get("{{ url('teacher/get-schedule') }}")
                     .then(function (response) {
                         if(response.status) {
+                            app.loading = false
                             app.teacherSchedules = Object.values(response.data)
                             app.setCalender()
                         }

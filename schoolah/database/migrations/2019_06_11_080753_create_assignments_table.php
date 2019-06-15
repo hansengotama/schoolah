@@ -20,8 +20,7 @@ class CreateAssignmentsTable extends Migration
             $table->string('name');
             $table->string('question_file');
             $table->string('description');
-            $table->dateTime('start_date');
-            $table->dateTime('end_date');
+            $table->dateTime('due_date');
             $table->timestamps();
         });
     }

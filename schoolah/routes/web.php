@@ -149,6 +149,9 @@ Route::group(['middleware' => ['auth']], function () {
                 Route::get('/get-question/{question_id}', 'TeacherController@getQuestionById');
                 Route::get('/get-schedule', 'TeacherController@getSchedule');
                 Route::get('/get-teacher-class', 'TeacherController@getTeacherClasses');
+                Route::get('/get-teacher-class/{teacher_class_id}', 'TeacherController@getTeacherClassById');
+                Route::post('/add-assignment', 'TeacherController@addAssignment');
+                Route::get('/get-assignments/{teacher_class_id}', 'TeacherController@getAssignments');
             });
             Route::group(['middleware' => 'student', 'prefix' => 'student'], function () {
                 Route::get('/', 'HomeController@index')->name('home');
@@ -175,5 +178,4 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/', 'HomeController@index')->name('home');
         });
     });
-
 });

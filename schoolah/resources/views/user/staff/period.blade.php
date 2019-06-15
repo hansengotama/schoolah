@@ -233,6 +233,7 @@
                     }
                 },
                 createPeriod() {
+                    Swal.showLoading()
                     axios.post("{{ url('staff/create-period') }}", this.formValue)
                     .then(function (response) {
                         if(response.status) {
@@ -257,6 +258,7 @@
                     })
                 },
                 editPeriod() {
+                    Swal.showLoading()
                     app.formValue.periodId = app.selectedPeriod
 
                     axios.post("{{ url('staff/edit-period') }}", app.formValue)
@@ -290,6 +292,7 @@
                     })
                 },
                 deletePeriod(id) {
+                    Swal.showLoading()
                     axios.post("{{ url('staff/delete-period') }}", {
                         id: id
                     })

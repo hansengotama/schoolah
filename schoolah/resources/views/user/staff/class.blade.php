@@ -559,6 +559,7 @@
                     this.getGuardianTeacher()
                 },
                 addClass() {
+                    Swal.showLoading()
                     axios.post('{{ url('staff/add-class') }}', app.formValue)
                     .then(function (response) {
                         if(response.status == 200) {
@@ -598,6 +599,7 @@
                     })
                 },
                 editClass() {
+                    Swal.showLoading()
                     axios.post("{{ url('staff/edit-class') }}", {
                         "id": app.selectedClassId,
                         "name": app.formValue.name,
@@ -634,6 +636,7 @@
                     })
                 },
                 deleteClass(id) {
+                    Swal.showLoading()
                     axios.post("{{ url('staff/delete-class') }}", {
                         id: id
                     })
@@ -721,6 +724,7 @@
                     this.formValueStudent.email = ""
                 },
                 addStudentClass() {
+                    Swal.showLoading()
                     axios.post("{{ url('staff/add-student-class') }}",{
                         studentId: app.formValueStudent.id,
                         classId: app.selectedClass.id
@@ -756,6 +760,7 @@
                     })
                 },
                 removeStudentClass(studentId) {
+                    Swal.showLoading()
                     axios.post('remove-student-class', {
                         "studentId": studentId,
                         "classId": app.selectedClass.id
@@ -869,6 +874,7 @@
                     }
                 },
                 addTeacherClass() {
+                    Swal.showLoading()
                     axios.post("{{ url('staff/add-teacher-class-course') }}", {
                         teacherId: app.formValueTeacher.teacherId,
                         courseId: app.formValueTeacher.courseId,
@@ -919,6 +925,7 @@
                     })
                 },
                 removeTeacherClass(teacherCourseId) {
+                    Swal.showLoading()
                     axios.post("{{ url('staff/remove-teacher-class-course') }}/"+teacherCourseId)
                     .then(function (response) {
                         if(response.status == 200) {

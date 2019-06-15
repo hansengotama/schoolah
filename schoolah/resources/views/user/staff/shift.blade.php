@@ -307,6 +307,7 @@
                     })
                 },
                 addScheduleShift() {
+                    Swal.showLoading()
                     axios.post("{{ url('staff/add-schedule-shift') }}", app.formValue)
                     .then(function (response) {
                         if(response.status == 200) {
@@ -322,6 +323,7 @@
                     })
                 },
                 editScheduleShift() {
+                    Swal.showLoading()
                     axios.post("{{ url('staff/edit-schedule-shift') }}", {
                         id: app.selectedScheduleShiftId,
                         order: app.formValue.order,
@@ -383,6 +385,7 @@
                     })
                 },
                 deleteContributorShift(id) {
+                    Swal.showLoading()
                     axios.post("{{ url('staff/delete-schedule-shift') }}", {
                         id: id
                     })

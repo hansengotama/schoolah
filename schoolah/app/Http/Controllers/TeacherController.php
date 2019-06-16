@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Assignment;
 use App\ContributorTeacher;
+use App\Material;
 use App\Packet;
 use App\PeriodDateDetail;
 use App\Question;
@@ -284,5 +285,26 @@ class TeacherController extends Controller
         $assignments = Assignment::where("teacher_class_id", $teacher_class_id)->get();
 
         return response()->json($assignments, 200);
+    }
+
+    public function addMaterial(Request $request)
+    {
+        $file = $request->file->store('/public/material');
+
+        Material::create([
+            "teacher_class_id" => $request->teacher_class_id,
+            "file" => $file,
+            "title" => $request->title,
+            "description" => $request->description
+        ]);
+
+        return response()->json($request->all(), 200);
+    }
+
+    public function getMaterials($teacher_class_id)
+    {
+        $materials = Material::where("teacher_class_id", $teacher_class_id)->get();
+
+        return response()->json($materials, 200);
     }
 }

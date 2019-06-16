@@ -188,7 +188,33 @@
                 </div>
                 <div class="row" v-if="tab=='material'">
                     <div class="container-details">
-                        material
+                        <div id="assignment">
+                            <button class="btn btn-primary btn-class" @click="addMaterial">
+                                <i class="fa fa-plus"></i> Material
+                            </button>
+                            <table class="table table-striped table-sm mt-3">
+                                <thead>
+                                <tr>
+                                    <th width="10%">No</th>
+                                    <th width="20%">Title</th>
+                                    <th width="30%">Description</th>
+                                    <th width="20%">Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr v-for="(material, index) in materials">
+                                    <td style="vertical-align:middle">@{{ index+1 }}</td>
+                                    <td style="vertical-align:middle">@{{ material.title }}</td>
+                                    <td style="vertical-align:middle">@{{ material.description }}</td>
+                                    <td>
+                                        <button class="btn-download" @click="downloadMaterial(material.file)">
+                                            <i class="fa fa-download"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
                 <div class="row" v-if="tab=='absence'">
@@ -238,6 +264,41 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="add-material">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add Material</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Title</label>
+                                <input type="text" :class="'form-control '+error.material.class.title" v-model="formData.material.title">
+                                <div class="red">@{{ error.material.text.title }}</div>
+                            </div>
+                            <div class="form-group">
+                                <label>Description</label>
+                                <input type="text" :class="'form-control '+error.material.class.description" v-model="formData.material.description">
+                                <div class="red">@{{ error.material.text.description }}</div>
+                            </div>
+                            <div class="form-group">
+                                <label>File</label>
+                                <input type="file" ref="file" :class="'form-control '+error.material.class.file" @change="materialFile()">
+                                <div class="red">@{{ error.material.text.file }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" @click="validateMaterial()">Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
 
@@ -249,6 +310,7 @@
                 teacherClasses: {},
                 selectedTeacherClass: {},
                 assignments: {},
+                materials: {},
                 page: "class",
                 tab: "assignment",
                 error: {
@@ -348,6 +410,7 @@
                     this.page = "class-detail"
                     this.selectedTeacherClass = this.findInArrayOfObject("id", teacher_class_id, this.teacherClasses)
                     this.getAssignments()
+                    this.getMaterials()
                 },
                 backToClass() {
                     this.page = "class"
@@ -357,6 +420,9 @@
                 },
                 addAssignment() {
                     $("#add-assignment").modal("show")
+                },
+                addMaterial() {
+                    $("#add-material").modal("show")
                 },
                 validateAssignment() {
                     if(this.required(this.formData.assignment.name)) {
@@ -401,6 +467,37 @@
                         this.createAssignment()
                     }
                 },
+                validateMaterial() {
+                    if(this.required(this.formData.material.title)) {
+                        this.error.material.text.title = "title must be required"
+                        this.error.material.class.title = "border-red"
+                    }else {
+                        this.error.material.text.title = ""
+                        this.error.material.class.title = ""
+                    }
+
+                    if(this.required(this.formData.material.description)) {
+                        this.error.material.text.description = "description must be required"
+                        this.error.material.class.description = "border-red"
+                    }else {
+                        this.error.material.text.description = ""
+                        this.error.material.class.description = ""
+                    }
+
+                    if(this.required(this.formData.material.file)) {
+                        this.error.material.text.file = "file must be required"
+                        this.error.material.class.file = "border-red"
+                    }else {
+                        this.error.material.text.file = ""
+                        this.error.material.class.file = ""
+                    }
+
+                    if(this.error.material.text.title == "" &&
+                        this.error.material.text.description == "" &&
+                        this.error.material.text.file == "") {
+                        this.createMaterial()
+                    }
+                },
                 resetAssignment() {
                     this.formValue.assignment.name = ""
                     this.formValue.assignment.description = ""
@@ -440,7 +537,7 @@
                             for(let i=0; assignments.length > i; i++) {
                                 assignments[i].question_file = assignments[i].question_file.replace('public',baseUrl)
                             }
-                            console.log(assignments)
+
                             app.assignments = assignments
                         }
                     })
@@ -448,8 +545,56 @@
                 assignmentFile() {
                     this.formData.assignment.question_file = this.$refs.file.files[0];
                 },
+                materialFile() {
+                    this.formData.material.file = this.$refs.file.files[0];
+                },
                 downloadAssignment(link) {
                     window.open(link, '_blank');
+                },
+                downloadMaterial(link) {
+                    window.open(link, '_blank');
+                },
+                resetMaterial() {
+                    this.formData.material.file = ""
+                    this.formData.material.title = ""
+                    this.formData.material.description = ""
+                },
+                createMaterial() {
+                    let formData = new FormData()
+
+                    formData.append('file', this.formData.material.file);
+                    formData.set('title', this.formData.material.title)
+                    formData.set('description', this.formData.material.description)
+                    formData.set('teacher_class_id', this.selectedTeacherClass.id)
+
+                    axios.post("{{ url('teacher/add-material') }}", formData)
+                    .then(function (response) {
+                        if(response.status) {
+                            app.popUpSuccess()
+                            app.resetMaterial()
+                            app.getMaterials()
+                            $("#add-material").modal("hide")
+                        }else {
+                            app.popUpError()
+                        }
+                    })
+                    .catch(function (error) {
+                        app.popUpError()
+                    })
+                },
+                getMaterials() {
+                    axios.get("{{ url('teacher/get-materials') }}/"+this.selectedTeacherClass.id)
+                    .then(function (response) {
+                        if(response.status) {
+                            let baseUrl = window.location.origin
+                            let materials = response.data
+                            for(let i=0; materials.length > i; i++) {
+                                materials[i].file = materials[i].file.replace('public',baseUrl)
+                            }
+
+                            app.materials = materials
+                        }
+                    })
                 }
             }
         })

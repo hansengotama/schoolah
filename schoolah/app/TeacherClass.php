@@ -21,4 +21,8 @@ class TeacherClass extends Model
     public function teacher() {
         return $this->belongsTo(Teacher::class);
     }
+
+    public function materials() {
+        return $this->hasMany(Material::class);
+    }
 }

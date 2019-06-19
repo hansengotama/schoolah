@@ -173,10 +173,13 @@
                                     <td style="vertical-align:middle">@{{ assignment.description }}</td>
                                     <td style="vertical-align:middle">@{{ assignment.due_date }}</td>
                                     <td>
-                                        <button class="btn-download" @click="downloadAssignment(assignment.question_file)">
+                                        <button class="btn-download"
+                                                @click="downloadAssignment(assignment.question_file)">
                                             <i class="fa fa-download"></i>
                                         </button>
-                                        <button class="btn-download">
+                                        <button class="btn-download"
+                                                @click="viewAssignment(assignment.id)"
+                                                style="background-color: #52d600">
                                             <i class="fa fa-eye"></i>
                                         </button>
                                     </td>
@@ -247,7 +250,7 @@
                             </div>
                             <div class="form-group">
                                 <label>File</label>
-                                <input type="file" ref="file" :class="'form-control '+error.assignment.class.question_file" @change="assignmentFile()">
+                                <input type="file" ref="file1" :class="'form-control '+error.assignment.class.question_file" @change="assignmentFile()">
                                 <div class="red">@{{ error.assignment.text.question_file }}</div>
                             </div>
                             <div class="form-group">
@@ -260,6 +263,47 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <button type="button" class="btn btn-primary" @click="validateAssignment()">Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="view-assignment">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">View Assignment</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-striped table-sm mt-3">
+                            <thead>
+                            <tr>
+                                <th width="10%">No</th>
+                                <th width="10%">Code</th>
+                                <th width="10%">Name</th>
+                                <th width="20%">Created At</th>
+                                <th width="20%">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr v-for="(historyAssignment, index) in selectedHistoryAssignments">
+                                <td style="vertical-align:middle">@{{ index+1 }}</td>
+                                <td style="vertical-align:middle">@{{ historyAssignment.student.student_code }}</td>
+                                <td style="vertical-align:middle">@{{ historyAssignment.student.user.name }}</td>
+                                <td style="vertical-align:middle">@{{ historyAssignment.created_at }}</td>
+                                <td>
+                                    <button class="btn-download" @click="downloadHistoryAssignment(historyAssignment.answer_file)">
+                                        <i class="fa fa-download"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
@@ -353,7 +397,8 @@
                         title: "",
                         description: ""
                     }
-                }
+                },
+                selectedHistoryAssignments: []
             },
             mounted() {
                 this.getTeacherClasses()
@@ -420,9 +465,11 @@
                 },
                 addAssignment() {
                     $("#add-assignment").modal("show")
+                    this.resetAssignment()
                 },
                 addMaterial() {
                     $("#add-material").modal("show")
+                    this.resetMaterial()
                 },
                 validateAssignment() {
                     if(this.required(this.formData.assignment.name)) {
@@ -499,10 +546,10 @@
                     }
                 },
                 resetAssignment() {
-                    this.formValue.assignment.name = ""
-                    this.formValue.assignment.description = ""
-                    this.formValue.assignment.question_file = ""
-                    this.formValue.assignment.due_date = moment().add(1, 'M').format('YYYY-MM-DD')
+                    this.formData.assignment.name = ""
+                    this.formData.assignment.description = ""
+                    this.formData.assignment.question_file = ""
+                    this.formData.assignment.due_date = moment().add(1, 'M').format('YYYY-MM-DD')
                 },
                 createAssignment() {
                     let formData = new FormData()
@@ -535,7 +582,7 @@
                             let baseUrl = window.location.origin
                             let assignments = response.data
                             for(let i=0; assignments.length > i; i++) {
-                                assignments[i].question_file = assignments[i].question_file.replace('public',baseUrl)
+                                assignments[i].question_file = assignments[i].question_file.replace('public', baseUrl)
                             }
 
                             app.assignments = assignments
@@ -543,7 +590,7 @@
                     })
                 },
                 assignmentFile() {
-                    this.formData.assignment.question_file = this.$refs.file.files[0]
+                    this.formData.assignment.question_file = this.$refs.file1.files[0]
                 },
                 materialFile() {
                     this.formData.material.file = this.$refs.file.files[0]
@@ -552,6 +599,9 @@
                     window.open(link, '_blank')
                 },
                 downloadMaterial(link) {
+                    window.open(link, '_blank')
+                },
+                downloadHistoryAssignment(link) {
                     window.open(link, '_blank')
                 },
                 resetMaterial() {
@@ -593,6 +643,20 @@
                             }
 
                             app.materials = materials
+                        }
+                    })
+                },
+                viewAssignment(id) {
+                    $("#view-assignment").modal("show")
+                    axios.get("{{ url('teacher/get-history-assignment') }}/"+id)
+                    .then(function (response) {
+                        if(response.status) {
+                            let baseUrl = window.location.origin
+                            for(let i=0; response.data.length > i; i++) {
+                                response.data[i].answer_file = response.data[i].answer_file.replace('public',baseUrl)
+                                response.data[i].created_at = moment(response.data[i].created_at).format("D MMMM Y")
+                            }
+                            app.selectedHistoryAssignments = response.data
                         }
                     })
                 }

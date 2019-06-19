@@ -134,6 +134,11 @@
                             <a class="nav-link white" href="{{ route('manage-schedule-view') }}">Schedule <span class="sr-only">(current)</span></a>
                         </li>
                     </ul>
+                    <ul class="navbar-nav">
+                        <li class="nav-item {{ (Request::route()->getName() == 'manage-forum-view') ? 'active' : '' }}">
+                            <a class="nav-link white" href="{{ route('manage-forum-view') }}">Forum <span class="sr-only">(current)</span></a>
+                        </li>
+                    </ul>
                 @endif
                 @if(Auth::user()->role == 'student')
                     <ul class="navbar-nav">

@@ -164,6 +164,20 @@
                 this.getTuitions()
             },
             methods: {
+                popUpError() {
+                    swal({
+                        heightAuto: true,
+                        type: 'error',
+                        title: 'Error!',
+                    })
+                },
+                popUpSuccess() {
+                    swal({
+                        heightAuto: true,
+                        type: 'success',
+                        title: 'Success!',
+                    })
+                },
                 getTuitions() {
                     axios.get("{{ url('student/get-tuitions') }}")
                         .then(function (response) {
@@ -209,15 +223,17 @@
                     let requestData = new FormData()
                     requestData.append('file', app.imageNotBase64)
                     requestData.set('id', app.selectedTuition.id)
-                    $("#detail-modal").modal("hide")
+                    Swal.showLoading()
+
                     axios.post("{{ url('student/save-image') }}", requestData)
-                        .then(function (response) {
-                            if(response.data) {
-                                app.resetForm()
-                                app.getTuitions()
-                                $("#detail-modal").modal("hide")
-                            }
-                        })
+                    .then(function (response) {
+                        if(response.data) {
+                            app.popUpSuccess()
+                            app.resetForm()
+                            app.getTuitions()
+                            $("#detail-modal").modal("hide")
+                        }
+                    })
                 }
             }
         })

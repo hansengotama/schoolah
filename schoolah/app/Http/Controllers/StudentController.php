@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Assignment;
 use App\Material;
 use App\Packet;
 use App\PeriodDateDetail;
@@ -11,6 +12,7 @@ use App\ScheduleDetail;
 use App\ScheduleShift;
 use App\Student;
 use App\StudentAnswer;
+use App\StudentAssignment;
 use App\StudentClass;
 use App\StudentPacket;
 use App\Teacher;
@@ -73,7 +75,7 @@ class StudentController extends Controller
             ->first();
 
         $studentClasses = StudentClass::where("student_id", $student->id)
-            ->with(["grade" => function($query) use ($periodDateDetail) {
+            ->with(["grade" => function ($query) use ($periodDateDetail) {
                 $query->where("period", $periodDateDetail->period);
             }])
             ->get();
@@ -81,9 +83,9 @@ class StudentController extends Controller
         $scheduleClasses = null;
         $classSchedules = [];
         foreach ($studentClasses as $studentClass) {
-            if($studentClass->grade != null) {
+            if ($studentClass->grade != null) {
                 $scheduleClasses = ScheduleClass::where("grade_id", $studentClass->grade->id)
-                    ->with(["course", "teacher" => function($query) {
+                    ->with(["course", "teacher" => function ($query) {
                         $query->with("user");
                     }])
                     ->get();
@@ -95,7 +97,7 @@ class StudentController extends Controller
         foreach ($scheduleClasses as $schedule_class) {
             $start = new \DateTime($periodDateDetail->start_date);
             $end = new \DateTime($periodDateDetail->end_date);
-            if($start->format("w") < $end->format("w"))
+            if ($start->format("w") < $end->format("w"))
                 $end = $end->modify('+1 month');
 
             $interval = \DateInterval::createFromDateString('1 month');
@@ -108,21 +110,21 @@ class StudentController extends Controller
                 $num = cal_days_in_month(CAL_GREGORIAN, $month, $year);
 
                 $count++;
-                if($totalPeriod == $count)
+                if ($totalPeriod == $count)
                     $num = (int)$end->format("d");
 
                 for ($dayNumber = ($count == 1) ? (int)$dt->format("d") : 0; $dayNumber <= $num; $dayNumber++) {
                     $date = new \DateTime($year . "-" . $month . "-" . $dayNumber);
                     $day = (int)$date->format("w");
 
-                    if($schedule_class->day === $day) {
+                    if ($schedule_class->day === $day) {
                         $shift = ScheduleShift::where("school_id", $schoolId)
                             ->where("shift", $schedule_class->order)
                             ->whereDate("active_from_date", "<=", $date)
                             ->whereDate("active_until_date", ">=", $date)
                             ->first();
 
-                        if($shift == null) {
+                        if ($shift == null) {
                             $shift = ScheduleShift::where("school_id", $schoolId)
                                 ->where("shift", $schedule_class->order)
                                 ->where("active_from_date", null)
@@ -132,8 +134,8 @@ class StudentController extends Controller
 
                         ($dayNumber >= 10) ?: $dayNumber = "0" . $dayNumber;
 
-                        $startDate = $year . "-" . $month . "-" . $dayNumber. "T" .$shift->from;
-                        $endDate = $year . "-" . $month . "-" . $dayNumber. "T" .$shift->until;
+                        $startDate = $year . "-" . $month . "-" . $dayNumber . "T" . $shift->from;
+                        $endDate = $year . "-" . $month . "-" . $dayNumber . "T" . $shift->until;
 
                         $title = $schedule_class->course->name . " (" . $schedule_class->teacher->user->name . ")";
 
@@ -152,8 +154,8 @@ class StudentController extends Controller
         $scheduleExams = ScheduleDetail::where("school_id", $schoolId)
             ->where("class_id", $studentClass->grade->id)
             ->where("schedule_type", "exam")
-            ->with(["scheduleDetailPacket" => function($query) {
-                $query->with(["packet" => function($query) {
+            ->with(["scheduleDetailPacket" => function ($query) {
+                $query->with(["packet" => function ($query) {
                     $query->with(["course"]);
                 }]);
             }])
@@ -165,13 +167,13 @@ class StudentController extends Controller
             ->get();
 
         foreach ($classSchedules as $key => $classSchedule) {
-            foreach($scheduleHolidays as $scheduleHoliday) {
-                if($classSchedule->date === $scheduleHoliday->date)
+            foreach ($scheduleHolidays as $scheduleHoliday) {
+                if ($classSchedule->date === $scheduleHoliday->date)
                     unset($classSchedules[$key]);
             }
 
             foreach ($scheduleExams as $scheduleExam) {
-                if($classSchedule->date === $scheduleExam->date)
+                if ($classSchedule->date === $scheduleExam->date)
                     unset($classSchedules[$key]);
             }
         }
@@ -183,7 +185,7 @@ class StudentController extends Controller
                 ->whereDate("active_until_date", ">=", $date)
                 ->first();
 
-            if($shift == null) {
+            if ($shift == null) {
                 $shift = ScheduleShift::where("school_id", $schoolId)
                     ->where("shift", $schedule_class->order)
                     ->where("active_from_date", null)
@@ -196,8 +198,8 @@ class StudentController extends Controller
             $month = $date->format("m");
             $dayNumber = $date->format("d");
 
-            $startDate = $year . "-" . $month . "-" . $dayNumber. "T" .$shift->from;
-            $endDate = $year . "-" . $month . "-" . $dayNumber. "T" .$shift->until;
+            $startDate = $year . "-" . $month . "-" . $dayNumber . "T" . $shift->from;
+            $endDate = $year . "-" . $month . "-" . $dayNumber . "T" . $shift->until;
             $title = $scheduleExam->scheduleDetailPacket->packet->course->name;
 
             $object = new \stdClass();
@@ -227,7 +229,7 @@ class StudentController extends Controller
             ->first();
 
         $studentClasses = StudentClass::where("student_id", $student->id)
-            ->with(["grade" => function($query) use ($periodDateDetail) {
+            ->with(["grade" => function ($query) use ($periodDateDetail) {
                 $query->where("period", $periodDateDetail->period);
             }])
             ->get();
@@ -264,18 +266,19 @@ class StudentController extends Controller
         $packet = $packets->first();
         $packet_used_questions = $packet->total_used_question;
 
-        $packet = Packet::where("id", $packet->id)->with(["question" => function($query) use ($packet_used_questions) {
-            $query->with(["questionChoices" => function($query) {
+        $packet = Packet::where("id", $packet->id)->with(["question" => function ($query) use ($packet_used_questions) {
+            $query->with(["questionChoices" => function ($query) {
                 $query->inRandomOrder();
             }])
-            ->inRandomOrder()
-            ->take($packet_used_questions);
+                ->inRandomOrder()
+                ->take($packet_used_questions);
         }])->first();
 
         return response()->json($packet, 200);
     }
 
-    public function checkAnswer(Request $request) {
+    public function checkAnswer(Request $request)
+    {
         $user_id = Auth::user()->id;
         $student = Student::where("user_id", $user_id)->first();
 
@@ -284,18 +287,18 @@ class StudentController extends Controller
         $totalQuestion = 0;
         foreach ($request->question_answers as $question_answer) {
             $questionChoice = QuestionChoice::where("id", $question_answer["choice_id"])
-                            ->where("question_id", $question_answer["question_id"])
-                            ->first();
+                ->where("question_id", $question_answer["question_id"])
+                ->first();
 
-            if($questionChoice) {
+            if ($questionChoice) {
                 $results = array_merge($results, [[
                     "result" => $questionChoice->is_answer,
                     "question_choice_id" => $questionChoice->id,
                     "question_id" => $question_answer["question_id"]
                 ]]);
-                if($questionChoice->is_answer == 1)
+                if ($questionChoice->is_answer == 1)
                     $resultTrue++;
-            }else {
+            } else {
                 $results = array_merge($results, [[
                     "result" => 0,
                     "question_id" => $question_answer["question_id"],
@@ -310,20 +313,20 @@ class StudentController extends Controller
         $point = $resultTrue * 2;
 
         $studentPacket = StudentPacket::create([
-            "student_id"    => $student->id,
-            "packet_id"     => $request->packet_id,
-            "score"         => $point
+            "student_id" => $student->id,
+            "packet_id" => $request->packet_id,
+            "score" => $point
         ]);
 
         foreach ($results as $result) {
             StudentAnswer::create([
-                "student_packet_id"     => $studentPacket->id,
-                "question_id"           => $result["question_id"],
-                "question_choice_id"    => $result["question_choice_id"]
+                "student_packet_id" => $studentPacket->id,
+                "question_id" => $result["question_id"],
+                "question_choice_id" => $result["question_choice_id"]
             ]);
         }
 
-        $percentage = ($resultTrue/$totalQuestion) * 100;
+        $percentage = ($resultTrue / $totalQuestion) * 100;
         $object = new \stdClass();
         $object->result_false = $resultFalse;
         $object->result_true = $resultTrue;
@@ -333,14 +336,15 @@ class StudentController extends Controller
         return response()->json($object, 200);
     }
 
-    public function getPacketHistoryByCourseId($course_id) {
+    public function getPacketHistoryByCourseId($course_id)
+    {
         $schoolId = Auth::user()->school_id;
         $user_id = Auth::user()->id;
         $student = Student::where("user_id", $user_id)->first();
 
         $packets = Packet::where("school_id", $schoolId)
             ->where("course_id", $course_id)
-            ->with(["studentPackets" => function($query) use($student) {
+            ->with(["studentPackets" => function ($query) use ($student) {
                 $query->where("student_id", $student->id)->orderBy("created_at", 'desc');
             }])
             ->get();
@@ -349,7 +353,7 @@ class StudentController extends Controller
         $totalScore = 0;
         foreach ($packets as $packet) {
             foreach ($packet->studentPackets as $studentPacket) {
-                $totalScore = $totalScore+ $studentPacket->score;
+                $totalScore = $totalScore + $studentPacket->score;
                 $object = new \stdClass();
                 $object->student_packet_id = $studentPacket->id;
                 $object->packet_id = $studentPacket->packet_id;
@@ -392,7 +396,7 @@ class StudentController extends Controller
             ->first();
 
         $studentClasses = StudentClass::where("student_id", $student->id)
-            ->with(["grade" => function($query) use ($periodDateDetail) {
+            ->with(["grade" => function ($query) use ($periodDateDetail) {
                 $query->where("period", $periodDateDetail->period);
             }])
             ->get();
@@ -408,16 +412,16 @@ class StudentController extends Controller
         }
 
         $tuitionHistories = TuitionHistory::where("student_id", $student->id)
-                                ->where("class_id", $class->grade_id)
-                                ->with("tuition")
-                                ->get();
+            ->where("class_id", $class->grade_id)
+            ->with("tuition")
+            ->get();
 
         $tuitionDetails = [];
 
-        foreach($tuitionHistories as $tuitionHistory) {
+        foreach ($tuitionHistories as $tuitionHistory) {
             $object = new \stdClass();
             $object->tuiton_history_id = $tuitionHistory->id;
-            $object->tuition_price = "Rp. ".number_format($tuitionHistory->tuition->price, "0", ",", ".");
+            $object->tuition_price = "Rp. " . number_format($tuitionHistory->tuition->price, "0", ",", ".");
             $object->tuition_description = $tuitionHistory->tuition->description;
             $object->status = $tuitionHistory->status;
             $object->payment_receipt = $tuitionHistory->payment_receipt;
@@ -444,8 +448,8 @@ class StudentController extends Controller
         $image = $request->file->store('/public/tuition');
 
         $tuition_history->update([
-            "payment_receipt"   => $image,
-            "status"            => "pending"
+            "payment_receipt" => $image,
+            "status" => "pending"
         ]);
 
         return response()->json($tuition_history, 200);
@@ -455,7 +459,7 @@ class StudentController extends Controller
     {
         $teacher_class = TeacherClass::where("grade_id", $grade_id)
             ->where("course_id", $course_id)
-            ->with(["course", "teacher" => function($query) {
+            ->with(["course", "teacher" => function ($query) {
                 $query->with("user");
             }])
             ->first();
@@ -463,12 +467,43 @@ class StudentController extends Controller
         return response()->json($teacher_class, 200);
     }
 
-    public function getAssignmentByClass()
+    public function getAssignmentByGrade()
     {
+        $schoolId = Auth::user()->school_id;
+        $user_id = Auth::user()->id;
+        $now = Carbon::now();
 
+        $student = Student::where("user_id", $user_id)->first();
+        $periodDateDetail = PeriodDateDetail::where("school_id", $schoolId)
+            ->where("start_date", "<=", $now)
+            ->where("end_date", ">=", $now)
+            ->first();
+
+        $studentClasses = StudentClass::where("student_id", $student->id)
+            ->with(["grade" => function ($query) use ($periodDateDetail) {
+                $query->where("period", $periodDateDetail->period);
+            }])
+            ->get();
+
+        $class = null;
+
+        foreach ($studentClasses as $studentClass) {
+            if ($studentClass->grade != null) {
+                $class = $studentClass;
+
+                break;
+            }
+        }
+
+        $teacherClasses = TeacherClass::where("grade_id", $class->grade_id)->pluck("id");
+        $materials = Assignment::whereIn("teacher_class_id", $teacherClasses)->with(['teacherClass' => function ($query) {
+            $query->with(["course", "teacher"]);
+        }])->orderBy("due_date")->get();
+
+        return response()->json($materials, 200);
     }
 
-    public function getMaterialByClass($teacher_class_id)
+    public function getMaterialByTeacherClassId($teacher_class_id)
     {
         $materials = Material::where("teacher_class_id", $teacher_class_id)->get();
         foreach ($materials as $material) {
@@ -476,5 +511,32 @@ class StudentController extends Controller
         }
 
         return response()->json($materials, 200);
+    }
+
+    public function uploadAssignment(Request $request)
+    {
+        $user_id = Auth::user()->id;
+        $student = Student::where("user_id", $user_id)->first();
+
+        $file = $request->file->store('/public/student/assignment');
+
+        StudentAssignment::create([
+            "assignment_id" => $request->id,
+            "student_id" => $student->id,
+            "answer_file" => $file
+        ]);
+
+        return response()->json($request->all(), 200);
+    }
+
+    public function getHistoryAssignment($id)
+    {
+        $user_id = Auth::user()->id;
+        $student = Student::where("user_id", $user_id)->first();
+        $studentAssignments = StudentAssignment::where("assignment_id", $id)
+                            ->where("student_id", $student->id)
+                            ->get();
+
+        return response()->json($studentAssignments, 200);
     }
 }

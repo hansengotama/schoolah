@@ -140,6 +140,7 @@ Route::group(['middleware' => ['auth']], function () {
                 Route::get('/manage-class-view', 'TeacherController@manageClassView')->name('manage-class-view');
                 Route::get('/manage-schedule-view', 'TeacherController@manageScheduleView')->name('manage-schedule-view');
                 Route::get('/manage-packet-question-view', 'TeacherController@managePacketQuestionView')->name('manage-packet-question-view');
+                Route::get('/manage-forum-view', 'TeacherController@manageForumView')->name('manage-forum-view');
                 Route::get('/get-packet-question', 'TeacherController@packetQuestion');
                 Route::post('/add-question', 'TeacherController@addQuestion');
                 Route::post('/edit-question', 'TeacherController@editQuestion');
@@ -153,6 +154,9 @@ Route::group(['middleware' => ['auth']], function () {
                 Route::post('/add-material', 'TeacherController@addMaterial');
                 Route::get('/get-assignments/{teacher_class_id}', 'TeacherController@getAssignments');
                 Route::get('/get-materials/{teacher_class_id}', 'TeacherController@getMaterials');
+                Route::get('/get-history-assignment/{id}', 'TeacherController@getHistoryAssignment');
+                Route::get('/get-all-chat/{teacher_class_id}', 'TeacherController@getAllChatWithTeacherClassId');
+                Route::post('/send-chat', 'TeacherController@sendChat');
             });
             Route::group(['middleware' => 'student', 'prefix' => 'student'], function () {
                 Route::get('/', 'HomeController@index')->name('home');
@@ -173,7 +177,10 @@ Route::group(['middleware' => ['auth']], function () {
                 Route::get('/get-history-detail/{tuition_history_id}', 'StudentController@getHistoryDetail');
                 Route::post('/save-image', 'StudentController@saveImage');
                 Route::get('/get-teacher-profile/{grade_id}/{course_id}', 'StudentController@getTeacherProfile');
-                Route::get('/get-material/{teacher_class_id}', 'StudentController@getMaterialByClass');
+                Route::get('/get-material/{teacher_class_id}', 'StudentController@getMaterialByTeacherClassId');
+                Route::get('/get-assignment-by-grade', 'StudentController@getAssignmentByGrade');
+                Route::post('/upload-assignment', 'StudentController@uploadAssignment');
+                Route::get('/get-history-assignment/{id}', 'StudentController@getHistoryAssignment');
             });
         });
         Route::group(['middleware' => 'guardian', 'prefix' => 'guardian'], function () {

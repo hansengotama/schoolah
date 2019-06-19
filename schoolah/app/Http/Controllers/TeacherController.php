@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Assignment;
 use App\ContributorTeacher;
+use App\Forum;
 use App\Material;
 use App\Packet;
 use App\PeriodDateDetail;
@@ -12,6 +13,8 @@ use App\QuestionChoice;
 use App\ScheduleClass;
 use App\ScheduleDetail;
 use App\ScheduleShift;
+use App\Student;
+use App\StudentAssignment;
 use App\Teacher;
 use App\TeacherClass;
 use Carbon\Carbon;
@@ -57,9 +60,9 @@ class TeacherController extends Controller
         foreach ($request->choices as $key => $choice) {
             $answer = false;
 
-            if($request->answer == $flag) {
+            if ($request->answer == $flag) {
                 $answer = true;
-            }else {
+            } else {
                 $answer = false;
             }
 
@@ -107,9 +110,9 @@ class TeacherController extends Controller
         $flag = 1;
         $questionChoices = QuestionChoice::where("question_id", $question->id)->pluck("id");
         foreach ($questionChoices as $key => $choice) {
-            if($request->answer == $flag) {
+            if ($request->answer == $flag) {
                 $answer = true;
-            }else {
+            } else {
                 $answer = false;
             }
 
@@ -133,7 +136,7 @@ class TeacherController extends Controller
         $teacher_id = $teacher->id;
         $schedule_classes = ScheduleClass::where("teacher_id", $teacher_id)
             ->with(["grade", "course"])
-            ->orderBy('day' ,'asc')
+            ->orderBy('day', 'asc')
             ->get();
 
         $classSchedules = [];
@@ -144,10 +147,10 @@ class TeacherController extends Controller
                 ->where("school_id", $schoolId)
                 ->first();
 
-            if($periodDateDetail) {
+            if ($periodDateDetail) {
                 $start = new \DateTime($periodDateDetail->start_date);
                 $end = new \DateTime($periodDateDetail->end_date);
-                if($start->format("w") < $end->format("w"))
+                if ($start->format("w") < $end->format("w"))
                     $end = $end->modify('+1 month');
 
                 $interval = \DateInterval::createFromDateString('1 month');
@@ -161,21 +164,21 @@ class TeacherController extends Controller
 
                     $count++;
 
-                    if($totalPeriod == $count)
+                    if ($totalPeriod == $count)
                         $num = (int)$end->format("d");
 
                     for ($dayNumber = ($count == 1) ? (int)$dt->format("d") : 0; $dayNumber <= $num; $dayNumber++) {
                         $date = new \DateTime($year . "-" . $month . "-" . $dayNumber);
                         $day = (int)$date->format("w");
 
-                        if($schedule_class->day === $day) {
+                        if ($schedule_class->day === $day) {
                             $shift = ScheduleShift::where("school_id", $schoolId)
                                 ->where("shift", $schedule_class->order)
                                 ->whereDate("active_from_date", "<=", $date)
                                 ->whereDate("active_until_date", ">=", $date)
                                 ->first();
 
-                            if($shift == null) {
+                            if ($shift == null) {
                                 $shift = ScheduleShift::where("school_id", $schoolId)
                                     ->where("shift", $schedule_class->order)
                                     ->where("active_from_date", null)
@@ -185,8 +188,8 @@ class TeacherController extends Controller
 
                             ($dayNumber >= 10) ?: $dayNumber = "0" . $dayNumber;
 
-                            $startDate = $year . "-" . $month . "-" . $dayNumber. "T" .$shift->from;
-                            $endDate = $year . "-" . $month . "-" . $dayNumber. "T" .$shift->until;
+                            $startDate = $year . "-" . $month . "-" . $dayNumber . "T" . $shift->from;
+                            $endDate = $year . "-" . $month . "-" . $dayNumber . "T" . $shift->until;
                             $title = $schedule_class->grade->name . " (" . $schedule_class->course->name . ")";
 
                             $object = new \stdClass();
@@ -222,8 +225,8 @@ class TeacherController extends Controller
         }
 
         foreach ($classSchedules as $key => $classSchedule) {
-            foreach($classHolidays as $classHoliday) {
-                if($classSchedule->date === $classHoliday->date && $classSchedule->class === $classHoliday->class)
+            foreach ($classHolidays as $classHoliday) {
+                if ($classSchedule->date === $classHoliday->date && $classSchedule->class === $classHoliday->class)
                     unset($classSchedules[$key]);
             }
         }
@@ -249,7 +252,7 @@ class TeacherController extends Controller
         $teacher_id = $teacher->id;
 
         $teacher_classes = TeacherClass::where("teacher_id", $teacher_id)
-            ->with(["course", "grade" => function($query) use($period) {
+            ->with(["course", "grade" => function ($query) use ($period) {
                 $query->where("period", $period);
             }])
             ->orderBy("grade_id", "ASC")
@@ -306,5 +309,41 @@ class TeacherController extends Controller
         $materials = Material::where("teacher_class_id", $teacher_class_id)->get();
 
         return response()->json($materials, 200);
+    }
+
+    public function getHistoryAssignment($id)
+    {
+        $studentAssignments = StudentAssignment::where("assignment_id", $id)
+            ->with(["student" => function ($query) {
+                $query->with("user");
+            }])->orderBy("created_at", "asc")->get();
+
+        return response()->json($studentAssignments, 200);
+    }
+
+    public function manageForumView()
+    {
+        return view("user.teacher.forum");
+    }
+
+    public function getAllChatWithTeacherClassId($teacher_class_id)
+    {
+        $forumChats = Forum::where("teacher_class_id", $teacher_class_id)
+            ->orderBy("created_at", "asc")
+            ->with("user")
+            ->get();
+
+        return response()->json($forumChats, 200);
+    }
+
+    public function sendChat(Request $request)
+    {
+        $userId = Auth::user()->id;
+
+        Forum::create([
+            "teacher_class_id" => $request->teacher_class_id,
+            "user_id" => $userId,
+            "chat" => $request->chat
+        ]);
     }
 }

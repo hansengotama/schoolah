@@ -14,4 +14,9 @@ class Assignment extends Model
     {
         return url('/').$this->question_file;
     }
+
+    public function teacherClass()
+    {
+        return $this->belongsTo(TeacherClass::class);
+    }
 }

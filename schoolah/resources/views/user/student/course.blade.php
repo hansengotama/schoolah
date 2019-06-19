@@ -134,7 +134,7 @@
                             <div class="col-md-12 text-center text-uppercase mt-2"><h4>Teacher</h4></div>
                             <div class="col-md-2"></div>
                             <div class="col-md-4">
-                                <img :src="selectedCourseTeacher.teacher.avatar_url" width="100%">
+                                <img :src="selectedCourseTeacher.teacher.avatar" width="100%">
                             </div>
                             <div class="col-md-4" style="margin: auto">
                                 <p>
@@ -173,163 +173,13 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td class="vertical-align-middle">1</td>
-                                                    <td class="vertical-align-middle">asd</td>
-                                                    <td class="vertical-align-middle">asd</td>
+                                                <tr v-for="(material, index) in materials">
+                                                    <td class="vertical-align-middle">@{{ index+1 }}</td>
+                                                    <td class="vertical-align-middle">@{{ material.title }}</td>
+                                                    <td class="vertical-align-middle">@{{ material.createdAt }}</td>
                                                     <td>
                                                         <button class="btn-download">
-                                                            <i class="fa fa-download" style="color: white"></i>
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="vertical-align-middle">1</td>
-                                                    <td class="vertical-align-middle">asd</td>
-                                                    <td class="vertical-align-middle">asd</td>
-                                                    <td>
-                                                        <button class="btn-download">
-                                                            <i class="fa fa-download" style="color: white"></i>
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="vertical-align-middle">1</td>
-                                                    <td class="vertical-align-middle">asd</td>
-                                                    <td class="vertical-align-middle">asd</td>
-                                                    <td>
-                                                        <button class="btn-download">
-                                                            <i class="fa fa-download" style="color: white"></i>
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="vertical-align-middle">1</td>
-                                                    <td class="vertical-align-middle">asd</td>
-                                                    <td class="vertical-align-middle">asd</td>
-                                                    <td>
-                                                        <button class="btn-download">
-                                                            <i class="fa fa-download" style="color: white"></i>
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="vertical-align-middle">1</td>
-                                                    <td class="vertical-align-middle">asd</td>
-                                                    <td class="vertical-align-middle">asd</td>
-                                                    <td>
-                                                        <button class="btn-download">
-                                                            <i class="fa fa-download" style="color: white"></i>
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="vertical-align-middle">1</td>
-                                                    <td class="vertical-align-middle">asd</td>
-                                                    <td class="vertical-align-middle">asd</td>
-                                                    <td>
-                                                        <button class="btn-download">
-                                                            <i class="fa fa-download" style="color: white"></i>
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="vertical-align-middle">1</td>
-                                                    <td class="vertical-align-middle">asd</td>
-                                                    <td class="vertical-align-middle">asd</td>
-                                                    <td>
-                                                        <button class="btn-download">
-                                                            <i class="fa fa-download" style="color: white"></i>
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="vertical-align-middle">1</td>
-                                                    <td class="vertical-align-middle">asd</td>
-                                                    <td class="vertical-align-middle">asd</td>
-                                                    <td>
-                                                        <button class="btn-download">
-                                                            <i class="fa fa-download" style="color: white"></i>
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="vertical-align-middle">1</td>
-                                                    <td class="vertical-align-middle">asd</td>
-                                                    <td class="vertical-align-middle">asd</td>
-                                                    <td>
-                                                        <button class="btn-download">
-                                                            <i class="fa fa-download" style="color: white"></i>
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="vertical-align-middle">1</td>
-                                                    <td class="vertical-align-middle">asd</td>
-                                                    <td class="vertical-align-middle">asd</td>
-                                                    <td>
-                                                        <button class="btn-download">
-                                                            <i class="fa fa-download" style="color: white"></i>
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="vertical-align-middle">1</td>
-                                                    <td class="vertical-align-middle">asd</td>
-                                                    <td class="vertical-align-middle">asd</td>
-                                                    <td>
-                                                        <button class="btn-download">
-                                                            <i class="fa fa-download" style="color: white"></i>
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="vertical-align-middle">1</td>
-                                                    <td class="vertical-align-middle">asd</td>
-                                                    <td class="vertical-align-middle">asd</td>
-                                                    <td>
-                                                        <button class="btn-download">
-                                                            <i class="fa fa-download" style="color: white"></i>
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="vertical-align-middle">1</td>
-                                                    <td class="vertical-align-middle">asd</td>
-                                                    <td class="vertical-align-middle">asd</td>
-                                                    <td>
-                                                        <button class="btn-download">
-                                                            <i class="fa fa-download" style="color: white"></i>
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="vertical-align-middle">1</td>
-                                                    <td class="vertical-align-middle">asd</td>
-                                                    <td class="vertical-align-middle">asd</td>
-                                                    <td>
-                                                        <button class="btn-download">
-                                                            <i class="fa fa-download" style="color: white"></i>
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="vertical-align-middle">1</td>
-                                                    <td class="vertical-align-middle">asd</td>
-                                                    <td class="vertical-align-middle">asd</td>
-                                                    <td>
-                                                        <button class="btn-download">
-                                                            <i class="fa fa-download" style="color: white"></i>
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="vertical-align-middle">1</td>
-                                                    <td class="vertical-align-middle">asd</td>
-                                                    <td class="vertical-align-middle">asd</td>
-                                                    <td>
-                                                        <button class="btn-download">
-                                                            <i class="fa fa-download" style="color: white"></i>
+                                                            <i class="fa fa-download" style="color: white" @click="downloadMaterial(material.file)"></i>
                                                         </button>
                                                     </td>
                                                 </tr>
@@ -341,7 +191,6 @@
                                     forum
                                 </div>
                             </div>
-                        </div>
                         </div>
                     </div>
                 </div>
@@ -358,7 +207,8 @@
                 courses: {},
                 selectedCourseTeacher: {},
                 page: "course",
-                tab: "material"
+                tab: "material",
+                materials: {},
             },
             mounted() {
                 this.getCourses()
@@ -378,9 +228,14 @@
                     axios.get("{{ url('student/get-teacher-profile') }}/"+grade_id+"/"+course_id)
                     .then(function (response) {
                         if(response.status) {
+                            if(response.data.teacher.avatar == "img/no-pict")
+                                response.data.teacher.avatar = pageURL.replace('student/course-view',response.data.teacher.avatar + ".png")
+                            else {
+                                response.data.teacher.avatar = response.data.teacher.avatar.replace('public', '')
+                                response.data.teacher.avatar = pageURL.replace('student/course-view',response.data.teacher.avatar)
+                            }
                             app.selectedCourseTeacher = response.data
-                            app.selectedCourseTeacher.teacher.avatar_url = pageURL.replace('student/course-view',response.data.teacher.avatar + ".png")
-                            console.log(app.selectedCourseTeacher)
+                            app.getAllMaterials()
                             app.page = "course-detail"
                         }
                     })
@@ -393,6 +248,22 @@
                 },
                 goToForum() {
                     this.tab = "forum"
+                },
+                getAllMaterials() {
+                    axios.get("{{ url('student/get-material') }}/"+this.selectedCourseTeacher.id)
+                    .then(function (response) {
+                        if(response.status) {
+                            let materials = response.data
+                            let baseUrl = window.location.origin
+                            for(let i=0; response.data.length > i; i++) {
+                                response.data[i].file = response.data[i].file.replace('public',baseUrl)
+                            }
+                            app.materials = materials
+                        }
+                    })
+                },
+                downloadMaterial(link) {
+                    window.open(link, '_blank')
                 }
             }
         })

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Material;
 use App\Packet;
 use App\PeriodDateDetail;
 use App\QuestionChoice;
@@ -460,5 +461,20 @@ class StudentController extends Controller
             ->first();
 
         return response()->json($teacher_class, 200);
+    }
+
+    public function getAssignmentByClass()
+    {
+
+    }
+
+    public function getMaterialByClass($teacher_class_id)
+    {
+        $materials = Material::where("teacher_class_id", $teacher_class_id)->get();
+        foreach ($materials as $material) {
+            $material->createdAt = Carbon::parse($material->created_at)->format('d M Y');
+        }
+
+        return response()->json($materials, 200);
     }
 }

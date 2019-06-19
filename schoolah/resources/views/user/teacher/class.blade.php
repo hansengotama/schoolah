@@ -543,16 +543,16 @@
                     })
                 },
                 assignmentFile() {
-                    this.formData.assignment.question_file = this.$refs.file.files[0];
+                    this.formData.assignment.question_file = this.$refs.file.files[0]
                 },
                 materialFile() {
-                    this.formData.material.file = this.$refs.file.files[0];
+                    this.formData.material.file = this.$refs.file.files[0]
                 },
                 downloadAssignment(link) {
-                    window.open(link, '_blank');
+                    window.open(link, '_blank')
                 },
                 downloadMaterial(link) {
-                    window.open(link, '_blank');
+                    window.open(link, '_blank')
                 },
                 resetMaterial() {
                     this.formData.material.file = ""

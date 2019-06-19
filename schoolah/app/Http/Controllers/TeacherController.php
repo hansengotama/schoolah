@@ -325,25 +325,4 @@ class TeacherController extends Controller
     {
         return view("user.teacher.forum");
     }
-
-    public function getAllChatWithTeacherClassId($teacher_class_id)
-    {
-        $forumChats = Forum::where("teacher_class_id", $teacher_class_id)
-            ->orderBy("created_at", "asc")
-            ->with("user")
-            ->get();
-
-        return response()->json($forumChats, 200);
-    }
-
-    public function sendChat(Request $request)
-    {
-        $userId = Auth::user()->id;
-
-        Forum::create([
-            "teacher_class_id" => $request->teacher_class_id,
-            "user_id" => $userId,
-            "chat" => $request->chat
-        ]);
-    }
 }

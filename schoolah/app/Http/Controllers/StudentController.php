@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Assignment;
+use App\Forum;
 use App\Material;
 use App\Packet;
 use App\PeriodDateDetail;

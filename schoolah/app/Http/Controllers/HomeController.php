@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Feedback;
+use App\Forum;
 use App\Student;
 use App\Teacher;
 use App\User;
@@ -149,5 +150,26 @@ class HomeController extends Controller
         Auth::logout();
 
         return redirect()->route('login');
+    }
+
+    public function getAllChatWithTeacherClassId($teacher_class_id)
+    {
+        $forumChats = Forum::where("teacher_class_id", $teacher_class_id)
+            ->orderBy("created_at", "asc")
+            ->with("user")
+            ->get();
+
+        return response()->json($forumChats, 200);
+    }
+
+    public function sendChat(Request $request)
+    {
+        $userId = Auth::user()->id;
+
+        Forum::create([
+            "teacher_class_id" => $request->teacher_class_id,
+            "user_id" => $userId,
+            "chat" => $request->chat
+        ]);
     }
 }

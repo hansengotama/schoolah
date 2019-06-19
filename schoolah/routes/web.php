@@ -155,8 +155,8 @@ Route::group(['middleware' => ['auth']], function () {
                 Route::get('/get-assignments/{teacher_class_id}', 'TeacherController@getAssignments');
                 Route::get('/get-materials/{teacher_class_id}', 'TeacherController@getMaterials');
                 Route::get('/get-history-assignment/{id}', 'TeacherController@getHistoryAssignment');
-                Route::get('/get-all-chat/{teacher_class_id}', 'TeacherController@getAllChatWithTeacherClassId');
-                Route::post('/send-chat', 'TeacherController@sendChat');
+                Route::get('/get-all-chat/{teacher_class_id}', 'HomeController@getAllChatWithTeacherClassId');
+                Route::post('/send-chat', 'HomeController@sendChat');
             });
             Route::group(['middleware' => 'student', 'prefix' => 'student'], function () {
                 Route::get('/', 'HomeController@index')->name('home');
@@ -181,6 +181,8 @@ Route::group(['middleware' => ['auth']], function () {
                 Route::get('/get-assignment-by-grade', 'StudentController@getAssignmentByGrade');
                 Route::post('/upload-assignment', 'StudentController@uploadAssignment');
                 Route::get('/get-history-assignment/{id}', 'StudentController@getHistoryAssignment');
+                Route::get('/get-all-chat/{teacher_class_id}', 'HomeController@getAllChatWithTeacherClassId');
+                Route::post('/send-chat', 'HomeController@sendChat');
             });
         });
         Route::group(['middleware' => 'guardian', 'prefix' => 'guardian'], function () {

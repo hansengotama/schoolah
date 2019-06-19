@@ -81,6 +81,7 @@
             background-color: white;
             border-bottom-right-radius: 15px;
             border-bottom-left-radius: 15px;
+            position: relative;
         }
         .table-padding {
             margin-top: 3em;
@@ -96,6 +97,54 @@
         }
         .vertical-align-middle {
             vertical-align: middle !important;
+        }
+        .forum-chat {
+            margin-top: 3em;
+            padding: 0 2em;
+            height: 363px;
+            overflow: auto;
+        }
+        .chat-send {
+            position: absolute;
+            bottom: 25px;
+            left: 25px;
+            border: 2px solid #b1acac;
+            height: 2.5rem;
+            z-index: 99999;
+            width: 90%;
+            border-radius: 15px;
+            padding: 10px;
+        }
+        .button-chat {
+            background-color: #b1acac;
+            border: 2px solid #b1acac;
+            position: absolute;
+            bottom: 25px;
+            right: 25px;
+            height: 2.5rem;
+            z-index: 99999;
+            width: 8%;
+            border-bottom-right-radius: 15px;
+            border-top-right-radius: 15px;
+            cursor: pointer;
+        }
+        .p-chat {
+            background-color: #f0f0ff;
+            padding: 9px;
+            border-radius: 15px;
+            margin-bottom: 0;
+        }
+        input:before,
+        input:after,
+        input:focus {
+            outline: none;
+            border: 2px solid #b1acac;
+        }
+        button:before,
+        button:after,
+        button:focus {
+            outline: none;
+            border: 2px solid #b1acac;
         }
     </style>
 @endsection
@@ -188,7 +237,19 @@
                                     </div>
                                 </div>
                                 <div v-if="tab=='forum'">
-                                    forum
+                                    <div class="forum-chat">
+                                        <div v-for="chat in forumChats" class="mb-2">
+                                            <b>@{{ chat.user.name }}</b>
+                                            <b style="float: right"><small>@{{ chat.created_at }} || @{{ chat.time_created_at }}</small></b>
+                                            <div><p class="p-chat">@{{ chat.chat }}</p></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <input type="text" class="chat-send" v-model="chat">
+                                        <button class="button-chat" @click="sendChat()">
+                                            <i class="fa fa-comments"></i>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -209,11 +270,16 @@
                 page: "course",
                 tab: "material",
                 materials: {},
+                forumChats: {},
+                chat: ""
             },
             mounted() {
                 this.getCourses()
             },
             methods: {
+                required(value) {
+                    return (value.length < 1) ? true : false
+                },
                 getCourses() {
                     axios.get("{{ url('student/get-course') }}")
                     .then(function (response) {
@@ -236,6 +302,7 @@
                             }
                             app.selectedCourseTeacher = response.data
                             app.getAllMaterials()
+                            app.getAllChats()
                             app.page = "course-detail"
                         }
                     })
@@ -261,6 +328,36 @@
                             app.materials = materials
                         }
                     })
+                },
+                getAllChats() {
+                    axios.get("{{ url('student/get-all-chat') }}/"+this.selectedCourseTeacher.id)
+                    .then(function (response) {
+                        if(response.status) {
+                            for(let i=0; response.data.length > i; i++) {
+                                response.data[i].created_at = moment(response.data[i].created_at).format("D MMMM Y")
+                                response.data[i].time_created_at = moment(response.data[i].created_at).format("hh:mm:ss")
+                            }
+                            app.forumChats = response.data
+                        }
+                    })
+                },
+                sendChat() {
+                    let noMessage = this.required(this.chat)
+                    if(!noMessage) {
+                        axios.post("{{ url("student/send-chat") }}", {
+                            chat: app.chat,
+                            teacher_class_id: app.selectedCourseTeacher.id
+                        })
+                        .then(function (response) {
+                            if(response.status) {
+                                app.getAllChats()
+                                app.resetChat()
+                            }
+                        })
+                    }
+                },
+                resetChat() {
+                    this.chat = ""
                 },
                 downloadMaterial(link) {
                     window.open(link, '_blank')

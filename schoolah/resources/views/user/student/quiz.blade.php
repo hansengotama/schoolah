@@ -350,7 +350,6 @@
                         })
                         this.submitAnswer()
                     }
-
                 },
                 validateAnswer() {
                     let numberQuestion = []

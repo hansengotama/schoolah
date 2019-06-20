@@ -167,8 +167,8 @@
                         </li>
                     </ul>
                     <ul class="navbar-nav">
-                        <li class="nav-item {{ (Request::route()->getName() == 'absence-view') ? 'active' : '' }}">
-                            <a class="nav-link white" href="{{ route('absence-view') }}">Absence<span class="sr-only">(current)</span></a>
+                        <li class="nav-item {{ (Request::route()->getName() == 'exam-view') ? 'active' : '' }}">
+                            <a class="nav-link white" href="{{ route('exam-view') }}">Exam<span class="sr-only">(current)</span></a>
                         </li>
                     </ul>
                 @endif

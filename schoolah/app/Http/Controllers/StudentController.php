@@ -58,9 +58,9 @@ class StudentController extends Controller
         return view('user.student.course');
     }
 
-    public function absenceView()
+    public function examView()
     {
-        return view('user.student.absence');
+        return view('user.student.exam');
     }
 
     public function getSchedule()
@@ -539,5 +539,94 @@ class StudentController extends Controller
                             ->get();
 
         return response()->json($studentAssignments, 200);
+    }
+
+    public function getExam()
+    {
+        $schoolId = Auth::user()->school_id;
+        $user_id = Auth::user()->id;
+        $now = Carbon::now();
+
+        $student = Student::where("user_id", $user_id)->first();
+        $periodDateDetail = PeriodDateDetail::where("school_id", $schoolId)
+            ->where("start_date", "<=", $now)
+            ->where("end_date", ">=", $now)
+            ->first();
+
+        $studentClasses = StudentClass::where("student_id", $student->id)
+            ->with(["grade" => function ($query) use ($periodDateDetail) {
+                $query->where("period", $periodDateDetail->period);
+            }])
+            ->get();
+
+        $class = null;
+
+        foreach ($studentClasses as $studentClass) {
+            if ($studentClass->grade != null) {
+                $class = $studentClass;
+
+                break;
+            }
+        }
+
+        $gradeId = $class->id;
+
+        $scheduleDetails = ScheduleDetail::where("class_id", $gradeId)
+                        ->where('schedule_type', 'exam')
+                        ->whereDate('date', $now)
+                        ->with(["scheduleDetailPacket" => function($query) {
+                            $query->with(['packet' => function($query) {
+                                $query->with(['question' => function($query) {
+                                    $query->with(['questionChoices' => function($query) {
+                                        $query->inRandomOrder();
+                                    }])->inRandomOrder();
+                                }]);
+                            }]);
+                        }])
+                        ->get();
+
+        $examNow = null;
+
+        if($scheduleDetails) {
+            foreach ($scheduleDetails as $scheduleDetail) {
+                $scheduleShift = ScheduleShift::where("shift", 6)
+                    ->whereDate("active_from_date", "<=", $now)
+                    ->whereDate("active_until_date", ">=", $now)
+                    ->first();
+
+                if($scheduleShift) {
+                    $time = ScheduleShift::where("shift", 6)
+                            ->whereDate("active_from_date", "<=", $now)
+                            ->whereDate("active_until_date", ">=", $now)
+                            ->where("from", "<=", $now)
+                            ->where("until", ">=", $now)
+                            ->first();
+                    if($time) {
+                        $examNow = new \stdClass();
+                        $examNow->schedule_detail = $scheduleDetail;
+                        $examNow->schedule_shift = $time;
+                        break;
+                    }else {
+                        continue;
+                    }
+                }else {
+                    $scheduleShiftDefault = ScheduleShift::where("shift", 6)
+                        ->where("from", "<=", $now)
+                        ->where("until", ">=", $now)
+                        ->first();
+
+                    if($scheduleShiftDefault) {
+                        $examNow = new \stdClass();
+                        $examNow->schedule_detail = $scheduleDetail;
+                        $examNow->schedule_shift = $scheduleShiftDefault;
+                        break;
+                    }else {
+                        continue;
+                    }
+                }
+            }
+        }
+
+        return response()->json($examNow, 200);
     }
 }

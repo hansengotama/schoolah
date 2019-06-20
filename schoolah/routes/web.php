@@ -12,7 +12,7 @@
 */
 
 Auth::routes();
-
+date_default_timezone_set('Asia/Jakarta');
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/', 'HomeController@index')->name('home');
     Route::get('/home', 'HomeController@index')->name('home');
@@ -165,7 +165,7 @@ Route::group(['middleware' => ['auth']], function () {
                 Route::get('/tuition-view', 'StudentController@tuitionView')->name('tuition-view');
                 Route::get('/assignment-view', 'StudentController@assignmentView')->name('assignment-view');
                 Route::get('/course-view', 'StudentController@courseView')->name('course-view');
-                Route::get('/absence-view', 'StudentController@absenceView')->name('absence-view');
+                Route::get('/exam-view', 'StudentController@examView')->name('exam-view');
                 Route::get('/get-schedule', 'StudentController@getSchedule');
                 Route::get('/get-course', 'StudentController@getCourse');
                 Route::get('/get-quiz-packet/{level}/{course_id}', 'StudentController@getQuizPacket');
@@ -183,6 +183,7 @@ Route::group(['middleware' => ['auth']], function () {
                 Route::get('/get-history-assignment/{id}', 'StudentController@getHistoryAssignment');
                 Route::get('/get-all-chat/{teacher_class_id}', 'HomeController@getAllChatWithTeacherClassId');
                 Route::post('/send-chat', 'HomeController@sendChat');
+                Route::get('/get-exam', 'StudentController@getExam');
             });
         });
         Route::group(['middleware' => 'guardian', 'prefix' => 'guardian'], function () {

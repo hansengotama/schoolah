@@ -16,7 +16,6 @@
             position: fixed;
             font-size: 32px;
             margin-left: 31em;
-            color: green;
         }
         .cursor-pointer {
             cursor: pointer;
@@ -29,7 +28,6 @@
         .timer-duration {
             font-size: 32px;
             margin-bottom: 5px;
-            color: green;
         }
         .check-question.notanswered{
             background-color: #fce8e6;
@@ -85,7 +83,7 @@
                     @{{ timer.text }}
                 </div>
                 <div class="mt-5 col-md-10 p-0">
-                    <div :class="'mb-4'" v-for="(question, index) in questions">
+                    <div :class="'mb-4 check-question'" :id="index+1" v-for="(question, index) in questions">
                         <div :id="'question-' + question.id" class="question-text"><b>@{{ index+1 }}. @{{ question.text }}</b></div>
                         <div v-for="(choice, indexChoice) in question.question_choices" class="pad-left cursor-pointer" @click = "getAnswer(question.id, choice.id)">
                             <div v-if="indexChoice==0" :class="'pad-left-15 question-' + question.id" :id="'answer-' + choice.id">a. @{{ choice.text }}</div>
@@ -96,10 +94,13 @@
                     </div>
                 </div>
                 <div class="clearfix"></div>
+                <div class="col-md-12">
+                    <button class="btn btn-primary" @click="validateAnswer()">Submit</button>
+                </div>
             </div>
         </div>
         <div class="text-center" v-show="page=='checkresult'">
-            <h3>Sorry you don't</h3>
+            <h3>Thankyou, please wait for your result</h3>
         </div>
     </div>
 @endsection
@@ -186,8 +187,7 @@
                             showConfirmButton: false,
                             timer: 4000
                         })
-                        this.submitAnswer()
-                        app.page= "checkresult"
+                        this.saveAnswer()
                     }
                 },
                 getAnswer(questionId, choiceId) {
@@ -209,6 +209,41 @@
 
                     data.choice_id = choiceId
                 },
+                saveAnswer() {
+                    app.page= "checkresult"
+
+                    let data = {}
+                    data.packet_id = app.scheduleDetail.schedule_detail_packet.packet.id
+                    data.question_answers = app.questionAnswerData
+
+                    axios.post("{{ url('student/check-answer') }}", data)
+                    .then(function (response) {
+                        if(response.status) {
+
+                        }
+                    })
+                },
+                validateAnswer() {
+                    let numberQuestion = []
+                    this.questionAnswerData.forEach((data, key) => {
+                        if(data.choice_id == null) {
+                            numberQuestion.push(key+1)
+                        }
+                    })
+                    if(numberQuestion.length == 0)
+                        this.saveAnswer()
+                    else {
+                        numberQuestion.forEach(function (number) {
+                            $(".check-question#"+number).addClass("notanswered")
+                        })
+
+                        Swal.fire(
+                            'Not all question are filled in',
+                            'Please recheck! :)',
+                            'info'
+                        )
+                    }
+                }
             }
         })
     </script>

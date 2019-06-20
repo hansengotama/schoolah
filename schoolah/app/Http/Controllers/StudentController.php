@@ -589,39 +589,46 @@ class StudentController extends Controller
 
         if($scheduleDetails) {
             foreach ($scheduleDetails as $scheduleDetail) {
-                $scheduleShift = ScheduleShift::where("shift", 6)
-                    ->whereDate("active_from_date", "<=", $now)
-                    ->whereDate("active_until_date", ">=", $now)
+                $studentPacket = StudentPacket::where("student_id", $student->id)
+                    ->where("packet_id", $scheduleDetail->scheduleDetailPacket->packet_id)
                     ->first();
+                if($studentPacket) {
+                    continue;
+                }else {
+                    $scheduleShift = ScheduleShift::where("shift", 6)
+                        ->whereDate("active_from_date", "<=", $now)
+                        ->whereDate("active_until_date", ">=", $now)
+                        ->first();
 
-                if($scheduleShift) {
-                    $time = ScheduleShift::where("shift", 6)
+                    if($scheduleShift) {
+                        $time = ScheduleShift::where("shift", 6)
                             ->whereDate("active_from_date", "<=", $now)
                             ->whereDate("active_until_date", ">=", $now)
                             ->where("from", "<=", $now)
                             ->where("until", ">=", $now)
                             ->first();
-                    if($time) {
-                        $examNow = new \stdClass();
-                        $examNow->schedule_detail = $scheduleDetail;
-                        $examNow->schedule_shift = $time;
-                        break;
+                        if($time) {
+                            $examNow = new \stdClass();
+                            $examNow->schedule_detail = $scheduleDetail;
+                            $examNow->schedule_shift = $time;
+                            break;
+                        }else {
+                            continue;
+                        }
                     }else {
-                        continue;
-                    }
-                }else {
-                    $scheduleShiftDefault = ScheduleShift::where("shift", 6)
-                        ->where("from", "<=", $now)
-                        ->where("until", ">=", $now)
-                        ->first();
+                        $scheduleShiftDefault = ScheduleShift::where("shift", 6)
+                            ->where("from", "<=", $now)
+                            ->where("until", ">=", $now)
+                            ->first();
 
-                    if($scheduleShiftDefault) {
-                        $examNow = new \stdClass();
-                        $examNow->schedule_detail = $scheduleDetail;
-                        $examNow->schedule_shift = $scheduleShiftDefault;
-                        break;
-                    }else {
-                        continue;
+                        if($scheduleShiftDefault) {
+                            $examNow = new \stdClass();
+                            $examNow->schedule_detail = $scheduleDetail;
+                            $examNow->schedule_shift = $scheduleShiftDefault;
+                            break;
+                        }else {
+                            continue;
+                        }
                     }
                 }
             }

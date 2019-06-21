@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Assignment;
+use App\Attendance;
 use App\ContributorTeacher;
 use App\Forum;
 use App\Material;
@@ -335,5 +336,54 @@ class TeacherController extends Controller
             }])->get();
 
         return response()->json($studentClasses, 200);
+    }
+
+    public function getNextAttendance($grade_id, $course_id)
+    {
+        $schedule_classes = ScheduleClass::where("grade_id", $grade_id)
+            ->where("course_id", $course_id)
+            ->orderBy("day", "asc")
+            ->orderBy("order", "asc")
+            ->pluck("id");
+
+        $last_attendance_of_class = Attendance::whereIn("schedule_class_id", $schedule_classes)
+                                ->orderBy("session", "DESC")
+                                ->first();
+
+        if($last_attendance_of_class) {
+            $last_schedule_class_id = $last_attendance_of_class->schedule_class_id;
+            $total_key = count($schedule_classes) - 1;
+
+            $data = new \stdClass();
+
+            $key = array_search($last_schedule_class_id, $schedule_classes->toArray(), false);
+
+            if($key == $total_key)
+                $_key = 0;
+            else
+                $_key = $key + 1;
+
+            $schedule_class = ScheduleClass::where("id", $schedule_classes[$_key])->first();
+
+            $data->session = $last_attendance_of_class->session + 1;
+            $data->schedule_class = $schedule_class;
+        }else
+            $data = null;
+
+        return response()->json($data, 200);
+    }
+
+    public function saveAbsence(Request $request)
+    {
+        foreach ($request->toArray() as $absence) {
+            Attendance::create([
+                "schedule_class_id" => $absence["schedule_class_id"],
+                "student_id" => $absence["student_id"],
+                "status" => $absence["status"],
+                "session" => $absence["session"]
+            ]);
+        }
+
+        return response()->json($request->all(), 200);
     }
 }

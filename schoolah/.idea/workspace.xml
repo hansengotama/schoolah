@@ -6,9 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="1ac09e87-2e0a-4910-bd77-7e9f8479a70c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Absence.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Attendance.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Attendance.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/TeacherController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/TeacherController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_04_13_080752_create_absences_table.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/user/teacher/class.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/teacher/class.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
@@ -46,12 +45,15 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resources/views/user/teacher/class.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="309">
-              <caret line="278" column="92" selection-start-line="278" selection-start-column="92" selection-end-line="278" selection-end-column="92" />
+            <state relative-caret-position="295">
+              <caret line="799" column="16" lean-forward="true" selection-start-line="799" selection-start-column="16" selection-end-line="799" selection-end-column="32" />
               <folding>
-                <element signature="e#11824#11868#0#HTML" expanded="true" />
-                <element signature="e#12622#12647#0#HTML" expanded="true" />
-                <element signature="e#12730#12790#0#HTML" expanded="true" />
+                <element signature="e#6173#8521#0#HTML" />
+                <element signature="e#8538#10286#0#HTML" />
+                <element signature="e#12310#12438#0#HTML" expanded="true" />
+                <element signature="e#16565#19106#0#HTML" />
+                <element signature="e#19115#21427#0#HTML" />
+                <element signature="e#21436#23551#0#HTML" />
               </folding>
             </state>
           </provider>
@@ -60,8 +62,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/web.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="586">
-              <caret line="159" column="99" selection-start-line="159" selection-start-column="99" selection-end-line="159" selection-end-column="99" />
+            <state relative-caret-position="337">
+              <caret line="160" column="48" selection-start-line="160" selection-start-column="48" selection-end-line="160" selection-end-column="48" />
             </state>
           </provider>
         </entry>
@@ -69,8 +71,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/TeacherController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="757">
-              <caret line="334" column="23" lean-forward="true" selection-start-line="334" selection-start-column="23" selection-end-line="334" selection-end-column="23" />
+            <state relative-caret-position="337">
+              <caret line="382" column="46" selection-start-line="382" selection-start-column="46" selection-end-line="382" selection-end-column="46" />
               <folding>
                 <element signature="e#40#59#0#PHP" expanded="true" />
               </folding>
@@ -81,8 +83,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Attendance.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="9" column="61" selection-start-line="9" selection-start-column="61" selection-end-line="9" selection-end-column="61" />
+            <state relative-caret-position="392">
+              <caret line="14" column="32" selection-start-line="14" selection-start-column="32" selection-end-line="14" selection-end-column="32" />
             </state>
           </provider>
         </entry>
@@ -91,36 +93,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>time_created_at</find>
-      <find>sendChat</find>
-      <find>input-text-chat</find>
-      <find>absence</find>
-      <find>getCourse</find>
-      <find>active_from_date</find>
-      <find>new</find>
-      <find>getExam</find>
-      <find>quiz</find>
-      <find>examstart</find>
-      <find>question</find>
-      <find>questionChoices</find>
-      <find>findInArrayOfObject</find>
-      <find>getAnswerData</find>
-      <find>getAnswer</find>
-      <find>background-answer</find>
-      <find>questionAnswerData</find>
-      <find>saveAnswer</find>
-      <find>notanswered</find>
-      <find>check-question</find>
-      <find>checkAnswer</find>
-      <find>axios</find>
-      <find>replace</find>
-      <find>ScheduleDetail</find>
-      <find>arrow</find>
-      <find>b</find>
-      <find>s</find>
+      <find>getPastAttendance</find>
       <find>action</find>
-      <find>getAllStudents</find>
-      <find>studentClasses</find>
+      <find>pastAttendance</find>
+      <find>addSession</find>
+      <find>findInArrayOfObject</find>
+      <find>getobb</find>
+      <find>object</find>
+      <find>last</find>
+      <find>flagLast</find>
+      <find>key</find>
+      <find>keyInArrayOfObject</find>
+      <find>Object.keys</find>
+      <find>console.lo</find>
+      <find>arrow</find>
+      <find>backAbsence</find>
+      <find>console</find>
+      <find>pastAttendanceShow</find>
+      <find>formAbsence</find>
+      <find>scheduleClasses</find>
+      <find>getScheduleClass</find>
+      <find>scheduleClass</find>
+      <find>btnAdd</find>
+      <find>container-absence</find>
+      <find>box-absence</find>
+      <find>pluck</find>
+      <find>pertemuan-text</find>
+      <find>getLastAttendance</find>
+      <find>dataAttendence</find>
+      <find>getNextAttendance</find>
+      <find>status</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -397,22 +399,22 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="AngularJS" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$USER_HOME$/code/backoffice" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/resources/views/user/student" />
+      <recent name="$PROJECT_DIR$/resources/views" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/resources/views/user/teacher" />
       <recent name="$PROJECT_DIR$/database/migrations" />
       <recent name="$PROJECT_DIR$/resources/views/user/student" />
       <recent name="$PROJECT_DIR$/resources/views/user/staff" />
       <recent name="$PROJECT_DIR$/resources/views/mail" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/resources/views/user/student" />
-      <recent name="$PROJECT_DIR$/resources/views" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -533,18 +535,19 @@
       <workItem from="1561019517728" duration="6617000" />
       <workItem from="1561033910396" duration="138000" />
       <workItem from="1561048731418" duration="4323000" />
-      <workItem from="1561087869525" duration="3750000" />
+      <workItem from="1561087869525" duration="14941000" />
+      <workItem from="1561122852894" duration="15010000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="597158000" />
+    <option name="totallyTimeSpent" value="623359000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="-4" width="1855" height="1084" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49847096" visible="true" weight="0.31509122" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49847096" visible="true" weight="0.31896076" />
       <window_info id="Structure" order="1" sideWeight="0.50152904" side_tool="true" weight="0.32061914" />
       <window_info id="Favorites" order="2" sideWeight="0.50133336" side_tool="true" weight="0.31674957" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -565,6 +568,28 @@
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Database" order="3" weight="0.32946378" />
     </layout>
+    <layout-to-restore>
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49847096" visible="true" weight="0.31509122" />
+      <window_info id="Structure" order="1" sideWeight="0.50152904" side_tool="true" weight="0.32061914" />
+      <window_info id="Favorites" order="2" sideWeight="0.50133336" side_tool="true" weight="0.31674957" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32925585" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" order="8" />
+      <window_info anchor="bottom" id="Version Control" order="9" weight="0.32925585" />
+      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.49695966" weight="0.2324159" />
+      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.5030404" side_tool="true" weight="0.2293578" />
+      <window_info anchor="bottom" id="TypeScript" order="12" weight="0.32925585" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Database" order="3" weight="0.32946378" />
+    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -622,13 +647,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="28">
           <caret line="237" column="38" selection-start-line="237" selection-start-column="38" selection-end-line="237" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/storage/framework/views/31a77a47c69a83cf1d71548e748516b5d48bb1de.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="529" column="16" selection-start-line="529" selection-start-column="16" selection-end-line="529" selection-end-column="16" />
         </state>
       </provider>
     </entry>
@@ -879,24 +897,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2019_06_20_235222_create_attendances_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="22" column="36" selection-start-line="22" selection-start-column="29" selection-end-line="22" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/ScheduleDetail.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="252">
           <caret line="9" column="41" selection-start-line="9" selection-start-column="20" selection-end-line="9" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Attendance.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="9" column="61" selection-start-line="9" selection-start-column="61" selection-end-line="9" selection-end-column="61" />
         </state>
       </provider>
     </entry>
@@ -928,17 +932,38 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/storage/framework/views/31a77a47c69a83cf1d71548e748516b5d48bb1de.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="581" column="16" selection-start-line="581" selection-start-column="16" selection-end-line="581" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/migrations/2019_06_20_235222_create_attendances_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="8" column="7" selection-start-line="8" selection-start-column="7" selection-end-line="8" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Attendance.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="392">
+          <caret line="14" column="32" selection-start-line="14" selection-start-column="32" selection-end-line="14" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/routes/web.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="586">
-          <caret line="159" column="99" selection-start-line="159" selection-start-column="99" selection-end-line="159" selection-end-column="99" />
+        <state relative-caret-position="337">
+          <caret line="160" column="48" selection-start-line="160" selection-start-column="48" selection-end-line="160" selection-end-column="48" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/TeacherController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="757">
-          <caret line="334" column="23" lean-forward="true" selection-start-line="334" selection-start-column="23" selection-end-line="334" selection-end-column="23" />
+        <state relative-caret-position="337">
+          <caret line="382" column="46" selection-start-line="382" selection-start-column="46" selection-end-line="382" selection-end-column="46" />
           <folding>
             <element signature="e#40#59#0#PHP" expanded="true" />
           </folding>
@@ -947,12 +972,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/user/teacher/class.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="309">
-          <caret line="278" column="92" selection-start-line="278" selection-start-column="92" selection-end-line="278" selection-end-column="92" />
+        <state relative-caret-position="295">
+          <caret line="799" column="16" lean-forward="true" selection-start-line="799" selection-start-column="16" selection-end-line="799" selection-end-column="32" />
           <folding>
-            <element signature="e#11824#11868#0#HTML" expanded="true" />
-            <element signature="e#12622#12647#0#HTML" expanded="true" />
-            <element signature="e#12730#12790#0#HTML" expanded="true" />
+            <element signature="e#6173#8521#0#HTML" />
+            <element signature="e#8538#10286#0#HTML" />
+            <element signature="e#12310#12438#0#HTML" expanded="true" />
+            <element signature="e#16565#19106#0#HTML" />
+            <element signature="e#19115#21427#0#HTML" />
+            <element signature="e#21436#23551#0#HTML" />
           </folding>
         </state>
       </provider>

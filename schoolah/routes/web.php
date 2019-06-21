@@ -158,6 +158,8 @@ Route::group(['middleware' => ['auth']], function () {
                 Route::get('/get-all-chat/{teacher_class_id}', 'HomeController@getAllChatWithTeacherClassId');
                 Route::post('/send-chat', 'HomeController@sendChat');
                 Route::get('/get-all-student/{grade_id}', 'TeacherController@getAllStudentByGradeId');
+                Route::get('/get-next-attendance/{grade_id}/{course_id}', 'TeacherController@getNextAttendance');
+                Route::post('/save-absence', 'TeacherController@saveAbsence');
             });
             Route::group(['middleware' => 'student', 'prefix' => 'student'], function () {
                 Route::get('/', 'HomeController@index')->name('home');

@@ -107,34 +107,12 @@
             padding: 8px 12px;
             color: white;
         }
-        .container-absence {
-            padding: 15px 15px 0;
-        }
         .box-absence {
-            height: 430px;
-            border-bottom-right-radius: 100px;
-            border-top-left-radius: 100px;
-            position: relative;
-        }
-        .arrow-right {
-            right: 37px;
-            bottom: 234px;
-            color: #4fa9c5;
-            font-size: 30px;
-            cursor: pointer;
-            position: absolute;
-        }
-        .arrow-left {
-            position: absolute;
-            bottom: 234px;
-            left: 37px;
-            font-size: 30px;
-            color: #4fa9c5;
-            cursor: pointer;
+            height: 415px;
         }
         .pertemuan-text {
-            margin-left: 52px;
-            margin-top: 16px;
+            margin-left: 15px;
+            margin-top: 15px;
         }
     </style>
 @endsection
@@ -255,11 +233,11 @@
                             <div class="col-md-12 box-absence">
                                 <div class="col-md-12 p-0">
                                     <div class="float-left pertemuan-text">
-                                        <b style="color: #4fa9c5;">SESSION 1</b>
+                                        <b style="color: #4fa9c5;">SESSION @{{ dataAttendance.session }} | DAY @{{ getDayName(dataAttendance.schedule_class.day) }} | SHIFT @{{ dataAttendance.schedule_class.order }}</b>
                                     </div>
                                 </div>
                                 <div class="clearfix"></div>
-                                <div class="col-md-12 mt-3" style="padding: 0 52px;">
+                                <div class="col-md-12 mt-3">
                                     <table class="table table-striped">
                                         <thead>
                                         <tr>
@@ -275,7 +253,7 @@
                                             <td>@{{ studentClass.student.user.name }}</td>
                                             <td>@{{ studentClass.student.student_code }}</td>
                                             <td>
-                                                <select style="padding: 2px 3px; background: white;">
+                                                <select style="padding: 2px 3px; background: white;" @change="changeUserStatus(studentClass.student.id, $event)">
                                                     <option value="present">Present</option>
                                                     <option value="permit">Permit</option>
                                                     <option value="absence">Absence</option>
@@ -283,27 +261,20 @@
                                                 </select>
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td colspan="4" style="text-align: right">
-                                                <button class="btn btn-primary" style="background-color: #50a9c5; border: none">Absence</button>
-                                            </td>
-                                        </tr>
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
+                            <div>
+                                <button class="btn" style="width: 86%;margin-left: 7%; background-color: #50a9c5; color:white; border-radius: 89px;cursor: pointer;margin-top: 20px" @click="saveAbsence()">
+                                    <i class="fa fa-plus"></i> absence
+                                </button>
+                            </div>
                         </div>
-                        <div class="arrow-right">
-                            <i class="fas fa-arrow-right"></i>
-                        </div>
-                        <div class="arrow-left">
-                            <i class="fas fa-arrow-left"></i>
-                        </div>
-                        <div style="margin-bottom: -15px">
-                            <button class="btn" style="width: 86%;margin-left: 7%; background-color: #50a9c5; color:white; border-radius: 89px;">
-                                <i class="fa fa-plus"></i> session
-                            </button>
-                        </div>
+
+{{--                        <div class="text-center mt-5" v-else>--}}
+{{--                            <h3>No Class</h3>--}}
+{{--                        </div>--}}
                     </div>
                 </div>
             </div>
@@ -480,12 +451,36 @@
                     }
                 },
                 selectedHistoryAssignments: [],
-                studentClasses: []
+                studentClasses: [],
+                formAbsence: [],
+                dataAttendance: {
+                    schedule_class: {
+                        day: "",
+                        order: ""
+                    }
+                }
             },
             mounted() {
                 this.getTeacherClasses()
             },
             methods: {
+                getDayName(value) {
+                    if(value == 1) {
+                        return "1 (Monday)"
+                    }else if(value == 2){
+                        return "2 (Tuesday)"
+                    }else if(value == 3){
+                        return "3 (Wednesday)"
+                    }else if(value == 4){
+                        return "4 (Thursday)"
+                    }else if(value == 5) {
+                        return "5 (Friday)"
+                    }else if(value == 6) {
+                        return "6 (Saturday)"
+                    }else {
+                        return "7 (Sunday)"
+                    }
+                },
                 required(value) {
                     return (value.length < 1) ? true : false
                 },
@@ -517,6 +512,16 @@
 
                     return response
                 },
+                keyInArrayOfObject(key, value, array) {
+                    let response = false
+
+                    for (var i = 0; i < array.length; i++) {
+                        if (array[i][key] === value)
+                            response = i
+                    }
+
+                    return response
+                },
                 getTeacherClasses() {
                     axios.get("{{ url('teacher/get-teacher-class') }}")
                     .then(function (response) {
@@ -539,6 +544,7 @@
                     this.getAssignments()
                     this.getMaterials()
                     this.getAllStudents()
+                    this.getNextAttendance()
                 },
                 backToClass() {
                     this.page = "class"
@@ -745,12 +751,55 @@
                 },
                 getAllStudents() {
                     let gradeId = this.selectedTeacherClass.grade.id
+                    app.formAbsence = []
 
                     axios.get("{{ url('teacher/get-all-student') }}/"+ gradeId)
                     .then(function (response) {
                         if(response.status) {
                             app.studentClasses = response.data
+                            response.data.forEach(function (data) {
+                                app.formAbsence.push({
+                                    "student_id": data.student.id,
+                                    "status": "present"
+                                });
+                            })
                         }
+                    })
+                },
+                getNextAttendance() {
+                    let gradeId = app.selectedTeacherClass.grade_id
+                    let courseId = app.selectedTeacherClass.course_id
+
+                    axios.get("{{ url('teacher/get-next-attendance') }}/"+gradeId+"/"+courseId)
+                    .then(function (response) {
+                        if(response.status) {
+                            app.dataAttendance = response.data
+                        }
+                    })
+                },
+                changeUserStatus(student_id, event) {
+                    let status = event.target.value
+                    let studentObject = this.findInArrayOfObject("student_id", student_id, this.formAbsence)
+                    studentObject.status = status
+                },
+                saveAbsence() {
+                    app.formAbsence.forEach((data) => {
+                        data.schedule_class_id = app.dataAttendance.schedule_class.id
+                        data.session = app.dataAttendance.session
+                    })
+
+                    axios.post("{{ url('teacher/save-absence') }}", app.formAbsence)
+                    .then(function (response) {
+                        if(response.status) {
+                            app.popUpSuccess()
+                            app.resetFormAbsence()
+                            app.getNextAttendance()
+                        }
+                    })
+                },
+                resetFormAbsence() {
+                    app.formAbsence.forEach((data) => {
+                        data.status = "present"
                     })
                 }
             }

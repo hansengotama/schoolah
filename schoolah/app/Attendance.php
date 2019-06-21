@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Absence extends Model
+class Attendance extends Model
 {
     protected $fillable = [
-        'student_id', 'schedule_detail_id', 'is_absence'
+        "schedule_class_id", "student_id", "status", "session"
     ];
 }

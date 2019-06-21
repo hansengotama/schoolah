@@ -15,6 +15,7 @@ use App\ScheduleDetail;
 use App\ScheduleShift;
 use App\Student;
 use App\StudentAssignment;
+use App\StudentClass;
 use App\Teacher;
 use App\TeacherClass;
 use Carbon\Carbon;
@@ -324,5 +325,15 @@ class TeacherController extends Controller
     public function manageForumView()
     {
         return view("user.teacher.forum");
+    }
+
+    public function getAllStudentByGradeId($grade_id)
+    {
+        $studentClasses = StudentClass::where("grade_id", $grade_id)
+            ->with(['student' => function($query) {
+                $query->with('user');
+            }])->get();
+
+        return response()->json($studentClasses, 200);
     }
 }

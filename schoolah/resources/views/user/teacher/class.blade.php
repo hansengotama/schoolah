@@ -107,6 +107,35 @@
             padding: 8px 12px;
             color: white;
         }
+        .container-absence {
+            padding: 15px 15px 0;
+        }
+        .box-absence {
+            height: 430px;
+            border-bottom-right-radius: 100px;
+            border-top-left-radius: 100px;
+            position: relative;
+        }
+        .arrow-right {
+            right: 37px;
+            bottom: 234px;
+            color: #4fa9c5;
+            font-size: 30px;
+            cursor: pointer;
+            position: absolute;
+        }
+        .arrow-left {
+            position: absolute;
+            bottom: 234px;
+            left: 37px;
+            font-size: 30px;
+            color: #4fa9c5;
+            cursor: pointer;
+        }
+        .pertemuan-text {
+            margin-left: 52px;
+            margin-top: 16px;
+        }
     </style>
 @endsection
 
@@ -222,7 +251,59 @@
                 </div>
                 <div class="row" v-if="tab=='absence'">
                     <div class="container-details">
-                        absence
+                        <div class="container-absence">
+                            <div class="col-md-12 box-absence">
+                                <div class="col-md-12 p-0">
+                                    <div class="float-left pertemuan-text">
+                                        <b style="color: #4fa9c5;">SESSION 1</b>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="col-md-12 mt-3" style="padding: 0 52px;">
+                                    <table class="table table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>No.</th>
+                                            <th>Name</th>
+                                            <th>Code</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr v-for="(studentClass, index) in studentClasses">
+                                            <td>@{{ index+1 }}</td>
+                                            <td>@{{ studentClass.student.user.name }}</td>
+                                            <td>@{{ studentClass.student.student_code }}</td>
+                                            <td>
+                                                <select style="padding: 2px 3px; background: white;">
+                                                    <option value="present">Present</option>
+                                                    <option value="permit">Permit</option>
+                                                    <option value="absence">Absence</option>
+                                                    <option value="sick">Sick</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4" style="text-align: right">
+                                                <button class="btn btn-primary" style="background-color: #50a9c5; border: none">Absence</button>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="arrow-right">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                        <div class="arrow-left">
+                            <i class="fas fa-arrow-left"></i>
+                        </div>
+                        <div style="margin-bottom: -15px">
+                            <button class="btn" style="width: 86%;margin-left: 7%; background-color: #50a9c5; color:white; border-radius: 89px;">
+                                <i class="fa fa-plus"></i> session
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -398,7 +479,8 @@
                         description: ""
                     }
                 },
-                selectedHistoryAssignments: []
+                selectedHistoryAssignments: [],
+                studentClasses: []
             },
             mounted() {
                 this.getTeacherClasses()
@@ -456,6 +538,7 @@
                     this.selectedTeacherClass = this.findInArrayOfObject("id", teacher_class_id, this.teacherClasses)
                     this.getAssignments()
                     this.getMaterials()
+                    this.getAllStudents()
                 },
                 backToClass() {
                     this.page = "class"
@@ -657,6 +740,16 @@
                                 response.data[i].created_at = moment(response.data[i].created_at).format("D MMMM Y")
                             }
                             app.selectedHistoryAssignments = response.data
+                        }
+                    })
+                },
+                getAllStudents() {
+                    let gradeId = this.selectedTeacherClass.grade.id
+
+                    axios.get("{{ url('teacher/get-all-student') }}/"+ gradeId)
+                    .then(function (response) {
+                        if(response.status) {
+                            app.studentClasses = response.data
                         }
                     })
                 }

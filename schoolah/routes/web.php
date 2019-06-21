@@ -157,6 +157,7 @@ Route::group(['middleware' => ['auth']], function () {
                 Route::get('/get-history-assignment/{id}', 'TeacherController@getHistoryAssignment');
                 Route::get('/get-all-chat/{teacher_class_id}', 'HomeController@getAllChatWithTeacherClassId');
                 Route::post('/send-chat', 'HomeController@sendChat');
+                Route::get('/get-all-student/{grade_id}', 'TeacherController@getAllStudentByGradeId');
             });
             Route::group(['middleware' => 'student', 'prefix' => 'student'], function () {
                 Route::get('/', 'HomeController@index')->name('home');

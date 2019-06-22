@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Assignment;
+use App\Attendance;
 use App\Forum;
 use App\Material;
 use App\Packet;
@@ -311,10 +312,10 @@ class StudentController extends Controller
         }
 
         $resultFalse = $totalQuestion - $resultTrue;
-        if($request->exam) {
-            $pointPerQuestion = 100/$totalQuestion;
+        if ($request->exam) {
+            $pointPerQuestion = 100 / $totalQuestion;
             $point = $resultTrue * $pointPerQuestion;
-        }else
+        } else
             $point = $resultTrue * 2;
 
         $studentPacket = StudentPacket::create([
@@ -539,8 +540,8 @@ class StudentController extends Controller
         $user_id = Auth::user()->id;
         $student = Student::where("user_id", $user_id)->first();
         $studentAssignments = StudentAssignment::where("assignment_id", $id)
-                            ->where("student_id", $student->id)
-                            ->get();
+            ->where("student_id", $student->id)
+            ->get();
 
         return response()->json($studentAssignments, 200);
     }
@@ -576,51 +577,51 @@ class StudentController extends Controller
         $gradeId = $class->id;
 
         $scheduleDetails = ScheduleDetail::where("class_id", $gradeId)
-                        ->where('schedule_type', 'exam')
-                        ->whereDate('date', $now)
-                        ->with(["scheduleDetailPacket" => function($query) {
-                            $query->with(['packet' => function($query) {
-                                $query->with(['question' => function($query) {
-                                    $query->with(['questionChoices' => function($query) {
-                                        $query->inRandomOrder();
-                                    }])->inRandomOrder();
-                                }]);
-                            }]);
-                        }])
-                        ->get();
+            ->where('schedule_type', 'exam')
+            ->whereDate('date', $now)
+            ->with(["scheduleDetailPacket" => function ($query) {
+                $query->with(['packet' => function ($query) {
+                    $query->with(['question' => function ($query) {
+                        $query->with(['questionChoices' => function ($query) {
+                            $query->inRandomOrder();
+                        }])->inRandomOrder();
+                    }]);
+                }]);
+            }])
+            ->get();
 
         $examNow = null;
 
-        if($scheduleDetails) {
+        if ($scheduleDetails) {
             foreach ($scheduleDetails as $scheduleDetail) {
                 $studentPacket = StudentPacket::where("student_id", $student->id)
                     ->where("packet_id", $scheduleDetail->scheduleDetailPacket->packet_id)
                     ->first();
 
-                if($studentPacket) {
+                if ($studentPacket) {
                     continue;
-                }else {
+                } else {
                     $scheduleShift = ScheduleShift::where("shift", 6)
                         ->whereDate("active_from_date", "<=", $now)
                         ->whereDate("active_until_date", ">=", $now)
                         ->first();
 
-                    if($scheduleShift) {
+                    if ($scheduleShift) {
                         $time = ScheduleShift::where("shift", 6)
                             ->whereDate("active_from_date", "<=", $now)
                             ->whereDate("active_until_date", ">=", $now)
                             ->where("from", "<=", $now)
                             ->where("until", ">=", $now)
                             ->first();
-                        if($time) {
+                        if ($time) {
                             $examNow = new \stdClass();
                             $examNow->schedule_detail = $scheduleDetail;
                             $examNow->schedule_shift = $time;
                             break;
-                        }else {
+                        } else {
                             continue;
                         }
-                    }else {
+                    } else {
                         $scheduleShiftDefault = ScheduleShift::where("shift", 6)
                             ->where("from", "<=", $now)
                             ->where("until", ">=", $now)
@@ -628,12 +629,12 @@ class StudentController extends Controller
                             ->where("active_until_date", null)
                             ->first();
 
-                        if($scheduleShiftDefault) {
+                        if ($scheduleShiftDefault) {
                             $examNow = new \stdClass();
                             $examNow->schedule_detail = $scheduleDetail;
                             $examNow->schedule_shift = $scheduleShiftDefault;
                             break;
-                        }else {
+                        } else {
                             continue;
                         }
                     }
@@ -644,15 +645,45 @@ class StudentController extends Controller
         return response()->json($examNow, 200);
     }
 
-    public function examScoreView()
+    public function informationStudentView()
     {
-        return view('user.student.exam-score');
+        return view('user.student.information-student');
     }
 
-    public function getExamScore()
+    public function getAttendanceStudent($grade_id, $course_id)
     {
-//        Auth::
+        $user_id = Auth::user()->id;
+        $student = Student::where("user_id", $user_id)->first();
 
-//        return response()->json($examNow, 200);
+        $scheduleClasses = ScheduleClass::where("grade_id", $grade_id)
+            ->where("course_id", $course_id)
+            ->pluck("id");
+
+        $attendances = Attendance::whereIn("schedule_class_id", $scheduleClasses)
+            ->where("student_id", $student->id)
+            ->orderBy("session", "asc")
+            ->with("scheduleClass")
+            ->get();
+
+        return response()->json($attendances, 200);
+    }
+
+    public function getExamScoreStudent($course_id)
+    {
+        $schoolId = Auth::user()->school_id;
+        $user_id = Auth::user()->id;
+        $student = Student::where("user_id", $user_id)->first();
+
+        $packets = Packet::where("school_id", $schoolId)
+            ->where("type", "exam")
+            ->where("course_id", $course_id)
+            ->pluck("id");
+
+        $studentPackets = StudentPacket::whereIn("packet_id", $packets)
+                    ->where("student_id", $student->id)
+                    ->with("packet")
+                    ->get();
+
+        return response()->json($studentPackets, 200);
     }
 }

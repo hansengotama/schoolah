@@ -169,7 +169,7 @@ Route::group(['middleware' => ['auth']], function () {
                 Route::get('/assignment-view', 'StudentController@assignmentView')->name('assignment-view');
                 Route::get('/course-view', 'StudentController@courseView')->name('course-view');
                 Route::get('/exam-view', 'StudentController@examView')->name('exam-view');
-                Route::get('/exam-score-view', 'StudentController@examScoreView')->name('exam-score-view');
+                Route::get('/information-student-view', 'StudentController@informationStudentView')->name('information-student-view');
                 Route::get('/get-schedule', 'StudentController@getSchedule');
                 Route::get('/get-course', 'StudentController@getCourse');
                 Route::get('/get-quiz-packet/{level}/{course_id}', 'StudentController@getQuizPacket');
@@ -187,7 +187,8 @@ Route::group(['middleware' => ['auth']], function () {
                 Route::get('/get-history-assignment/{id}', 'StudentController@getHistoryAssignment');
                 Route::get('/get-all-chat/{teacher_class_id}', 'HomeController@getAllChatWithTeacherClassId');
                 Route::post('/send-chat', 'HomeController@sendChat');
-                Route::get('/get-exam', 'StudentController@getExam');
+                Route::get('/get-attendance-student/{grade_id}/{course_id}', 'StudentController@getAttendanceStudent');
+                Route::get('/get-exam-score-student/{course_id}', 'StudentController@getExamScoreStudent');
             });
         });
         Route::group(['middleware' => 'guardian', 'prefix' => 'guardian'], function () {

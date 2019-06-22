@@ -24,4 +24,9 @@ class ScheduleClass extends Model
     {
         return $this->belongsTo(Grade::class);
     }
+
+    public function attendance()
+    {
+        return $this->hasMany(Attendance::class);
+    }
 }

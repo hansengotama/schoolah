@@ -172,8 +172,8 @@
                         </li>
                     </ul>
                     <ul class="navbar-nav">
-                        <li class="nav-item {{ (Request::route()->getName() == 'exam-score-view') ? 'active' : '' }}">
-                            <a class="nav-link white" href="{{ route('exam-score-view') }}">Exam Score<span class="sr-only">(current)</span></a>
+                        <li class="nav-item {{ (Request::route()->getName() == 'information-student-view') ? 'active' : '' }}">
+                            <a class="nav-link white" href="{{ route('information-student-view') }}">Information<span class="sr-only">(current)</span></a>
                         </li>
                     </ul>
                 @endif

@@ -13,4 +13,8 @@ class StudentPacket extends Model
     public function studentAnswers() {
         return $this->hasMany(StudentAnswer::class);
     }
+
+    public function packet() {
+        return $this->belongsTo(Packet::class);
+    }
 }

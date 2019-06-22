@@ -350,11 +350,11 @@ class TeacherController extends Controller
                                 ->orderBy("session", "DESC")
                                 ->first();
 
+        $data = new \stdClass();
+
         if($last_attendance_of_class) {
             $last_schedule_class_id = $last_attendance_of_class->schedule_class_id;
             $total_key = count($schedule_classes) - 1;
-
-            $data = new \stdClass();
 
             $key = array_search($last_schedule_class_id, $schedule_classes->toArray(), false);
 
@@ -367,8 +367,12 @@ class TeacherController extends Controller
 
             $data->session = $last_attendance_of_class->session + 1;
             $data->schedule_class = $schedule_class;
-        }else
-            $data = null;
+        }else {
+            $schedule_class = ScheduleClass::where("id", $schedule_classes[0])->first();
+
+            $data->session = 1;
+            $data->schedule_class  = $schedule_class;
+        }
 
         return response()->json($data, 200);
     }

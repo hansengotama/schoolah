@@ -171,6 +171,11 @@
                             <a class="nav-link white" href="{{ route('exam-view') }}">Exam<span class="sr-only">(current)</span></a>
                         </li>
                     </ul>
+                    <ul class="navbar-nav">
+                        <li class="nav-item {{ (Request::route()->getName() == 'exam-score-view') ? 'active' : '' }}">
+                            <a class="nav-link white" href="{{ route('exam-score-view') }}">Exam Score<span class="sr-only">(current)</span></a>
+                        </li>
+                    </ul>
                 @endif
             </div>
             <div class="navbar-text">

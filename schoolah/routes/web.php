@@ -169,6 +169,7 @@ Route::group(['middleware' => ['auth']], function () {
                 Route::get('/assignment-view', 'StudentController@assignmentView')->name('assignment-view');
                 Route::get('/course-view', 'StudentController@courseView')->name('course-view');
                 Route::get('/exam-view', 'StudentController@examView')->name('exam-view');
+                Route::get('/exam-score-view', 'StudentController@examScoreView')->name('exam-score-view');
                 Route::get('/get-schedule', 'StudentController@getSchedule');
                 Route::get('/get-course', 'StudentController@getCourse');
                 Route::get('/get-quiz-packet/{level}/{course_id}', 'StudentController@getQuizPacket');

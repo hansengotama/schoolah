@@ -15,7 +15,7 @@
         .timer {
             position: fixed;
             font-size: 32px;
-            margin-left: 31em;
+            margin-left: 29em;
         }
         .cursor-pointer {
             cursor: pointer;
@@ -115,7 +115,7 @@
                 scheduleShift: {},
                 timer: {
                     until: "",
-                    text: "00:00"
+                    text: "00:00:00"
                 },
                 questions: {},
                 questionAnswerData: []
@@ -123,7 +123,7 @@
             mounted() {
                 this.getExam()
                 window.onbeforeunload = () => {
-                    if(this.page == "quiz-time")
+                    if(this.page == "examstart")
                         return "Are you sure?"
                 }
             },
@@ -172,13 +172,18 @@
                 },
                 startTimer() {
                     let diff = moment.duration(this.timer.until.diff(moment()))
+                    let hour = diff.get('hours') > 9 ? diff.get('hours') : '0'+diff.get('hours')
                     let minute = diff.get('minutes') > 9 ? diff.get('minutes') : '0'+diff.get('minutes')
                     let second = diff.get('seconds') > 9 ? diff.get('seconds') : '0'+diff.get('seconds')
 
-                    this.timer.text = minute+' : '+second
-                    if(!(minute <= 0 && second <= 0)) {
-                        setTimeout(() => this.startTimer(), 100);
-                    }
+                    if(hour >= 1)
+                        this.timer.text = hour+' : '+ minute+' : '+second
+                    else
+                        this.timer.text = minute+' : '+second
+
+
+                    if(!(hour <= 0 && minute <= 0 && second <= 0))
+                        setTimeout(() => this.startTimer(), 100)
                     else {
                         Swal.fire({
                             position: 'top-right',
@@ -215,6 +220,7 @@
                     let data = {}
                     data.packet_id = app.scheduleDetail.schedule_detail_packet.packet.id
                     data.question_answers = app.questionAnswerData
+                    data.exam = true
 
                     axios.post("{{ url('student/check-answer') }}", data)
                     .then(function (response) {

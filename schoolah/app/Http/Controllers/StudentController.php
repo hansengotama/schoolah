@@ -311,7 +311,11 @@ class StudentController extends Controller
         }
 
         $resultFalse = $totalQuestion - $resultTrue;
-        $point = $resultTrue * 2;
+        if($request->exam) {
+            $pointPerQuestion = 100/$totalQuestion;
+            $point = $resultTrue * $pointPerQuestion;
+        }else
+            $point = $resultTrue * 2;
 
         $studentPacket = StudentPacket::create([
             "student_id" => $student->id,
@@ -592,6 +596,7 @@ class StudentController extends Controller
                 $studentPacket = StudentPacket::where("student_id", $student->id)
                     ->where("packet_id", $scheduleDetail->scheduleDetailPacket->packet_id)
                     ->first();
+
                 if($studentPacket) {
                     continue;
                 }else {
@@ -619,6 +624,8 @@ class StudentController extends Controller
                         $scheduleShiftDefault = ScheduleShift::where("shift", 6)
                             ->where("from", "<=", $now)
                             ->where("until", ">=", $now)
+                            ->where("active_from_date", null)
+                            ->where("active_until_date", null)
                             ->first();
 
                         if($scheduleShiftDefault) {
@@ -635,5 +642,17 @@ class StudentController extends Controller
         }
 
         return response()->json($examNow, 200);
+    }
+
+    public function examScoreView()
+    {
+        return view('user.student.exam-score');
+    }
+
+    public function getExamScore()
+    {
+//        Auth::
+
+//        return response()->json($examNow, 200);
     }
 }

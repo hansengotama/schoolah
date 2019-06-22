@@ -6,10 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="1ac09e87-2e0a-4910-bd77-7e9f8479a70c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Attendance.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Attendance.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/TeacherController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/TeacherController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/user/teacher/class.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/teacher/class.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/user/student/course.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/student/course.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/user/teacher/forum.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/teacher/forum.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -42,10 +40,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/user/teacher/class.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="295">
+            <state relative-caret-position="1975">
               <caret line="799" column="16" lean-forward="true" selection-start-line="799" selection-start-column="16" selection-end-line="799" selection-end-column="32" />
               <folding>
                 <element signature="e#6173#8521#0#HTML" />
@@ -55,6 +53,24 @@
                 <element signature="e#19115#21427#0#HTML" />
                 <element signature="e#21436#23551#0#HTML" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/user/teacher/forum.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="407">
+              <caret line="332" column="64" lean-forward="true" selection-start-line="332" selection-start-column="32" selection-end-line="332" selection-end-column="64" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/resources/views/user/student/course.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="214">
+              <caret line="336" column="118" selection-start-line="336" selection-start-column="118" selection-end-line="336" selection-end-column="118" />
             </state>
           </provider>
         </entry>
@@ -93,7 +109,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>getPastAttendance</find>
       <find>action</find>
       <find>pastAttendance</find>
       <find>addSession</find>
@@ -123,6 +138,7 @@
       <find>dataAttendence</find>
       <find>getNextAttendance</find>
       <find>status</find>
+      <find>response.data[i].time_created_at</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -165,9 +181,7 @@
         <option value="$PROJECT_DIR$/app/StudentAssignment.php" />
         <option value="$PROJECT_DIR$/database/migrations/2019_06_19_160842_create_forums_table.php" />
         <option value="$PROJECT_DIR$/app/Forum.php" />
-        <option value="$PROJECT_DIR$/resources/views/user/teacher/forum.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" />
-        <option value="$PROJECT_DIR$/resources/views/user/student/course.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/user/student/absence.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/layouts/app-admin.blade.php" />
         <option value="$PROJECT_DIR$/app/ScheduleShift.php" />
@@ -182,6 +196,8 @@
         <option value="$PROJECT_DIR$/routes/web.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/TeacherController.php" />
         <option value="$PROJECT_DIR$/resources/views/user/teacher/class.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/user/teacher/forum.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/user/student/course.blade.php" />
       </list>
     </option>
   </component>
@@ -536,18 +552,18 @@
       <workItem from="1561033910396" duration="138000" />
       <workItem from="1561048731418" duration="4323000" />
       <workItem from="1561087869525" duration="14941000" />
-      <workItem from="1561122852894" duration="15010000" />
+      <workItem from="1561122852894" duration="16159000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="623359000" />
+    <option name="totallyTimeSpent" value="624508000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="-4" width="1855" height="1084" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49847096" visible="true" weight="0.31896076" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49847096" visible="true" weight="0.31896076" />
       <window_info id="Structure" order="1" sideWeight="0.50152904" side_tool="true" weight="0.32061914" />
       <window_info id="Favorites" order="2" sideWeight="0.50133336" side_tool="true" weight="0.31674957" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -560,7 +576,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.32925585" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="10" sideWeight="0.49695966" visible="true" weight="0.2324159" />
+      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.49695966" visible="true" weight="0.2324159" />
       <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.5030404" side_tool="true" weight="0.2293578" />
       <window_info anchor="bottom" id="TypeScript" order="12" weight="0.32925585" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -780,13 +796,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/user/teacher/forum.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4648">
-          <caret line="166" column="9" selection-start-line="166" selection-start-column="9" selection-end-line="178" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/HomeController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4116">
@@ -794,13 +803,6 @@
           <folding>
             <element signature="e#40#57#0#PHP" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/user/student/course.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="125">
-          <caret line="112" column="4" selection-start-line="112" selection-start-column="4" selection-end-line="112" selection-end-column="4" />
         </state>
       </provider>
     </entry>
@@ -972,7 +974,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/user/teacher/class.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="295">
+        <state relative-caret-position="1975">
           <caret line="799" column="16" lean-forward="true" selection-start-line="799" selection-start-column="16" selection-end-line="799" selection-end-column="32" />
           <folding>
             <element signature="e#6173#8521#0#HTML" />
@@ -982,6 +984,20 @@
             <element signature="e#19115#21427#0#HTML" />
             <element signature="e#21436#23551#0#HTML" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/user/teacher/forum.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="407">
+          <caret line="332" column="64" lean-forward="true" selection-start-line="332" selection-start-column="32" selection-end-line="332" selection-end-column="64" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/user/student/course.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="214">
+          <caret line="336" column="118" selection-start-line="336" selection-start-column="118" selection-end-line="336" selection-end-column="118" />
         </state>
       </provider>
     </entry>

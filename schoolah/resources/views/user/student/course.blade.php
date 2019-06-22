@@ -334,8 +334,8 @@
                     .then(function (response) {
                         if(response.status) {
                             for(let i=0; response.data.length > i; i++) {
+                                response.data[i].time_created_at = moment(response.data[i].created_at).format("hh:mm a")
                                 response.data[i].created_at = moment(response.data[i].created_at).format("D MMMM Y")
-                                response.data[i].time_created_at = moment(response.data[i].created_at).format("hh:mm:ss")
                             }
                             app.forumChats = response.data
                         }

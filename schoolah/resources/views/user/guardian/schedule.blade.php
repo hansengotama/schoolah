@@ -13,21 +13,27 @@
             opacity: 0.5;
             z-index: -9999;
         }
+        .title-font {
+            border-bottom: 6px solid #51a9c5;
+            padding-bottom: 6px;
+            font-size: 50px;
+            color: #51a9c5;
+        }
     </style>
 @endsection
 
 @section('content')
 <section class="schedule">
     <div class="ui container mt-5 mb-5">
-        <div class="col-md-12 p-0" style="background-color: #99cada">
+        <h3 class="text-right text-uppercase title-font mb-5 mt-5">
+            <b>Schedule</b>
+        </h3>
+        <div class="col-md-12 p-0 mt-5" style="background-color: #99cada">
             <div style="padding: 8px;">
                 <h5>Student Name: <b>@{{ student.user.name }}</b></h5>
                 <h5>Student Code: <b>@{{ student.student_code }}</b></h5>
             </div>
         </div>
-        <h3 class="text-right text-uppercase title-font mb-5">
-            <b>Schedule</b>
-        </h3>
         <div class="ui grid bg-white">
             <div class="ui sixteen column">
                 <div id="calendar"></div>

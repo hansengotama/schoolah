@@ -59,7 +59,7 @@
 @section('content')
     <div class="ui container mt-5 mb-5">
         <div class="text-center" v-show="page=='noexam'">
-            <h3>Sorry you don't have a exam right now.</h3>
+            <h3>Sorry, you don't have any exam right now.</h3>
         </div>
         <div v-show="page=='examstart'">
             <div class="info-exam">
@@ -100,7 +100,7 @@
             </div>
         </div>
         <div class="text-center" v-show="page=='checkresult'">
-            <h3>Thankyou, please wait for your result</h3>
+            <h3>Thankyou, please wait for your result.</h3>
         </div>
     </div>
 @endsection

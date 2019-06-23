@@ -177,6 +177,23 @@
                         </li>
                     </ul>
                 @endif
+                @if(Auth::user()->role == 'guardian')
+                    <ul class="navbar-nav">
+                        <li class="nav-item {{ (Request::route()->getName() == 'schedule-guardian-view') ? 'active' : '' }}">
+                            <a class="nav-link white" href="{{ route('schedule-guardian-view') }}">Schedule<span class="sr-only">(current)</span></a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav">
+                        <li class="nav-item {{ (Request::route()->getName() == 'information-guardian-view') ? 'active' : '' }}">
+                            <a class="nav-link white" href="{{ route('information-guardian-view') }}">Information<span class="sr-only">(current)</span></a>
+                        </li>
+                    </ul>
+{{--                    <ul class="navbar-nav">--}}
+{{--                        <li class="nav-item {{ (Request::route()->getName() == 'information-view') ? 'active' : '' }}">--}}
+{{--                            <a class="nav-link white" href="{{ route('information-view') }}">Information<span class="sr-only">(current)</span></a>--}}
+{{--                        </li>--}}
+{{--                    </ul>--}}
+                @endif
             </div>
             <div class="navbar-text">
                 <ul class="navbar-nav">
@@ -187,6 +204,9 @@
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             @if(Auth::user()->role != "admin")
                                 <a class="dropdown-item" href="{{ url('edit-profile-view') }}">Edit Profile</a>
+                            @endif
+                            @if(Auth::user()->role == "guardian")
+                                <span id="guardian-student"></span>
                             @endif
                             <a class="dropdown-item" href="{{ url('logout') }}">Logout</a>
                         </div>
@@ -215,12 +235,40 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
     <!-- Full Calender -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.js"></script>
-
+    <!-- Cookies -->
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
     @yield('js')
     <script>
+        let students = {}
+        $( document ).ready(function() {
+            getStudent()
+        });
+
         $(".navbar-toggler").click(function () {
             $(".navbar-text").find(".nav-link.dropdown-toggle.white").toggle()
         })
+        
+        function getStudent() {
+            axios.get("{{ url('guardian/get-student') }}")
+            .then(function (response) {
+                if(response.status) {
+                    students = response.data.students
+                    for(let i=0; i<students.length; i++) {
+                        $("#guardian-student").append(function () {
+                            return "<a class='dropdown-item' style='display: block;margin-bottom: 10px;cursor: pointer' onclick='thisStudent("+students[i].id+")'>"+students[i].user.name+"</a>"
+                        })
+                    }
+                    if(! (Cookies.get("student_id")))
+                        if(students.length != 0)
+                            thisStudent(students[0].id)
+
+                }
+            })
+        }
+
+        function thisStudent(studentId) {
+            Cookies.set("student_id", studentId)
+        }
     </script>
 </body>
 </html>

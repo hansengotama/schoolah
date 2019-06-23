@@ -124,10 +124,13 @@
                         <div class="col-md-7 mr-5 attendance-body-container">
                             <div v-if="checkAttendance">
                                 <div class="mt-2">
-                                    <div><b>Total Present: @{{ attendance.present }}</b></div>
-                                    <div><b>Total Absence: @{{ attendance.absence }}</b></div>
-                                    <div><b>Total Permit: @{{ attendance.permit }}</b></div>
-                                    <div><b>Total Sick: @{{ attendance.sick }}</b></div>
+                                    <div>
+                                        <b>Present: @{{ attendance.present }}</b>
+                                        <b style="float: right">Total: @{{ attendance.total }}</b>
+                                    </div>
+                                    <div><b>Absence: @{{ attendance.absence }}</b></div>
+                                    <div><b>Permit: @{{ attendance.permit }}</b></div>
+                                    <div><b>Sick: @{{ attendance.sick }}</b></div>
                                 </div>
                                 <table class="mt-2 table table-striped">
                                     <thead>
@@ -151,7 +154,7 @@
                                 </table>
                             </div>
                             <div v-else>
-                                <div class="mt-2">You've never been absence in this course.</div>
+                                <div class="mt-2">You've never attend this course.</div>
                             </div>
                         </div>
                         <div class="col-md-4 exam-score-body-container">
@@ -174,7 +177,7 @@
                                 </table>
                             </div>
                             <div class="mt-2" v-else>
-                                You've never take this course exam before.
+                                You've never taken this course exam before.
                             </div>
                         </div>
                         <div class="clearfix"></div>
@@ -201,7 +204,8 @@
                     sick: 0,
                     permit: 0,
                     absence: 0,
-                    present: 0
+                    present: 0,
+                    total: 0
                 }
             },
             mounted() {
@@ -267,6 +271,7 @@
                     this.attendance.permit = 0
                     this.attendance.absence = 0
                     this.attendance.present = 0
+                    this.attendance.total = attendance.length
 
                     for(let i=0; i<attendance.length; i++) {
                         if(attendance[i].status == "sick") {

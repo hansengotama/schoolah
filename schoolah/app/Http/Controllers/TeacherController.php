@@ -17,6 +17,7 @@ use App\ScheduleShift;
 use App\Student;
 use App\StudentAssignment;
 use App\StudentClass;
+use App\StudentPacket;
 use App\Teacher;
 use App\TeacherClass;
 use Carbon\Carbon;
@@ -389,5 +390,29 @@ class TeacherController extends Controller
         }
 
         return response()->json($request->all(), 200);
+    }
+
+    public function getHistoryAttendance($grade_id, $course_id)
+    {
+        $scheduleClasses = ScheduleClass::where("grade_id", $grade_id)
+            ->where("course_id", $course_id)
+            ->pluck("id");
+
+        $attendances = Attendance::whereIn("schedule_class_id", $scheduleClasses)->get();
+
+        return response()->json($attendances, 200);
+    }
+
+    public function getTotalHistorySession($grade_id, $course_id)
+    {
+        $scheduleClasses = ScheduleClass::where("grade_id", $grade_id)
+            ->where("course_id", $course_id)
+            ->pluck("id");
+
+        $attendanceTotalSession = Attendance::whereIn("schedule_class_id", $scheduleClasses)
+                            ->distinct('session')
+                            ->count('session');
+
+        return response()->json($attendanceTotalSession, 200);
     }
 }

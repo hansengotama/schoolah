@@ -109,6 +109,7 @@
         }
         .box-absence {
             height: 415px;
+            overflow-y: auto;
         }
         .pertemuan-text {
             margin-left: 15px;
@@ -229,11 +230,12 @@
                 </div>
                 <div class="row" v-if="tab=='absence'">
                     <div class="container-details">
-                        <div class="container-absence">
+                        <div class="container-absence" v-show="!historyAbsence">
                             <div class="col-md-12 box-absence">
                                 <div class="col-md-12 p-0">
-                                    <div class="float-left pertemuan-text">
-                                        <b style="color: #4fa9c5;">SESSION @{{ dataAttendance.session }} | DAY @{{ getDayName(dataAttendance.schedule_class.day) }} | SHIFT @{{ dataAttendance.schedule_class.order }}</b>
+                                    <div class="pertemuan-text">
+                                        <b class="float-left" style="color: #4fa9c5;">SESSION @{{ dataAttendance.session }} | DAY @{{ getDayName(dataAttendance.schedule_class.day) }} | SHIFT @{{ dataAttendance.schedule_class.order }}</b>
+                                        <b class="float-right"><button class="btn btn-primary" style="background-color: #4fa9c5;padding: 2px 5px;margin-right: 15px; border: none" @click="viewHistory()">View History</button></b>
                                     </div>
                                 </div>
                                 <div class="clearfix"></div>
@@ -271,10 +273,42 @@
                                 </button>
                             </div>
                         </div>
-
-{{--                        <div class="text-center mt-5" v-else>--}}
-{{--                            <h3>No Class</h3>--}}
-{{--                        </div>--}}
+                        <div v-show="historyAbsence">
+                            <div class="col-md-12 box-absence">
+                                <div class="col-md-12 p-0">
+                                    <div class="pertemuan-text">
+                                        <div class="col-md-12 p-0">
+                                            <b class="float-right" @click="backToAbsence()">
+                                                <button class="btn btn-primary" style="background-color: #4fa9c5;padding: 2px 5px;margin-right: 15px; border: none; cursor: pointer">
+                                                    <i class="fa fa-arrow-left"></i> Back to absence
+                                                </button>
+                                            </b>
+                                        </div>
+                                        <div class="col-md-12" style="display: flex">
+                                            <p>
+                                                <b>P</b> : Permit | <b>A</b> : Absence | <b>S</b> : Sick
+                                            </p>
+                                        </div>
+                                        <div class="col-md-12" style="display: flex">
+                                            <table class="table table-striped mt-3" style="overflow: auto">
+                                                <thead>
+                                                <tr>
+                                                    <th></th>
+                                                    <th v-for="data in totalHistoryAttendanceSession" :id="'session-'+data">@{{ data }}</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr v-for="dataStudent in studentClasses">
+                                                        <td>@{{ dataStudent.student.user.name }}</td>
+                                                        <td v-for="data in totalHistoryAttendanceSession" :id="'student-'+data+'-'+dataStudent.student_id"></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -458,7 +492,10 @@
                         day: "",
                         order: ""
                     }
-                }
+                },
+                historyAbsence: false,
+                historyAttendances: [],
+                totalHistoryAttendanceSession: 0
             },
             mounted() {
                 this.getTeacherClasses()
@@ -545,6 +582,8 @@
                     this.getMaterials()
                     this.getAllStudents()
                     this.getNextAttendance()
+                    this.getHistoryAttendance()
+                    this.getTotalSession()
                 },
                 backToClass() {
                     this.page = "class"
@@ -777,6 +816,35 @@
                         }
                     })
                 },
+                getHistoryAttendance() {
+                    let gradeId = app.selectedTeacherClass.grade_id
+                    let courseId = app.selectedTeacherClass.course_id
+
+                    axios.get("{{ url('teacher/get-history-attendance') }}/"+gradeId+"/"+courseId)
+                    .then(function (response) {
+                        if(response.status) {
+                            app.historyAttendances = response.data
+                            app.setDataTable(response.data)
+                        }
+                    })
+                },
+                setDataTable(data) {
+                    setTimeout(function(){
+                        let status = "no"
+                        for(let i=0; i<data.length; i++) {
+                            if(data[i].status == "permit") {
+                                status = "<b>P</b>"
+                            }else if(data[i].status == "present") {
+                                status = "<i class='fa fa-check'></i>"
+                            }else if(data[i].status == "absence") {
+                                status = "<b>A</b>"
+                            }else if(data[i].status == "sick") {
+                                status = "<b>S</b>"
+                            }
+                            $("#student-"+data[i].session+"-"+data[i].student_id).html(status)
+                        }
+                    }, 1000);
+                },
                 changeUserStatus(student_id, event) {
                     let status = event.target.value
                     let studentObject = this.findInArrayOfObject("student_id", student_id, this.formAbsence)
@@ -794,12 +862,32 @@
                             app.popUpSuccess()
                             app.resetFormAbsence()
                             app.getNextAttendance()
+                            app.getHistoryAttendance()
+                            app.getTotalSession()
                         }
                     })
                 },
                 resetFormAbsence() {
                     app.formAbsence.forEach((data) => {
                         data.status = "present"
+                    })
+                },
+                viewHistory() {
+                    this.historyAbsence = true
+                },
+                backToAbsence() {
+                    console.log(234234)
+                    this.historyAbsence = false
+                },
+                getTotalSession() {
+                    let gradeId = app.selectedTeacherClass.grade_id
+                    let courseId = app.selectedTeacherClass.course_id
+
+                    axios.get("{{ url('teacher/get-total-history-session') }}/"+gradeId+"/"+courseId)
+                    .then(function (response) {
+                        if(response.status) {
+                            app.totalHistoryAttendanceSession = response.data
+                        }
                     })
                 }
             }

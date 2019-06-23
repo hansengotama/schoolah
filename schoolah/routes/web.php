@@ -160,6 +160,8 @@ Route::group(['middleware' => ['auth']], function () {
                 Route::get('/get-all-student/{grade_id}', 'TeacherController@getAllStudentByGradeId');
                 Route::get('/get-next-attendance/{grade_id}/{course_id}', 'TeacherController@getNextAttendance');
                 Route::post('/save-absence', 'TeacherController@saveAbsence');
+                Route::get('/get-history-attendance/{grade_id}/{course_id}', 'TeacherController@getHistoryAttendance');
+                Route::get('/get-total-history-session/{grade_id}/{course_id}', 'TeacherController@getTotalHistorySession');
             });
             Route::group(['middleware' => 'student', 'prefix' => 'student'], function () {
                 Route::get('/', 'HomeController@index')->name('home');
@@ -193,6 +195,10 @@ Route::group(['middleware' => ['auth']], function () {
         });
         Route::group(['middleware' => 'guardian', 'prefix' => 'guardian'], function () {
             Route::get('/', 'HomeController@index')->name('home');
+            Route::get('schedule-guardian-view', 'GuardianController@scheduleGuardianView')->name('schedule-guardian-view');
+            Route::get('information-guardian-view', 'GuardianController@informationGuardianView')->name('information-guardian-view');
+            Route::get('get-student', 'GuardianController@getStudent');
+            Route::get('get-schedule/{student_id}', 'GuardianController@getSchedule');
         });
     });
 });

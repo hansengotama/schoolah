@@ -88,7 +88,7 @@
                 <div class="col-md-6 bg-white">
                     <div class="container-exam">
                         <div class="exam-inside">
-                            <h4 class="display-block">Exam</h4>
+                            <h4 class="display-block">Result</h4>
                             <div>
                                 <table class="table table-striped">
                                     <thead>

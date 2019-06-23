@@ -181,6 +181,7 @@ Route::group(['middleware' => ['auth']], function () {
                 Route::get('/get-packet-history-detail/{student_packet_id}', 'StudentController@getPacketHistoryDetail');
                 Route::get('/get-tuitions', 'StudentController@getTuitions');
                 Route::get('/get-history-detail/{tuition_history_id}', 'StudentController@getHistoryDetail');
+                Route::get('/get-exam', 'StudentController@getExam');
                 Route::post('/save-image', 'StudentController@saveImage');
                 Route::get('/get-teacher-profile/{grade_id}/{course_id}', 'StudentController@getTeacherProfile');
                 Route::get('/get-material/{teacher_class_id}', 'StudentController@getMaterialByTeacherClassId');

@@ -42,8 +42,13 @@
                 </div>
             </div>
             <div class="container" v-else>
-                <div class="mt-4 table-margin">
-                    <table class="table table-sm">
+                <div class="mt-5 table-margin">
+                    <div class="mt-5">
+                        <div class="col-md-12">
+                            <h3>Manage Class Tuition</h3>
+                        </div>
+                    </div>
+                    <table class="table table-sm mt-3">
                         <thead>
                         <tr>
                             <th>No</th>

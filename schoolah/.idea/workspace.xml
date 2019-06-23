@@ -5,9 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1ac09e87-2e0a-4910-bd77-7e9f8479a70c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/resources/views/user/guardian/information.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/guardian/information.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/user/guardian/schedule.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/guardian/schedule.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/user/guardian/tuition.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/guardian/tuition.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -55,8 +53,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resources/views/user/guardian/schedule.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="392">
-              <caret line="29" column="13" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
+            <state relative-caret-position="336">
+              <caret line="36" column="41" selection-start-line="36" selection-start-column="41" selection-end-line="36" selection-end-column="41" />
+              <folding>
+                <element signature="e#548#581#0#HTML" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -482,12 +483,12 @@
       <workItem from="1561224137559" duration="3812000" />
       <workItem from="1561261394078" duration="1705000" />
       <workItem from="1561274990173" duration="12468000" />
-      <workItem from="1561295311831" duration="352000" />
+      <workItem from="1561295311831" duration="407000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="668218000" />
+    <option name="totallyTimeSpent" value="668273000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="-4" width="1855" height="1084" extended-state="6" />
@@ -887,8 +888,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/user/guardian/schedule.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="392">
-          <caret line="29" column="13" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
+        <state relative-caret-position="336">
+          <caret line="36" column="41" selection-start-line="36" selection-start-column="41" selection-end-line="36" selection-end-column="41" />
+          <folding>
+            <element signature="e#548#581#0#HTML" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

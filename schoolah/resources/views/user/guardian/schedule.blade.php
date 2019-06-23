@@ -34,7 +34,7 @@
                 <h5>Student Code: <b>@{{ student.student_code }}</b></h5>
             </div>
         </div>
-        <div class="ui grid bg-white">
+        <div class="ui grid bg-white mt-5">
             <div class="ui sixteen column">
                 <div id="calendar"></div>
             </div>

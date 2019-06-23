@@ -188,11 +188,11 @@
                             <a class="nav-link white" href="{{ route('information-guardian-view') }}">Information<span class="sr-only">(current)</span></a>
                         </li>
                     </ul>
-{{--                    <ul class="navbar-nav">--}}
-{{--                        <li class="nav-item {{ (Request::route()->getName() == 'information-view') ? 'active' : '' }}">--}}
-{{--                            <a class="nav-link white" href="{{ route('information-view') }}">Information<span class="sr-only">(current)</span></a>--}}
-{{--                        </li>--}}
-{{--                    </ul>--}}
+                    <ul class="navbar-nav">
+                        <li class="nav-item {{ (Request::route()->getName() == 'tuition-guardian-view') ? 'active' : '' }}">
+                            <a class="nav-link white" href="{{ route('tuition-guardian-view') }}">Tuition<span class="sr-only">(current)</span></a>
+                        </li>
+                    </ul>
                 @endif
             </div>
             <div class="navbar-text">
@@ -268,6 +268,7 @@
 
         function thisStudent(studentId) {
             Cookies.set("student_id", studentId)
+            location.reload()
         }
     </script>
 </body>

@@ -193,12 +193,19 @@ Route::group(['middleware' => ['auth']], function () {
                 Route::get('/get-exam-score-student/{course_id}', 'StudentController@getExamScoreStudent');
             });
         });
-        Route::group(['middleware' => 'guardian', 'prefix' => 'guardian'], function () {
-            Route::get('/', 'HomeController@index')->name('home');
-            Route::get('schedule-guardian-view', 'GuardianController@scheduleGuardianView')->name('schedule-guardian-view');
-            Route::get('information-guardian-view', 'GuardianController@informationGuardianView')->name('information-guardian-view');
-            Route::get('get-student', 'GuardianController@getStudent');
-            Route::get('get-schedule/{student_id}', 'GuardianController@getSchedule');
-        });
+    });
+    Route::group(['middleware' => 'guardian', 'prefix' => 'guardian'], function () {
+        Route::get('/', 'HomeController@index')->name('home');
+        Route::get('schedule-guardian-view', 'GuardianController@scheduleGuardianView')->name('schedule-guardian-view');
+        Route::get('information-guardian-view', 'GuardianController@informationGuardianView')->name('information-guardian-view');
+        Route::get('tuition-guardian-view', 'GuardianController@tuitionGuardianView')->name('tuition-guardian-view');
+        Route::get('get-student', 'GuardianController@getStudent');
+        Route::get('get-schedule/{student_id}', 'GuardianController@getSchedule');
+        Route::get('get-student-detail/{student_id}', 'GuardianController@getStudentDetail');
+        Route::get('get-student-exam-and-quiz-score/{student_id}', 'GuardianController@getStudentExamAndQuizScore');
+        Route::get('get-student-attendance/{student_id}', 'GuardianController@getStudentAttendance');
+        Route::get('get-tuitions/{student_id}', 'GuardianController@getTuitions');
+        Route::get('get-history-detail/{tuition_history_id}', 'StudentController@getHistoryDetail');
+        Route::post('/save-image', 'StudentController@saveImage');
     });
 });

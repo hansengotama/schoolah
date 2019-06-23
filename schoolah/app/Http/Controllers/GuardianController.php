@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Assignment;
+use App\Attendance;
 use App\Guardian;
 use App\PeriodDateDetail;
 use App\ScheduleClass;
@@ -9,6 +11,8 @@ use App\ScheduleDetail;
 use App\ScheduleShift;
 use App\Student;
 use App\StudentClass;
+use App\StudentPacket;
+use App\TuitionHistory;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
@@ -22,6 +26,11 @@ class GuardianController extends Controller
     public function informationGuardianView()
     {
         return view('user.guardian.information');
+    }
+
+    public function tuitionGuardianView()
+    {
+        return view('user.guardian.tuition');
     }
 
     public function getStudent()
@@ -184,5 +193,75 @@ class GuardianController extends Controller
         }
 
         return response()->json($classSchedules, 200);
+    }
+
+    public function getStudentDetail($student_id)
+    {
+        $student = Student::where("id", $student_id)->with("user")->first();
+
+        return response()->json($student, 200);
+    }
+
+    public function getStudentExamAndQuizScore($student_id)
+    {
+        $studentPackets = StudentPacket::where("student_id", $student_id)->with("packet")->get();
+
+        return response()->json($studentPackets, 200);
+    }
+
+    public function getStudentAttendance($student_id)
+    {
+        $attendance = Attendance::where("student_id", $student_id)->where("status","!=", "present")->with(['scheduleClass' => function($query) {
+            $query->with('course');
+        }])->get();
+
+        return response()->json($attendance, 200);
+    }
+
+    public function getTuitions($student_id)
+    {
+        $schoolId = Auth::user()->school_id;
+        $now = Carbon::now();
+
+        $periodDateDetail = PeriodDateDetail::where("school_id", $schoolId)
+            ->where("start_date", "<=", $now)
+            ->where("end_date", ">=", $now)
+            ->first();
+
+        $studentClasses = StudentClass::where("student_id", $student_id)
+            ->with(["grade" => function ($query) use ($periodDateDetail) {
+                $query->where("period", $periodDateDetail->period);
+            }])
+            ->get();
+
+        $class = null;
+
+        foreach ($studentClasses as $studentClass) {
+            if ($studentClass->grade != null) {
+                $class = $studentClass;
+
+                break;
+            }
+        }
+
+        $tuitionHistories = TuitionHistory::where("student_id", $student_id)
+            ->where("class_id", $class->grade_id)
+            ->with("tuition")
+            ->get();
+
+        $tuitionDetails = [];
+
+        foreach ($tuitionHistories as $tuitionHistory) {
+            $object = new \stdClass();
+            $object->tuiton_history_id = $tuitionHistory->id;
+            $object->tuition_price = "Rp. " . number_format($tuitionHistory->tuition->price, "0", ",", ".");
+            $object->tuition_description = $tuitionHistory->tuition->description;
+            $object->status = $tuitionHistory->status;
+            $object->payment_receipt = $tuitionHistory->payment_receipt;
+            $object->due_date = date("d M Y", strtotime($tuitionHistory->tuition->due_date));
+            $tuitionDetails[] = $object;
+        }
+
+        return response()->json($tuitionDetails, 200);
     }
 }

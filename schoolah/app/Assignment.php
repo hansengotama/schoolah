@@ -10,6 +10,10 @@ class Assignment extends Model
         'teacher_class_id', 'name', 'description', 'question_file', 'due_date'
     ];
 
+    protected $appends = [
+        'question_file_url'
+    ];
+
     public function getQuestionFileUrlAttribute()
     {
         return url('/').$this->question_file;

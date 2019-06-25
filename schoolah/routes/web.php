@@ -79,7 +79,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::post('/add-student', 'StaffController@addStudent');
             Route::post('/edit-student', 'StaffController@editStudent');
             Route::get('/find-student/{student_id}', 'StaffController@findStudent');
-            Route::get('/delete-student/{student_id}'   , 'StaffController@deleteStudent');
+            Route::get('/delete-student/{student_id}', 'StaffController@deleteStudent');
             Route::get('/get-all-student-without-class', 'StaffController@getAllStudentWithoutClass');
             Route::get('/get-student/{id}', 'StaffController@getStudent');
             Route::get('/get-student-class/{id}', 'StaffController@getStudentClass');
@@ -176,7 +176,6 @@ Route::group(['middleware' => ['auth']], function () {
                 Route::get('/get-course', 'StudentController@getCourse');
                 Route::get('/get-quiz-packet/{level}/{course_id}', 'StudentController@getQuizPacket');
                 Route::post('/check-answer', 'StudentController@checkAnswer');
-                Route::get('/get-packet-history/{course_id}', 'StudentController@getPacketHistoryByCourseId');
                 Route::get('/get-packet-history/{course_id}', 'StudentController@getPacketHistoryByCourseId');
                 Route::get('/get-packet-history-detail/{student_packet_id}', 'StudentController@getPacketHistoryDetail');
                 Route::get('/get-tuitions', 'StudentController@getTuitions');

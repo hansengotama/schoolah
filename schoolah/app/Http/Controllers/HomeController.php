@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Feedback;
+use App\User;
 use App\Forum;
+use App\Feedback;
 use App\Student;
 use App\Teacher;
-use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;

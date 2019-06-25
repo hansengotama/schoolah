@@ -2,14 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\TuitionHistory;
 use App\ContributorTeacher;
 use App\Course;
 use App\Grade;
-
 use App\Guardian;
-use App\Mail\SendEmail;
-use App\Mail\SendEmailTuition;
-use App\Mail\SendEmailTuitionParent;
 use App\Packet;
 use App\PeriodDateDetail;
 use App\ScheduleClass;
@@ -18,13 +15,15 @@ use App\ScheduleDetailPacket;
 use App\ScheduleShift;
 use App\School;
 use App\Student;
-use App\StudentClass;
 use App\Teacher;
-use App\TeacherClass;
-use App\Tuition;
-use App\TuitionHistory;
 use App\User;
+use App\Tuition;
+use App\StudentClass;
+use App\TeacherClass;
 use Carbon\Carbon;
+use App\Mail\SendEmail;
+use App\Mail\SendEmailTuition;
+use App\Mail\SendEmailTuitionParent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;

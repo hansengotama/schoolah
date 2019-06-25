@@ -151,6 +151,9 @@
             <div class="col-md-12" style="margin-top: 5em">
                 <div class="row">
                     <div class="col-md-12">
+                        <h3>History</h3>
+                    </div>
+                    <div class="col-md-12">
                         <table class="table bg-white">
                             <thead>
                                 <tr>
@@ -207,6 +210,11 @@
             <div class="text-right text-uppercase title-font">
                 <b class="container-button"><i class="fa fa-arrow-left" style="cursor: pointer; font-size: 28px" @click="backToGoQuiz()"></i></b>
                 <b>HISTORY</b>
+            </div>
+            <div class="col-md-12" style="margin-top: 20px">
+                <div style="margin-top: 10px"><span style="padding: 5px 80px; background-color: #99cada; border-radius: 20px;"></span> : Correct</div>
+                <div style="margin-top: 10px"><span style="padding: 5px 80px; background-color: red; border-radius: 20px;"></span> : False</div>
+                <div style="margin-top: 10px"><span style="padding: 5px 80px; background-color: #d88db4; border-radius: 20px;"></span> : Miss</div>
             </div>
             <div class="container mt-5 bg-white">
                 <div :class="'mb-4'" v-for="(question, index) in historyDetails">

@@ -10,6 +10,10 @@ class Teacher extends Model
         'user_id', 'teacher_code', 'avatar'
     ];
 
+    protected $appends = [
+        'avatar_url'
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);

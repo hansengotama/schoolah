@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Feedback;
-use App\Mail\SendEmail;
-use App\School;
-use App\Staff;
 use App\User;
+use App\School;
+use App\Feedback;
+use App\Staff;
+use App\Mail\SendEmail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 

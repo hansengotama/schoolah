@@ -87,6 +87,25 @@
                 <h5>Student Code: <b>@{{ student.student_code }}</b></h5>
             </div>
         </div>
+        <div class="col-md-12 mt-4 p-0">
+            <div style="background-color: #f3f3f3; padding: 15px 40px;">
+                <div class="row">
+                    <div class="col=md-3 mr-3">
+                        <div><i class="fa fa-circle" style="color: #5394b3"></i> unpaid</div>
+                        <div><i class="fa fa-circle" style="color: #585852"></i> pending</div>
+                        <div><i class="fa fa-circle" style="color: #267726"></i> approved</div>
+                        <div><i class="fa fa-circle" style="color: #e00000"></i> reject</div>
+                    </div>
+                    <div class="col-md-8">
+                        <div>Upload your payment receipt.</div>
+                        <div>Your payment receipt is going to be check.</div>
+                        <div>Your payment receipt has been check by staff.</div>
+                        <div>Please, re-upload your payment receipt.</div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
         <div class="col-md-12 mt-5 p-0 bg-white">
             <div class="row">
                 <div class="col-md-12">

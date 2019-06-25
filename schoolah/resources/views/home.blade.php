@@ -20,6 +20,7 @@
             padding: 0 3em;
             margin-top: 1em;
             margin-bottom: 3em;
+            text-align: center;
         }
         .btn-feedback,
         .btn-feedback:after,
@@ -49,45 +50,27 @@
                     <div class="col-lg-4">
                         <div class="white-box box-sizing">
                             <img src="{{ asset('img/assignment.png') }}" class="about-icon-size about-possition" width="20%">
-                            <div class="margin-10px about-possition about-title-size">ASD</div>
+                            <div class="margin-10px about-possition about-title-size">ASSIGNMENT</div>
                             <p class="lead about-content-style">
-                                It is a long established fact that a reader will be distracted by the readable content
-                                of a page when looking at its layout. The point of using Lorem Ipsum is that it has a
-                                more-or-less normal distribution of letters, as opposed to using 'Content here, content
-                                here', making it look like readable English. Many desktop publishing packages and web
-                                page editors now use Lorem Ipsum as their default model text, and a search for 'lorem
-                                ipsum' will uncover many web sites still in their infancy. Various versions have evolved
-                                over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+                                Daily planner (i.e. timetable, holiday and exam planner) is accessible 24 hours through Schoolah website.
                             </p>
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="white-box box-sizing">
                             <img src="{{ asset('img/exam.png') }}" class="about-icon-size about-possition" width="20%">
-                            <div class="margin-10px about-possition about-title-size">ASD</div>
+                            <div class="margin-10px about-possition about-title-size">Exam/ Quiz</div>
                             <p class="lead about-content-style">
-                                It is a long established fact that a reader will be distracted by the readable content
-                                of a page when looking at its layout. The point of using Lorem Ipsum is that it has a
-                                more-or-less normal distribution of letters, as opposed to using 'Content here, content
-                                here', making it look like readable English. Many desktop publishing packages and web
-                                page editors now use Lorem Ipsum as their default model text, and a search for 'lorem
-                                ipsum' will uncover many web sites still in their infancy. Various versions have evolved
-                                over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+                                The quiz will only be accessible within certain period of time and the students can start the quiz at anytime and anywhere. The result will automatically be calculated after the quiz has been completed.
                             </p>
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="white-box box-sizing">
                             <img src="{{ asset('img/schedule.png') }}" class="about-icon-size about-possition" width="20%">
-                            <div class="margin-10px about-possition about-title-size">ASD</div>
+                            <div class="margin-10px about-possition about-title-size">Schedule</div>
                             <p class="lead about-content-style">
-                                It is a long established fact that a reader will be distracted by the readable content
-                                of a page when looking at its layout. The point of using Lorem Ipsum is that it has a
-                                more-or-less normal distribution of letters, as opposed to using 'Content here, content
-                                here', making it look like readable English. Many desktop publishing packages and web
-                                page editors now use Lorem Ipsum as their default model text, and a search for 'lorem
-                                ipsum' will uncover many web sites still in their infancy. Various versions have evolved
-                                over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+                                Teacher can easily assigned the task to student at anytime and anywhere through the website. On the other hand, the student can also download and upload the files through this website.
                             </p>
                         </div>
                     </div>

@@ -1,14 +1,25 @@
 @extends('layouts.app-admin')
 
 @section('css')
-
+    <style>
+        body {
+            background-image: url("https://schoolah.dev.net/img/2.jpeg");
+            background-size: 100%;
+            background-repeat: repeat;
+            background-position: unset;
+            background-attachment: fixed;
+        }
+        .bg-white {
+            background: white;
+        }
+    </style>
 @endsection
 
 @section('content')
 <section class="content">
     <div v-if="page=='class'">
         <div id="staff">
-            <div class="container">
+            <div class="container bg-white">
                 <div class="row justify-content-center display-block">
                     <div class="mt-5">
                         <div class="col-md-12">
@@ -59,7 +70,7 @@
     </div>
     <div v-else-if="page=='student'">
         <div id="staff">
-            <div class="container">
+            <div class="container bg-white">
                 <div class="row justify-content-center display-block">
                     <div class="mt-5">
                         <div class="col-md-12">
@@ -111,7 +122,7 @@
     </div>
     <div v-else-if="page=='teacher'">
         <div id="staff">
-            <div class="container">
+            <div class="container bg-white">
                 <div class="row justify-content-center display-block">
                     <div class="mt-5">
                         <div class="col-md-12">

@@ -1,12 +1,23 @@
 @extends('layouts.app-admin')
 
 @section('css')
-
+    <style>
+        body {
+            background-image: url("https://schoolah.dev.net/img/2.jpeg");
+            background-size: 100%;
+            background-repeat: repeat;
+            background-position: unset;
+            background-attachment: fixed;
+        }
+        .bg-white {
+            background: white;
+        }
+    </style>
 @endsection
 
 @section('content')
     <div id="staff">
-        <div class="container">
+        <div class="container bg-white">
             <div class="row justify-content-center display-block">
                 <div class="mt-5">
                     <div class="col-md-12">
@@ -33,8 +44,8 @@
                         <tr v-for="(period, index) in periods">
                             <td>@{{ index+1 }}</td>
                             <td>@{{ period.period }}</td>
-                            <td>@{{ period.start_date }}</td>
-                            <td>@{{ period.end_date }}</td>
+                            <td>@{{ moment(period.start_date) }}</td>
+                            <td>@{{ moment(period.end_date) }}</td>
                             <td>
                                 <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#edit-course" @click="fillEditForm(period.id)">Edit</button>
                                 <button class="btn btn-danger btn-xs" @click="confirmDeletePeriod(period.id)">Delete</button>
@@ -158,6 +169,9 @@
                 this.getPeriodChoice()
             },
             methods: {
+                moment(date) {
+                    return moment(date).format("D MMMM Y")
+                },
                 required(value) {
                     return (value.length < 1) ? true : false
                 },

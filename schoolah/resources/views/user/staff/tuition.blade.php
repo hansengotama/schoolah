@@ -1,13 +1,24 @@
 @extends('layouts.app-admin')
 
 @section('css')
-
+    <style>
+        body {
+            background-image: url("https://schoolah.dev.net/img/2.jpeg");
+            background-size: 100%;
+            background-repeat: repeat;
+            background-position: unset;
+            background-attachment: fixed;
+        }
+        .bg-white {
+            background: white;
+        }
+    </style>
 @endsection
 
 @section('content')
     <section class="content">
         <div id="staff">
-            <div class="container" v-if="page=='tuition'">
+            <div class="container bg-white" v-if="page=='tuition'">
                 <div class="row justify-content-center display-block">
                     <div class="mt-5">
                         <div class="col-md-12">
@@ -42,7 +53,7 @@
                 </div>
             </div>
             <div class="container" v-else>
-                <div class="mt-5 table-margin">
+                <div class="mt-5 table-margin bg-white">
                     <div class="mt-5">
                         <div class="col-md-12">
                             <h3>Manage Class Tuition</h3>
@@ -65,7 +76,7 @@
                             <td>@{{ tuitionDetail.number }}</td>
                             <td>@{{ tuitionDetail[0].tuition.price }}</td>
                             <td>@{{ tuitionDetail[0].tuition.description }}</td>
-                            <td>@{{ tuitionDetail[0].tuition.due_date }}</td>
+                            <td>@{{ moment(tuitionDetail[0].tuition.due_date) }}</td>
                             <td>@{{ tuitionDetail.totalStudent }}</td>
                             <td>@{{ tuitionDetail.totalStudentPaid }}</td>
                             <td>
@@ -218,6 +229,9 @@
                 this.getAllClass()
             },
             methods: {
+                moment(date) {
+                    return moment(date).format("D MMMM Y")
+                },
                 required(value) {
                     return (value.length < 1) ? true : false
                 },

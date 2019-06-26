@@ -1,18 +1,27 @@
 @extends('layouts.app-admin')
 
 @section('css')
-
+    <style>
+        body {
+            background-image: url("https://schoolah.dev.net/img/2.jpeg");
+            background-size: 100%;
+            background-repeat: repeat;
+            background-position: unset;
+            background-attachment: fixed;
+        }
+        .bg-white {
+            background: white;
+        }
+    </style>
 @endsection
 
 @section('content')
 <section class="content">
     <div id="staff">
-        <div class="container">
+        <div class="container bg-white">
             <div class="row justify-content-center display-block">
                 <div class="mt-5">
                     <div class="col-md-12">
-{{--                        <h3>Manage Student (@{{ selectedClass.name }})</h3>--}}
-{{--                        <h5>Guardian Teacher: @{{ teacherName }}</h5>--}}
                         <h3>Manage Student</h3>
                         <div class="font-weight-600">
                             <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#add-student" @click="resetFormStudent()">
@@ -27,10 +36,10 @@
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Name</th>
+                            <th scope="col">Code</th>
                             <th scope="col">Email</th>
-                            <th scope="col">Student Code</th>
-                            <th scope="col">Address</th>
                             <th scope="col">Phone Number</th>
+                            <th scope="col">Address</th>
                             <th scope="col">Action</th>
                         </tr>
                         </thead>
@@ -38,10 +47,10 @@
                         <tr v-for="(student, index) in students">
                             <td>@{{ student.number }}</td>
                             <td>@{{ student.name }}</td>
-                            <td>@{{ student.email }}</td>
                             <td>@{{ student.studentCode }}</td>
-                            <td>@{{ student.address }}</td>
+                            <td>@{{ student.email }}</td>
                             <td>@{{ student.phone_number }}</td>
+                            <td>@{{ student.address }}</td>
                             <td>
                                 <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#edit-student" @click="fillEditFormStudent(student.id)">Edit</button>
                                 <button class="btn btn-danger btn-xs" @click="confirmDeleteStudent(student.id)">Delete</button>

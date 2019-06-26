@@ -5,12 +5,22 @@
         .table-margin {
             margin: 0 1em;
         }
+        body {
+            background-image: url("https://schoolah.dev.net/img/2.jpeg");
+            background-size: 100%;
+            background-repeat: repeat;
+            background-position: unset;
+            background-attachment: fixed;
+        }
+        .bg-white {
+            background: white;
+        }
     </style>
 @endsection
 @section('content')
 <section class="content">
     <div id="admin">
-        <div class="container" v-if="display=='school'">
+        <div class="container bg-white" v-if="display=='school'">
             <div class="row justify-content-center display-block">
                 <div class="mt-5">
                     <div class="col-md-12">
@@ -52,7 +62,7 @@
                 </div>
             </div>
         </div>
-        <div class="container" v-else>
+        <div class="container bg-white" v-else>
             <div class="row justify-content-center display-block">
                 <div class="mt-5">
                     <div class="col-md-12">

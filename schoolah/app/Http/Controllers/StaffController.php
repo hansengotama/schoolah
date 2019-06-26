@@ -756,7 +756,7 @@ class StaffController extends Controller
     public function getAllScheduleShift()
     {
         $schoolId = Auth::user()->school_id;
-        $scheduleShifts = ScheduleShift::where('school_id', $schoolId)->orderBy("active_from_date", "asc")->get();
+        $scheduleShifts = ScheduleShift::where('school_id', $schoolId)->orderBy("active_from_date", "asc")->orderBy("id", "asc")->get();
 
         return response()->json($scheduleShifts, 200);
     }

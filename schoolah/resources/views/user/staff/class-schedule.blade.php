@@ -30,6 +30,16 @@
         .coursename h6 {
             margin-bottom: 0;
         }
+        body {
+            background-image: url("https://schoolah.dev.net/img/2.jpeg");
+            background-size: 100%;
+            background-repeat: repeat;
+            background-position: unset;
+            background-attachment: fixed;
+        }
+        .bg-white {
+            background: white;
+        }
     </style>
 @endsection
 
@@ -37,7 +47,7 @@
     <section>
         <div v-if="page=='class'">
             <div id="staff">
-                <div class="container">
+                <div class="container bg-white">
                     <div class="row justify-content-center display-block">
                         <div class="mt-5">
                             <div class="col-md-12">
@@ -75,7 +85,7 @@
             </div>
         </div>
         <div v-if="page=='manage'">
-            <div class="container" style="margin-top: 3em">
+            <div class="container bg-white" style="margin-top: 3em">
                 <div class="col-md-12" style="padding: 0">
                     <button class="btn btn-primary" @click="backToClass()">
                         <i class="fa fa-arrow-left"></i> Back to class
@@ -104,7 +114,7 @@
                                 <td>@{{ examSchedule.name }}</td>
                                 <td>@{{ examSchedule.schedule_detail_packet.packet.name }}</td>
                                 <td>@{{ examSchedule.shift }}</td>
-                                <td>@{{ examSchedule.date }}</td>
+                                <td>@{{ moment(examSchedule.date) }}</td>
                                 <td>
                                     <button class="btn btn-primary" @click="fillFormExamSchedule(examSchedule.id)">Edit</button>
                                     <button class="btn btn-danger" @click="confirmRemoveExam(examSchedule.id)">Remove</button>
@@ -114,7 +124,7 @@
                         </table>
                     </div>
                 </div>
-                <div class="col-md-12 p-0 mt-5">
+                <div class="col-md-12 p-0 mt-5 bg-white">
                     <span style="font-size: 24px">Holiday</span>
                     <button class="btn btn-primary float-right" @click="addHolidaySchedule()">
                         <i class="fa fa-plus"></i> Holiday Schedule
@@ -133,7 +143,7 @@
                             <tr v-for="(holidaySchedule, index) in holidaySchedules">
                                 <td>@{{ index+1 }}</td>
                                 <td>@{{ holidaySchedule.name }}</td>
-                                <td>@{{ holidaySchedule.date }}</td>
+                                <td>@{{ moment(holidaySchedule.date) }}</td>
                                 <td>
                                     <button class="btn btn-danger" @click="confirmRemoveHoliday(holidaySchedule.id)">Remove</button>
                                 </td>
@@ -415,6 +425,9 @@
                 this.getAllShift()
             },
             methods: {
+                moment(date) {
+                    return moment(date).format("D MMMM Y")
+                },
                 required(value) {
                     return (value.length < 1) ? true : false
                 },

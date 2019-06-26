@@ -41,6 +41,12 @@
         .bg-white {
             background-color: white;
         }
+        .dropdown-custom>a:focus,
+        .dropdown-custom>a:after,
+        .dropdown-custom>span>a:focus,
+        .dropdown-custom>span>a:after {
+            background-color: #caeffb !important;
+        }
     </style>
 </head>
 <body>
@@ -201,7 +207,7 @@
                         <a class="nav-link dropdown-toggle white" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Hi, {{ Auth::user()->name }}
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <div class="dropdown-menu dropdown-custom" aria-labelledby="navbarDropdownMenuLink">
                             @if(Auth::user()->role != "admin")
                                 <a class="dropdown-item" href="{{ url('edit-profile-view') }}">Edit Profile</a>
                             @endif

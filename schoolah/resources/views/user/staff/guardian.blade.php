@@ -1,13 +1,24 @@
 @extends('layouts.app-admin')
 
 @section('css')
-
+    <style>
+        body {
+            background-image: url("https://schoolah.dev.net/img/2.jpeg");
+            background-size: 100%;
+            background-repeat: repeat;
+            background-position: unset;
+            background-attachment: fixed;
+        }
+        .bg-white {
+            background: white;
+        }
+    </style>
 @endsection
 
 @section('content')
 <section class="content">
     <div id="staff">
-        <div class="container">
+        <div class="container bg-white">
             <div class="row justify-content-center display-block">
                 <div class="mt-5">
                     <div class="col-md-12">
@@ -26,8 +37,8 @@
                             <th scope="col">#</th>
                             <th scope="col">Name</th>
                             <th scope="col">Email</th>
-                            <th scope="col">Address</th>
                             <th scope="col">Phone Number</th>
+                            <th scope="col">Address</th>
                             <th scope="col">Action</th>
                         </tr>
                         </thead>
@@ -36,8 +47,8 @@
                                 <td>@{{ guardian.number }}</td>
                                 <td>@{{ guardian.name }}</td>
                                 <td>@{{ guardian.email }}</td>
-                                <td>@{{ guardian.address }}</td>
                                 <td>@{{ guardian.phone_number }}</td>
+                                <td>@{{ guardian.address }}</td>
                                 <td>
                                     <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#edit-guardian" @click="fillEditForm(guardian.id)">Edit</button>
                                     <button class="btn btn-danger btn-xs" @click="confirmDeleteGuardian(guardian.id)">Delete</button>

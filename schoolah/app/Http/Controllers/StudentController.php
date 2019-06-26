@@ -601,17 +601,17 @@ class StudentController extends Controller
                 if ($studentPacket) {
                     continue;
                 } else {
-                    $scheduleShift = ScheduleShift::where("shift", 6)
+                    $scheduleShift = ScheduleShift::where("shift", $scheduleDetail->shift)
                         ->whereDate("active_from_date", "<=", $now)
                         ->whereDate("active_until_date", ">=", $now)
                         ->first();
 
                     if ($scheduleShift) {
-                        $time = ScheduleShift::where("shift", 6)
+                        $time = ScheduleShift::where("shift", $scheduleDetail->shift)
                             ->whereDate("active_from_date", "<=", $now)
                             ->whereDate("active_until_date", ">=", $now)
-                            ->where("from", "<=", $now)
-                            ->where("until", ">=", $now)
+                            ->whereDate("from", "<=", $now)
+                            ->whereDate("until", ">=", $now)
                             ->first();
                         if ($time) {
                             $examNow = new \stdClass();
@@ -622,9 +622,9 @@ class StudentController extends Controller
                             continue;
                         }
                     } else {
-                        $scheduleShiftDefault = ScheduleShift::where("shift", 6)
-                            ->where("from", "<=", $now)
-                            ->where("until", ">=", $now)
+                        $scheduleShiftDefault = ScheduleShift::where("shift", $scheduleDetail->shift)
+                            ->whereDate("from", "<=", $now)
+                            ->whereDate("until", ">=", $now)
                             ->where("active_from_date", null)
                             ->where("active_until_date", null)
                             ->first();

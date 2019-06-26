@@ -269,7 +269,7 @@
                             </div>
                             <div>
                                 <button class="btn" style="width: 86%;margin-left: 7%; background-color: #50a9c5; color:white; border-radius: 89px;cursor: pointer;margin-top: 20px" @click="saveAbsence()">
-                                    <i class="fa fa-plus"></i> absence
+                                    submit
                                 </button>
                             </div>
                         </div>
@@ -851,19 +851,30 @@
                     studentObject.status = status
                 },
                 saveAbsence() {
-                    app.formAbsence.forEach((data) => {
-                        data.schedule_class_id = app.dataAttendance.schedule_class.id
-                        data.session = app.dataAttendance.session
-                    })
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        type: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes!'
+                    }).then((result) => {
+                        if (result.value) {
+                            app.formAbsence.forEach((data) => {
+                                data.schedule_class_id = app.dataAttendance.schedule_class.id
+                                data.session = app.dataAttendance.session
+                            })
 
-                    axios.post("{{ url('teacher/save-absence') }}", app.formAbsence)
-                    .then(function (response) {
-                        if(response.status) {
-                            app.popUpSuccess()
-                            app.resetFormAbsence()
-                            app.getNextAttendance()
-                            app.getHistoryAttendance()
-                            app.getTotalSession()
+                            axios.post("{{ url('teacher/save-absence') }}", app.formAbsence)
+                            .then(function (response) {
+                                if(response.status) {
+                                    app.popUpSuccess()
+                                    app.resetFormAbsence()
+                                    app.getNextAttendance()
+                                    app.getHistoryAttendance()
+                                    app.getTotalSession()
+                                }
+                            })
                         }
                     })
                 },

@@ -2,6 +2,13 @@
 
 @section('css')
     <style>
+        body {
+            background-image: url("https://schoolah.dev.net/img/2.jpeg");
+            background-size: 100%;
+            background-repeat: repeat;
+            background-position: unset;
+            background-attachment: fixed;
+        }
 
     </style>
 @endsection
@@ -9,8 +16,8 @@
 @section('content')
 <section class="edit-profile">
     <div class="row justify-content-center">
-        <div class="container">
-            <div class="mt-5">
+        <div class="container bg-white mt-5">
+            <div>
                 <h3>Edit Profile</h3>
             </div>
             <div class="form-group">

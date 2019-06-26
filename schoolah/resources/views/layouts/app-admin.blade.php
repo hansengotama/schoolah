@@ -259,15 +259,17 @@
             .then(function (response) {
                 if(response.status) {
                     students = response.data.students
-                    for(let i=0; i<students.length; i++) {
-                        $("#guardian-student").append(function () {
-                            return "<a class='dropdown-item' style='display: block;margin-bottom: 10px;cursor: pointer' onclick='thisStudent("+students[i].id+")'>"+students[i].user.name+"</a>"
-                        })
-                    }
-                    if(! (Cookies.get("student_id")))
-                        if(students.length != 0)
-                            thisStudent(students[0].id)
+                    if(students) {
+                        for(let i=0; i<students.length; i++) {
+                            $("#guardian-student").append(function () {
+                                return "<a class='dropdown-item' style='display: block;margin-bottom: 10px;cursor: pointer' onclick='thisStudent("+students[i].id+")'>"+students[i].user.name+"</a>"
+                            })
+                        }
+                        if(! (Cookies.get("student_id")))
+                            if(students.length != 0)
+                                thisStudent(students[0].id)
 
+                    }
                 }
             })
         }

@@ -319,11 +319,10 @@
                 },
                 backToForum() {
                     this.page = "forum"
-                    this.resetChat = ""
+                    this.resetChat()
                 },
                 resetChat() {
                     this.chat = ""
-
                 },
                 getAllChat() {
                     axios.get("{{ url('teacher/get-all-chat') }}/"+app.selectedTeacherClass.id)

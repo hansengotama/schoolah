@@ -216,7 +216,8 @@
                                             <thead>
                                                 <tr>
                                                     <th width="10%">No</th>
-                                                    <th width="60%">Title</th>
+                                                    <th>Title</th>
+                                                    <th >Description</th>
                                                     <th width="20%">Created At</th>
                                                     <th width="10%">Download</th>
                                                 </tr>
@@ -225,6 +226,7 @@
                                                 <tr v-for="(material, index) in materials">
                                                     <td class="vertical-align-middle">@{{ index+1 }}</td>
                                                     <td class="vertical-align-middle">@{{ material.title }}</td>
+                                                    <td class="vertical-align-middle">@{{ material.description }}</td>
                                                     <td class="vertical-align-middle">@{{ material.createdAt }}</td>
                                                     <td>
                                                         <button class="btn-download">

@@ -87,7 +87,7 @@
                                     <th scope="col">Choice 2</th>
                                     <th scope="col">Choice 3</th>
                                     <th scope="col">Choice 4</th>
-                                    <th scope="col">Action</th>
+                                    <th scope="col" style="width: 15%">Action</th>
                                 <tr>
                             </thead>
                             <tbody>

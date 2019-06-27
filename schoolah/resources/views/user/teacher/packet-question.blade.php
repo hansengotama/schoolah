@@ -353,7 +353,7 @@
 
                     if(this.required(this.formValue.choice1)) {
                         this.error.class.choice1 = "border-red"
-                        this.error.text.choice1 = "choice must be selected"
+                        this.error.text.choice1 = "choice must be filled"
                     }else {
                         this.error.class.choice1 = ""
                         this.error.text.choice1 = ""
@@ -361,7 +361,7 @@
 
                     if(this.required(this.formValue.choice2)) {
                         this.error.class.choice2 = "border-red"
-                        this.error.text.choice2 = "choice must be selected"
+                        this.error.text.choice2 = "choice must be filled"
                     }else {
                         this.error.class.choice2 = ""
                         this.error.text.choice2 = ""
@@ -369,7 +369,7 @@
 
                     if(this.required(this.formValue.choice3)) {
                         this.error.class.choice3 = "border-red"
-                        this.error.text.choice3 = "choice must be selected"
+                        this.error.text.choice3 = "choice must be filled"
                     }else {
                         this.error.class.choice3 = ""
                         this.error.text.choice3 = ""
@@ -377,7 +377,7 @@
 
                     if(this.required(this.formValue.choice4)) {
                         this.error.class.choice4 = "border-red"
-                        this.error.text.choice4 = "choice must be selected"
+                        this.error.text.choice4 = "choice must be filled"
                     }else {
                         this.error.class.choice4 = ""
                         this.error.text.choice4 = ""

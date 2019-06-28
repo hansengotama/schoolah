@@ -179,7 +179,7 @@
                                     <td style="vertical-align:middle">@{{ index+1 }}</td>
                                     <td style="vertical-align:middle">@{{ assignment.name }}</td>
                                     <td style="vertical-align:middle">@{{ assignment.description }}</td>
-                                    <td style="vertical-align:middle">@{{ assignment.due_date }}</td>
+                                    <td style="vertical-align:middle">@{{ moment(assignment.due_date) }}</td>
                                     <td>
                                         <button class="btn-download"
                                                 @click="downloadAssignment(assignment.question_file)">
@@ -378,7 +378,7 @@
                                 <td style="vertical-align:middle">@{{ index+1 }}</td>
                                 <td style="vertical-align:middle">@{{ historyAssignment.student.student_code }}</td>
                                 <td style="vertical-align:middle">@{{ historyAssignment.student.user.name }}</td>
-                                <td style="vertical-align:middle">@{{ historyAssignment.created_at }}</td>
+                                <td style="vertical-align:middle">@{{ moment(historyAssignment.created_at) }}</td>
                                 <td>
                                     <button class="btn-download" @click="downloadHistoryAssignment(historyAssignment.answer_file)">
                                         <i class="fa fa-download"></i>
@@ -501,6 +501,9 @@
                 this.getTeacherClasses()
             },
             methods: {
+                moment(date) {
+                    return moment(date).format("D MMMM Y")
+                },
                 getDayName(value) {
                     if(value == 1) {
                         return "1 (Monday)"

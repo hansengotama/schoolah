@@ -512,8 +512,10 @@ class StudentController extends Controller
     public function getMaterialByTeacherClassId($teacher_class_id)
     {
         $materials = Material::where("teacher_class_id", $teacher_class_id)->get();
-        foreach ($materials as $material) {
-            $material->createdAt = Carbon::parse($material->created_at)->format('d M Y');
+        if($materials) {
+            foreach ($materials as $material) {
+                $material->createdAt = Carbon::parse($material->created_at)->format('d M Y');
+            }
         }
 
         return response()->json($materials, 200);

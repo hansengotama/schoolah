@@ -247,7 +247,7 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <input type="text" class="chat-send" v-model="chat">
+                                        <input type="text" class="chat-send" v-model="chat" @keyup="checkIsEnter($event)">
                                         <button class="button-chat" @click="sendChat()">
                                             <i class="fa fa-comments"></i>
                                         </button>
@@ -363,6 +363,11 @@
                 },
                 downloadMaterial(link) {
                     window.open(link, '_blank')
+                },
+                checkIsEnter(e) {
+                    if(e.keyCode == 13) {
+                        this.sendChat()
+                    }
                 }
             }
         })

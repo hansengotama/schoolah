@@ -239,7 +239,7 @@
                     </div>
 
                     <div class="col-md-12 p-0">
-                        <input type="text" class="input-text-chat" v-model="chat">
+                        <input type="text" class="input-text-chat" v-model="chat" @keyup="checkIsEnter($event)">
                         <button class="button-chat" @click="sendChat()">
                             <i class="fa fa-comments"></i>
                         </button>
@@ -349,6 +349,11 @@
                                 app.resetChat()
                             }
                         })
+                    }
+                },
+                checkIsEnter(e) {
+                    if(e.keyCode == 13) {
+                        this.sendChat()
                     }
                 }
             }

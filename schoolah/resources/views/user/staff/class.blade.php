@@ -286,7 +286,7 @@
                             <input class="form-control" :value="formValueStudent.email" disabled />
                         </div>
                         <div class="form-group">
-                            <label>address</label>
+                            <label>Address</label>
                             <input class="form-control" :value="formValueStudent.address" disabled />
                         </div>
                     </div>

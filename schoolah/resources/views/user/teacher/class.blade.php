@@ -846,6 +846,7 @@
                             }
                             $("#student-"+data[i].session+"-"+data[i].student_id).html(status)
                         }
+                        this.$forceUpdate()
                     }, 1000);
                 },
                 changeUserStatus(student_id, event) {
@@ -888,9 +889,9 @@
                 },
                 viewHistory() {
                     this.historyAbsence = true
+                    this.getHistoryAttendance()
                 },
                 backToAbsence() {
-                    console.log(234234)
                     this.historyAbsence = false
                 },
                 getTotalSession() {

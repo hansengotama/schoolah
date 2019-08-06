@@ -576,6 +576,7 @@ class StaffController extends Controller
     public function getTeacherClassCourse($class_id)
     {
         $teacherClasses = TeacherClass::where("grade_id", $class_id)->with(["course", "teacher"])->get();
+
         foreach ($teacherClasses as $teacherClass) {
             $teacher = User::where("id", $teacherClass->teacher->user_id)->first();
             $teacherClass->teacher->name = $teacher->name;
@@ -937,8 +938,10 @@ class StaffController extends Controller
                     "guardian_name" => $studentClass->student->guardian->user->name
                 ];
 
-                Mail::to($studentEmail)->send(new SendEmailTuition('Tuition', $data));
-                Mail::to($guardianEmail)->send(new SendEmailTuitionParent('Tuition', $data));
+                if($studentEmail == "hansenwu98@gmail.com" || $studentEmail == "hansen@bahaso.com" || $guardianEmail == "hansen@bahaso.com") {
+                    Mail::to($studentEmail)->send(new SendEmailTuition('Tuition', $data));
+                    Mail::to($guardianEmail)->send(new SendEmailTuitionParent('Tuition', $data));
+                }
             }
         }
 

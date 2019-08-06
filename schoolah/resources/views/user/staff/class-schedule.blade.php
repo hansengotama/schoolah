@@ -163,9 +163,9 @@
                         <tr class="table-head">
                             <td>#</td>
                             <td style="width: 15.5%">Monday</td>
-                            <td style="width: 15.5%">Thursday</td>
-                            <td style="width: 15.5%">Wednesday</td>
                             <td style="width: 15.5%">Tuesday</td>
+                            <td style="width: 15.5%">Wednesday</td>
+                            <td style="width: 15.5%">Thursday</td>
                             <td style="width: 15.5%">Friday</td>
                             <td style="width: 15.5%">Saturday</td>
                         </tr>
@@ -481,11 +481,11 @@
                     if (day == 1) {
                         this.selectedDayName = "Monday"
                     } else if (day == 2) {
-                        this.selectedDayName = "Thursday"
+                        this.selectedDayName = "Tuesday"
                     } else if (day == 3) {
                         this.selectedDayName = "Wednesday"
                     } else if (day == 4) {
-                        this.selectedDayName = "Tuesday"
+                        this.selectedDayName = "Thursday"
                     } else if (day == 5) {
                         this.selectedDayName = "Friday"
                     } else if (day == 6) {
@@ -517,6 +517,8 @@
                             } else {
                                 app.deleteButton = false
                             }
+
+                            app.formValue.course = 0
                         }
                     })
                 },

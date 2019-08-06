@@ -68,8 +68,10 @@ class SendEmailTuitionRemind extends Command
                     "guardian_name" => $student->guardian->user->name,
                 ];
 
-                Mail::to($studentEmail)->send(new SendEmailTuition('Tuition', $data));
-                Mail::to($guardianEmail)->send(new SendEmailTuitionParent('Tuition', $data));
+                if($studentEmail == "hansenwu98@gmail.com" || $studentEmail == "hansen@bahaso.com" || $guardianEmail == "hansen@bahaso.com" || $guardianEmail == "hansenwu98@gmail.com") {
+                    Mail::to($studentEmail)->send(new SendEmailTuition('Tuition', $data));
+                    Mail::to($guardianEmail)->send(new SendEmailTuitionParent('Tuition', $data));
+                }
             }
         }
     }

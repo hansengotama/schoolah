@@ -3,8 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="1ac09e87-2e0a-4910-bd77-7e9f8479a70c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/UsersTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/UsersTableSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/user/staff/class.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/staff/class.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Console/Commands/SendEmailTuitionRemind.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Commands/SendEmailTuitionRemind.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/StaffController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/StaffController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/user/staff/class-schedule.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/staff/class-schedule.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/user/student/quiz.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/student/quiz.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/user/teacher/class.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/teacher/class.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -137,22 +140,22 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="AngularJS" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$USER_HOME$/code/backoffice" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/resources/views/user/student" />
-      <recent name="$PROJECT_DIR$/resources/views" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/resources/views/user/guardian" />
       <recent name="$PROJECT_DIR$/resources/views/user/guradian" />
       <recent name="$PROJECT_DIR$/app/Http/Controllers" />
       <recent name="$PROJECT_DIR$/resources/views/user/student" />
       <recent name="$PROJECT_DIR$/resources/views/user/teacher" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/resources/views/user/student" />
+      <recent name="$PROJECT_DIR$/resources/views" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -290,7 +293,10 @@
       <workItem from="1561718079471" duration="195000" />
       <workItem from="1562561916915" duration="127000" />
       <workItem from="1564128976089" duration="3033000" />
-      <workItem from="1564199531947" duration="8336000" />
+      <workItem from="1564199531947" duration="13997000" />
+      <workItem from="1564235700201" duration="8024000" />
+      <workItem from="1564369500958" duration="4180000" />
+      <workItem from="1564461432373" duration="106000" />
     </task>
     <servers />
   </component>

@@ -576,6 +576,7 @@ class StaffController extends Controller
     public function getTeacherClassCourse($class_id)
     {
         $teacherClasses = TeacherClass::where("grade_id", $class_id)->with(["course", "teacher"])->get();
+
         foreach ($teacherClasses as $teacherClass) {
             $teacher = User::where("id", $teacherClass->teacher->user_id)->first();
             $teacherClass->teacher->name = $teacher->name;

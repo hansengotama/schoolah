@@ -177,7 +177,7 @@
                         if(response.status) {
                             let baseUrl = window.location.origin
                             for(let i=0; response.data.length > i; i++) {
-                                response.data[i].question_file = response.data[i].question_file.replace('public',baseUrl)
+                                response.data[i].question_file = baseUrl+ '/'+response.data[i].question_file
                                 response.data[i].due_date = moment(response.data[i].due_date).format("D MMMM Y")
                                 console.log(moment(response.data[i].due_date) > moment())
                                 if(moment(response.data[i].due_date) > moment())
@@ -228,7 +228,7 @@
                         if(response.status) {
                             let baseUrl = window.location.origin
                             for(let i=0; response.data.length > i; i++) {
-                                response.data[i].answer_file = response.data[i].answer_file.replace('public',baseUrl)
+                                response.data[i].answer_file = baseUrl + '/' + response.data[i].answer_file
                                 response.data[i].created_at = moment(response.data[i].created_at).format("D MMMM Y")
                             }
                             app.historyAssignments = response.data

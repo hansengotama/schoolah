@@ -131,7 +131,7 @@
                                 if(app.formData.image == "img/no-pict") {
                                     app.formData.image = data.avatar+".png"
                                 }else {
-                                    app.formData.image = data.avatar.replace('public/','')
+                                    app.formData.image = data.avatar
                                 }
 
                                 if(app.formData.role == "student") {

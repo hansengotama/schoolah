@@ -233,7 +233,7 @@
 
 @section('js')
     <script>
-        var minute = 5
+        var minute = 10
 
         var app = new Vue({
             el: '#app',

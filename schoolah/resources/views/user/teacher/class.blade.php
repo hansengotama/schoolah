@@ -713,7 +713,7 @@
                             let baseUrl = window.location.origin
                             let assignments = response.data
                             for(let i=0; assignments.length > i; i++) {
-                                assignments[i].question_file = assignments[i].question_file.replace('public', baseUrl)
+                                assignments[i].question_file = baseUrl + '/' + assignments[i].question_file
                             }
 
                             app.assignments = assignments
@@ -727,13 +727,16 @@
                     this.formData.material.file = this.$refs.file.files[0]
                 },
                 downloadAssignment(link) {
-                    window.open(link, '_blank')
+                    console.log(link)
+                    // window.open(link, '_blank')
                 },
                 downloadMaterial(link) {
-                    window.open(link, '_blank')
+                    console.log(link)
+                    // window.open(link, '_blank')
                 },
                 downloadHistoryAssignment(link) {
-                    window.open(link, '_blank')
+                    console.log(link)
+                    // window.open(link, '_blank')
                 },
                 resetMaterial() {
                     this.formData.material.file = ""
@@ -770,7 +773,7 @@
                             let baseUrl = window.location.origin
                             let materials = response.data
                             for(let i=0; materials.length > i; i++) {
-                                materials[i].file = materials[i].file.replace('public',baseUrl)
+                                materials[i].file = baseUrl + '/' + materials[i].file
                             }
 
                             app.materials = materials
@@ -784,7 +787,7 @@
                         if(response.status) {
                             let baseUrl = window.location.origin
                             for(let i=0; response.data.length > i; i++) {
-                                response.data[i].answer_file = response.data[i].answer_file.replace('public',baseUrl)
+                                response.data[i].answer_file = baseUrl + '/' +response.data[i].answer_file
                                 response.data[i].created_at = moment(response.data[i].created_at).format("D MMMM Y")
                             }
                             app.selectedHistoryAssignments = response.data

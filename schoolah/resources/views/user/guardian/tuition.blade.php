@@ -248,7 +248,7 @@
                             if(response.data.payment_receipt == null)
                                 app.image = null
                             else
-                                app.image = response.data.payment_receipt_url.replace('public','')
+                                app.image = response.data.payment_receipt_url
                         }
                     })
                 },

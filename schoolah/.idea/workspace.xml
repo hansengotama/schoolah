@@ -3,10 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="1ac09e87-2e0a-4910-bd77-7e9f8479a70c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Console/Commands/SendEmailTuitionRemind.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Commands/SendEmailTuitionRemind.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/StaffController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/StaffController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/user/staff/class-schedule.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/staff/class-schedule.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/user/student/quiz.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/student/quiz.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/TuitionHistory.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/TuitionHistory.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/edit-profile.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/edit-profile.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/user/guardian/tuition.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/guardian/tuition.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/user/staff/tuition.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/staff/tuition.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/user/student/assignment.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/student/assignment.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/user/student/course.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/student/course.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/user/teacher/class.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/teacher/class.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -140,7 +142,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="AngularJS" />
-    <property name="last_opened_file_path" value="$USER_HOME$/code/backoffice" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -297,6 +299,7 @@
       <workItem from="1564235700201" duration="8024000" />
       <workItem from="1564369500958" duration="4180000" />
       <workItem from="1564461432373" duration="106000" />
+      <workItem from="1565187043144" duration="1259000" />
     </task>
     <servers />
   </component>

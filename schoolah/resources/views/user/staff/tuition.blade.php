@@ -273,7 +273,7 @@
                         this.error.class.price = ""
                         this.error.text.price = ""
                     }
-                    
+
                     if (this.required(this.formValue.description)) {
                         this.error.class.description = "border-red"
                         this.error.text.description = "description must be required"
@@ -363,7 +363,7 @@
                     this.tuitionStudents = this.tuitionDetails[this.selectedTuitionId]
                     this.tuitionStudents.forEach((tuitionStudent) => {
                         if(tuitionStudent.payment_receipt_url)
-                            tuitionStudent.payment_receipt_url = tuitionStudent.payment_receipt_url.replace('public','')
+                            tuitionStudent.payment_receipt_url = tuitionStudent.payment_receipt_url
                     })
 
                     $("#tuition-detail").modal("show")

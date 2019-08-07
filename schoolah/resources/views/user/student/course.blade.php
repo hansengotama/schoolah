@@ -325,7 +325,7 @@
                             let materials = response.data
                             let baseUrl = window.location.origin
                             for(let i=0; response.data.length > i; i++) {
-                                response.data[i].file = response.data[i].file.replace('public',baseUrl)
+                                response.data[i].file = baseUrl + '/' + response.data[i].file
                             }
                             app.materials = materials
                         }
